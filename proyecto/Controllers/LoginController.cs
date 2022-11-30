@@ -29,7 +29,7 @@ namespace ProyectoProgra6.Controllers
         {
             try
             {
-                //var idUsuario = db.sp_Login(Usuario, Password);
+                //var idUsuario = db.sp_Login(Usuario, Password).ToList();
                 Nullable<int> myValue = db.sp_Login(Usuario, Password).FirstOrDefault();
                 int idUsuario = myValue.Value;
 
