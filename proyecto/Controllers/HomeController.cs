@@ -19,7 +19,12 @@ namespace proyecto.Controllers
                     var idUsuario = Session["usuario"];
                     var clientelog = db.sp_Seleccionar_Cliente((int)idUsuario).ToList();
                     Session["clientelog"] = clientelog;
-                    ViewBag.clientelog = clientelog;
+                    Session["clientelognombre"] = clientelog[0].Nombre;
+                    Session["clientelogapellido1"] = clientelog[0].PrimerApellido;
+                    Session["clientelogapellido2"] = clientelog[0].SegundoApellido;
+                    
+
+                    //ViewBag.clientelog = clientelog.ToList();
                 }
                 return View();
             }
