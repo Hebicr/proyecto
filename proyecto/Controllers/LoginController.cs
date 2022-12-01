@@ -49,8 +49,8 @@ namespace ProyectoProgra6.Controllers
                 var result2 = result.ToList();
 
                 if (result2.Count() == 1) {
-
-                    ViewData["Mensaje"] = "Registro Exitoso Usuario :"+result2[0].usuario +" Contrasena :" + result2[0].contrasena;
+                    EnviarCorreo(result2[0].usuario, result2[0].contrasena, result2[0].Nombre, result2[0].PrimerApellido, result2[0].SegundoApellido, result2[0].CorreoElectronico);
+                    ViewData["Mensaje"] = "Registro Exitoso, se le enviara un email con su informacion";
 
                     return View();
                 } else {
@@ -117,27 +117,36 @@ namespace ProyectoProgra6.Controllers
 
         }
 
-        void EnciarCorreo(string user,string pass)
+        void EnviarCorreo(string userU,string passU,string nombreU,string apellido1U,string apellido2U,string correoU)
         {
             try {
                 //Se definen variables
-                String para;
+                string para;
                 string asunto;
                 string mensaje;
                 string apellido1;
                 string apellido2;
                 string nombreC;
-                para = collection["correo"];
-                apellido1 = collection["Apellido1"];
-                apellido2 = collection["Apellido2"];
-                nombreC = collection["Nombre"];
+                string userUC;
+                string passUC;
+
+                para = correoU;
+                apellido1 = apellido1U;
+                apellido2 = apellido2U;
+                nombreC = nombreU;
+                userUC = userU;
+                passUC = passU;
                 asunto = "Credenciales Equipo Siglo XXI";
-                mensaje = "Estimado cliente: " + apellido1 + " " + apellido2 + " " + nombreC + ", gracias por  confiar en Seguros del Equipo del Siglo XXI." + "Adjunto encontrará sus credenciales de acceso a la plataforma Equipo Siglo XXI." + " " + "Para nosotros es un placer servirle. " + "A continuación, sus credenciales para ingresar a la aplicación: http://localhost:61823/";
+                mensaje = "Estimado cliente: " + apellido1 + " " + apellido2 + " " + nombreC + ", " +
+                          "gracias por  confiar en Seguros del Equipo del Siglo XXI." + "\n" + 
+                          " Para nosotros es un placer servirle. " + 
+                          "A continuación, sus credenciales para ingresar a la aplicación Usuario: " +
+                          "("+ userUC + ") Contraseña: ("+ passUC + ") http://localhost:61823/";
 
 
 
                 MailMessage correo = new MailMessage(); //variable de tipo mailmessage  se usan para construir mensajes de correo electrónico que se transmiten a un servidor SMTP para su entrega mediante la SmtpClient clase
-                correo.From = new MailAddress("fabiolarojas1429@gmail.com"); //correo que nuestro software utilizará para enviar los correos
+                correo.From = new MailAddress("stev.199279@gmail.com"); //correo que nuestro software utilizará para enviar los correos
                 correo.To.Add(para);
                 correo.Subject = asunto;
                 correo.Body = mensaje;
@@ -152,8 +161,8 @@ namespace ProyectoProgra6.Controllers
                 smtp.EnableSsl = true;
                 smtp.UseDefaultCredentials = true;
 
-                string sCuentaCorreo = "fabiolarojas1429@gmail.com";
-                string sPassword = "yrxyswtjekdqqlee";
+                string sCuentaCorreo = "stev.199279@gmail.com";
+                string sPassword = "qnzxeporpyzyxoac";
                 smtp.Credentials = new System.Net.NetworkCredential(sCuentaCorreo, sPassword);
 
                 smtp.Send(correo);
