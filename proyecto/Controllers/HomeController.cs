@@ -22,7 +22,7 @@ namespace proyecto.Controllers
                     Session["clientelognombre"] = clientelog[0].Nombre;
                     Session["clientelogapellido1"] = clientelog[0].PrimerApellido;
                     Session["clientelogapellido2"] = clientelog[0].SegundoApellido;
-                    
+                    Session["clientelogRol"] = clientelog[0].idRol;
 
                     //ViewBag.clientelog = clientelog.ToList();
                 }

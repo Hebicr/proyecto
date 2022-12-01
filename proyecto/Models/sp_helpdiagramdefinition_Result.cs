@@ -11,13 +11,9 @@ namespace proyecto.Models
 {
     using System;
     
-    public partial class sp_Inserta_Clientes_Result
+    public partial class sp_helpdiagramdefinition_Result
     {
-        public string usuario { get; set; }
-        public string contrasena { get; set; }
-        public string Nombre { get; set; }
-        public string PrimerApellido { get; set; }
-        public string SegundoApellido { get; set; }
-        public string CorreoElectronico { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

@@ -25,6 +25,7 @@
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Cobertura Polizas", "Index", "CoberturasPolizas")</li>
+
                     @if (Session["usuario"] != null && Session["clientelog"] != null)
                     {
                         <li class="dropdown">

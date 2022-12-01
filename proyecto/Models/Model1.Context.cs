@@ -33,6 +33,7 @@ namespace proyecto.Models
         public virtual DbSet<Cliente> Clientes { get; set; }
         public virtual DbSet<CoberturaPoliza> CoberturaPolizas { get; set; }
         public virtual DbSet<Distrito> Distritoes { get; set; }
+        public virtual DbSet<Genero> Generoes { get; set; }
         public virtual DbSet<Provincia> Provincias { get; set; }
         public virtual DbSet<RegistrosPoliza> RegistrosPolizas { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
@@ -209,7 +210,7 @@ namespace proyecto.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_getCoberturaPolizasEditar_Result>("sp_getCoberturaPolizasEditar", idCoberturaPolizaParameter);
         }
     
-        public virtual int sp_helpdiagramdefinition(string diagramname, Nullable<int> owner_id)
+        public virtual ObjectResult<sp_helpdiagramdefinition_Result> sp_helpdiagramdefinition(string diagramname, Nullable<int> owner_id)
         {
             var diagramnameParameter = diagramname != null ?
                 new ObjectParameter("diagramname", diagramname) :
@@ -219,10 +220,10 @@ namespace proyecto.Models
                 new ObjectParameter("owner_id", owner_id) :
                 new ObjectParameter("owner_id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_helpdiagramdefinition", diagramnameParameter, owner_idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagramdefinition_Result>("sp_helpdiagramdefinition", diagramnameParameter, owner_idParameter);
         }
     
-        public virtual int sp_helpdiagrams(string diagramname, Nullable<int> owner_id)
+        public virtual ObjectResult<sp_helpdiagrams_Result> sp_helpdiagrams(string diagramname, Nullable<int> owner_id)
         {
             var diagramnameParameter = diagramname != null ?
                 new ObjectParameter("diagramname", diagramname) :
@@ -232,7 +233,7 @@ namespace proyecto.Models
                 new ObjectParameter("owner_id", owner_id) :
                 new ObjectParameter("owner_id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_helpdiagrams", diagramnameParameter, owner_idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagrams_Result>("sp_helpdiagrams", diagramnameParameter, owner_idParameter);
         }
     
         public virtual ObjectResult<sp_Inserta_Clientes_Result> sp_Inserta_Clientes(string cedula, Nullable<int> genero, Nullable<System.DateTime> fecha_nacimiento, string nombre, string primer_apellido, string segundo_apellido, string direccion_fisica, string telefono_principal, string telefono_secundario, string correo_electronico, Nullable<int> id_provincia, Nullable<int> id_canton, Nullable<int> id_distrito)

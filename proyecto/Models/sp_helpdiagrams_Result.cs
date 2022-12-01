@@ -11,13 +11,12 @@ namespace proyecto.Models
 {
     using System;
     
-    public partial class sp_Inserta_Clientes_Result
+    public partial class sp_helpdiagrams_Result
     {
-        public string usuario { get; set; }
-        public string contrasena { get; set; }
-        public string Nombre { get; set; }
-        public string PrimerApellido { get; set; }
-        public string SegundoApellido { get; set; }
-        public string CorreoElectronico { get; set; }
+        public string Database { get; set; }
+        public string Name { get; set; }
+        public int ID { get; set; }
+        public string Owner { get; set; }
+        public int OwnerID { get; set; }
     }
 }
