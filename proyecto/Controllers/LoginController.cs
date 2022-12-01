@@ -120,7 +120,7 @@ namespace ProyectoProgra6.Controllers
         void EnviarCorreo(string userU,string passU,string nombreU,string apellido1U,string apellido2U,string correoU)
         {
             try {
-                //Se definen variables
+                //Se definen variables pasa enviar
                 string para;
                 string asunto;
                 string mensaje;
