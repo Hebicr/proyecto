@@ -30,7 +30,7 @@ namespace ProyectoProgra6.Controllers
         {
             try
             {
-                CoberturaPoliza cobertura = new CoberturaPoliza();
+                CoberturaPolizas cobertura = new CoberturaPolizas();
                 cobertura.Nombre = myCobertura["Nombre"];
                 cobertura.Descripcion = myCobertura["Descripcion"];
                 cobertura.Porcentaje = Convert.ToDecimal(myCobertura["Porcentaje"]);
@@ -46,7 +46,7 @@ namespace ProyectoProgra6.Controllers
         //LA VISTA DEL EDITAR PARA CARGAR LOS DATOS
         public ActionResult Editar(int idCoberturaPoliza)
         {
-            CoberturaPoliza cobertura  = (from c in db.CoberturaPolizas where idCoberturaPoliza == c.idCoberturaPoliza select c).First();
+            CoberturaPolizas cobertura  = (from c in db.CoberturaPolizas where idCoberturaPoliza == c.idCoberturaPoliza select c).First();
             return View(cobertura);
 
             //var cobertura = db.sp_getCoberturaPolizasEditar(idCoberturaPoliza);
@@ -59,7 +59,7 @@ namespace ProyectoProgra6.Controllers
         {
             try
             {
-                CoberturaPoliza cobertura = new CoberturaPoliza();
+                CoberturaPolizas cobertura = new CoberturaPolizas();
                 cobertura.idCoberturaPoliza = Convert.ToInt32(myCobertura["idCoberturaPoliza"]);
                 cobertura.Nombre = myCobertura["Nombre"];
                 cobertura.Descripcion = myCobertura["Descripcion"];
