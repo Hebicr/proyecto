@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
@@ -49,7 +50,8 @@ namespace ProyectoProgra6.Controllers
                 var result2 = result.ToList();
 
                 if (result2.Count() == 1) {
-                    EnviarCorreo(result2[0].usuario, result2[0].contrasena, result2[0].Nombre, result2[0].PrimerApellido, result2[0].SegundoApellido, result2[0].CorreoElectronico);
+                    //EnviarCorreo(result2[0].usuario, result2[0].contrasena, result2[0].Nombre, result2[0].PrimerApellido, result2[0].SegundoApellido, result2[0].CorreoElectronico);
+                    enviarCorreo2(result2[0].usuario, result2[0].contrasena, result2[0].Nombre, result2[0].PrimerApellido, result2[0].SegundoApellido, result2[0].CorreoElectronico);
                     ViewData["Mensaje"] = "Registro Exitoso, se le enviara un email con su informacion";
 
                     return View();
@@ -162,13 +164,45 @@ namespace ProyectoProgra6.Controllers
                 smtp.UseDefaultCredentials = true;
 
                 string sCuentaCorreo = "stev.199279@gmail.com";
-                string sPassword = "qnzxeporpyzyxoac";
+                string sPassword = "qzcpixbhupavxjmk";
                 smtp.Credentials = new System.Net.NetworkCredential(sCuentaCorreo, sPassword);
 
                 smtp.Send(correo);
                 RedirectToAction("Login");
             } catch (Exception ex) {
                 ViewData["Mensaje"] = "Ocurrio un error : " + ex.Message;
+            }
+        }
+
+        void enviarCorreo2(string userU, string passU, string nombreU, string apellido1U, string apellido2U, string correoU) {
+            var fromAddress = new MailAddress("stev.199279@gmail.com", "Equipo Siglo XXI");
+            var toAddress = new MailAddress(correoU, "");
+            const string fromPassword = "qzcpixbhupavxjmk";
+            const string subject = "Credenciales Equipo Siglo XXI";
+            string mensaje;
+            mensaje = "Estimado cliente: " + apellido1U + " " + apellido2U + " " + nombreU + ", " +
+                          "gracias por  confiar en Seguros del Equipo del Siglo XXI." + "\n" +
+                          "Para nosotros es un placer servirle. " +
+                          "A continuación, sus credenciales para ingresar a la aplicación " + "\n" + 
+                          "Usuario: " +" (" + userU + ") Contraseña: (" + passU + ") http://localhost:61823/";
+            string body = mensaje;
+
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+            };
+            using (var message = new MailMessage(fromAddress, toAddress)
+            {
+                Subject = subject,
+                Body = body
+            })
+            {
+                smtp.Send(message);
             }
         }
     }

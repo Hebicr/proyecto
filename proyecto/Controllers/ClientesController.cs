@@ -13,17 +13,19 @@ namespace proyecto.Controllers
         // GET: Clientes
         
         ProyectoProgra6Entities db = new ProyectoProgra6Entities();
+        
         public ActionResult Index()
         {
+           
             return View();
         }
-        //public ActionResult Adicciones(int idUsuario = Session["usuario"].ToString())
-        //{
+        public ActionResult Adicciones()
+        {
             
-        //    ViewBag.AdiccionesU = db.sp_getAdiccionesxClienteC();
-        //    return View();
+           // ViewBag.AdiccionesU = db.sp_getAdiccionesxClienteC();
+           return View();
 
-        //}
+        }
         public ActionResult InsertarAdiccion()
         {
             //var idUsuario = Session["usuario"];
