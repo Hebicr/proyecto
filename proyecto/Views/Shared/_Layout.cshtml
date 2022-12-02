@@ -24,19 +24,22 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     @*<li>@Html.ActionLink("About", "About", "Home")</li>
         <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
-                    <li>@Html.ActionLink("Cobertura Polizas", "Index", "CoberturasPolizas")</li>
-                    <li>@Html.ActionLink("Adicciones", "Index", "Adicciones")</li>
-                    <li class="dropdown1">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuario
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="@Url.Action("insertarAdiccion", "Clientes")">AgregarAdicciones</a></li>
-                            <li><a href="@Url.Action("Adicciones", "Clientes")">Adicciones</a></li>
-                        </ul>
-                    </li>
 
                     @if (Session["usuario"] != null && Session["clientelog"] != null)
                     {
+
+                        <li>@Html.ActionLink("Cobertura Polizas", "Index", "CoberturasPolizas")</li>
+                        <li>@Html.ActionLink("Adicciones", "Index", "Adicciones")</li>
+
+                        <li class="dropdown1">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                Usuario
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="@Url.Action("insertarAdiccion", "Clientes")">AgregarAdicciones</a></li>
+                                <li><a href="@Url.Action("Adicciones", "Clientes")">Adicciones</a></li>
+                            </ul>
+                        </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
