@@ -23,10 +23,10 @@ namespace ProyectoProgra6.Controllers
         }
         public ActionResult Registro()
         {
-            List<Provincia> provinciasList = db.Provincias.ToList();
+            List<Provincia> provinciasList = db.Provincia.ToList();
             ViewBag.provinciasList = new SelectList(provinciasList, "id_Provincia", "nombre");
 
-            List<Genero> generoList = db.Generoes.ToList();
+            List<Genero> generoList = db.Genero.ToList();
             ViewBag.generoList = new SelectList(generoList, "id", "genero1");
 
             return View();
@@ -35,10 +35,10 @@ namespace ProyectoProgra6.Controllers
         [HttpPost]
         public ActionResult Registro(FormCollection myCliente)
         {
-            List<Provincia> provinciasList = db.Provincias.ToList();
+            List<Provincia> provinciasList = db.Provincia.ToList();
             ViewBag.provinciasList = new SelectList(provinciasList, "id_Provincia", "nombre");
 
-            List<Genero> generoList = db.Generoes.ToList();
+            List<Genero> generoList = db.Genero.ToList();
             ViewBag.generoList = new SelectList(generoList, "id", "genero1");
 
             try
@@ -71,7 +71,7 @@ namespace ProyectoProgra6.Controllers
         public JsonResult GetCantones(int id_Provincia)
         {
             db.Configuration.ProxyCreationEnabled = false;
-            List<Canton> cantonList = db.Cantons.Where(x => x.id_Provincia == id_Provincia).ToList();
+            List<Canton> cantonList = db.Canton.Where(x => x.id_Provincia == id_Provincia).ToList();
             //ViewBag.cantons = cantonList;
             return Json(cantonList, JsonRequestBehavior.AllowGet);
         }
@@ -79,7 +79,7 @@ namespace ProyectoProgra6.Controllers
         public JsonResult GetDistritos(int id_Canton)
         {
             db.Configuration.ProxyCreationEnabled = false;
-            List<Distrito> distritoList = db.Distritoes.Where(x => x.id_Canton == id_Canton).ToList();
+            List<Distrito> distritoList = db.Distrito.Where(x => x.id_Canton == id_Canton).ToList();
             //ViewBag.cantons = cantonList;
             return Json(distritoList, JsonRequestBehavior.AllowGet);
         }

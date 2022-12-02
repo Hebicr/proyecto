@@ -1,17 +1,40 @@
-﻿@model proyecto.Models.Adicione
+﻿@model proyecto.Models.Adiciones
 @{
     ViewBag.Title = "Adicciones";
 }
 <div class="container">
     <div class="row">
-        <div style="border: 1px solid #d5d7dd; margin-top:30px;padding:30px; border-radius: 15px; width:400px">
+        <div class="table-responsive">
+            <table class="table caption-top table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">Codigo</th>
+                        <th scope="col">Nombre</th>
+                    </tr>
+                </thead>
+                <tbody>
 
-            Adicciones:
-            @Html.DropDownListFor(model => model.idAdiccion, ViewBag.adiccionList as SelectList, "-- Seleccione la Adiccion --", new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.idAdiccion, "", new { @class = "text-danger" })
-            <a href="#" class="btn btn-primary" style="">Agregar</a>
+                    @foreach (var item in ViewBag.AdiccionesU)
+                    {
+                        <tr>
+                            <td>@item.Codigo)</td>
+                            <td>@item.Nombre</td>
+                            <td class="actions">
+                                <button class="btn btn-danger btn-sm" type="button" id="@item.idAdicion" onClick="DeleteElement(id)">Eliminar</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
 
 
     </div>
 </div>
+
+<script type="text/javascript">
+    function DeleteElement(val) {
+        debugger;
+        let url = '/Clientes/EliminarAdiccion?idAdicion=' + val +  '&idCliente=' + '@Session["usuario"]';
+        location.href = url;
+    }</script>

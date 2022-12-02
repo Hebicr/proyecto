@@ -10,10 +10,11 @@
 namespace proyecto.Models
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class sp_helpdiagramdefinition_Result
+    public partial class Roles
     {
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public int idRol { get; set; }
+        public string Rol { get; set; }
     }
 }

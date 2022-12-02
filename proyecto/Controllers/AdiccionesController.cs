@@ -29,11 +29,7 @@ namespace proyecto.Controllers
         {
             try
             {
-                Adicione adiccion = new Adicione();
-                adiccion.Nombre = myAdiccion["Nombre"];
-                adiccion.Codigo = myAdiccion["Codigo"];
-                db.sp_AgregarAdiccion(adiccion.Nombre, adiccion.Codigo);
-
+                db.sp_AgregarAdiccion(myAdiccion["Nombre"], myAdiccion["Codigo"]);
                 return RedirectToAction("Index", "Adicciones");
             }
             catch (Exception ex)
@@ -44,11 +40,13 @@ namespace proyecto.Controllers
         //LA VISTA DEL EDITAR PARA CARGAR LOS DATOS
         public ActionResult Editar(int idAdiccion)
         {
-            Adicione Adicion  = (from c in db.Adiciones where idAdiccion == c.idAdiccion select c).First();
+            //ViewBag.AdiccionesEditar = db.sp_getAdiccionEditar(idAdiccion);
+
+            Adiciones Adicion = (from c in db.Adiciones where idAdiccion == c.idAdiccion select c).First();
             return View(Adicion);
 
             //var adiccion = db.sp_getAdiccionEditar(idAdiccion);
-            //return View(adiccion);
+            //return View();
         }
 
         // HTTPPOST PARA ENVIAR LA INFORMACION DEL EDITAR 
@@ -57,11 +55,8 @@ namespace proyecto.Controllers
         {
             try
             {
-                Adicione adiccion = new Adicione();
-                adiccion.idAdiccion = Convert.ToInt32(myAdiccion["idCoberturaPoliza"]);
-                adiccion.Nombre = myAdiccion["Nombre"];
-                adiccion.Codigo = myAdiccion["Codigo"];
-                db.sp_ModificarAdiccion(adiccion.idAdiccion, adiccion.Nombre, adiccion.Codigo);
+
+                db.sp_ModificarAdiccion(Convert.ToInt32(myAdiccion["idAdiccion"]),myAdiccion["Nombre"], myAdiccion["Codigo"]);
 
                 return RedirectToAction("Index");
             }

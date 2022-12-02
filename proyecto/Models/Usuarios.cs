@@ -10,14 +10,23 @@
 namespace proyecto.Models
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class sp_Inserta_Clientes_Result
+    public partial class Usuarios
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Usuarios()
+        {
+            this.Clientes = new HashSet<Clientes>();
+        }
+    
+        public int id { get; set; }
         public string usuario { get; set; }
         public string contrasena { get; set; }
-        public string Nombre { get; set; }
-        public string PrimerApellido { get; set; }
-        public string SegundoApellido { get; set; }
-        public string CorreoElectronico { get; set; }
+        public int estado { get; set; }
+        public int idRol { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Clientes> Clientes { get; set; }
     }
 }

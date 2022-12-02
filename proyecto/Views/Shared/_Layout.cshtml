@@ -22,9 +22,18 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Login", "Login", "Login")</li>
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    @*<li>@Html.ActionLink("About", "About", "Home")</li>
+        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
                     <li>@Html.ActionLink("Cobertura Polizas", "Index", "CoberturasPolizas")</li>
+                    <li>@Html.ActionLink("Adicciones", "Index", "Adicciones")</li>
+                    <li class="dropdown1">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuario
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="@Url.Action("insertarAdiccion", "Clientes")">AgregarAdicciones</a></li>
+                            <li><a href="@Url.Action("Adicciones", "Clientes")">Adicciones</a></li>
+                        </ul>
+                    </li>
 
                     @if (Session["usuario"] != null && Session["clientelog"] != null)
                     {

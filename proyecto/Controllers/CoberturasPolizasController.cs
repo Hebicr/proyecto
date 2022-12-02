@@ -30,12 +30,8 @@ namespace ProyectoProgra6.Controllers
         {
             try
             {
-                CoberturaPoliza cobertura = new CoberturaPoliza();
-                cobertura.Nombre = myCobertura["Nombre"];
-                cobertura.Descripcion = myCobertura["Descripcion"];
-                cobertura.Porcentaje = Convert.ToDecimal(myCobertura["Porcentaje"]);
-                db.sp_AgregarCobertura(cobertura.Nombre, cobertura.Descripcion, cobertura.Porcentaje);
 
+                db.sp_AgregarCobertura(myCobertura["Nombre"], myCobertura["Descripcion"], Convert.ToDecimal(myCobertura["Porcentaje"]));
                 return RedirectToAction("Index", "CoberturasPolizas");
             }
             catch (Exception ex)
@@ -46,7 +42,7 @@ namespace ProyectoProgra6.Controllers
         //LA VISTA DEL EDITAR PARA CARGAR LOS DATOS
         public ActionResult Editar(int idCoberturaPoliza)
         {
-            CoberturaPoliza cobertura  = (from c in db.CoberturaPolizas where idCoberturaPoliza == c.idCoberturaPoliza select c).First();
+            CoberturaPolizas cobertura  = (from c in db.CoberturaPolizas where idCoberturaPoliza == c.idCoberturaPoliza select c).First();
             return View(cobertura);
 
             //var cobertura = db.sp_getCoberturaPolizasEditar(idCoberturaPoliza);
@@ -59,13 +55,7 @@ namespace ProyectoProgra6.Controllers
         {
             try
             {
-                CoberturaPoliza cobertura = new CoberturaPoliza();
-                cobertura.idCoberturaPoliza = Convert.ToInt32(myCobertura["idCoberturaPoliza"]);
-                cobertura.Nombre = myCobertura["Nombre"];
-                cobertura.Descripcion = myCobertura["Descripcion"];
-                cobertura.Porcentaje = Convert.ToDecimal(myCobertura["Porcentaje"]);
-                db.sp_ModificarCobertura(cobertura.idCoberturaPoliza, cobertura.Nombre, cobertura.Descripcion, cobertura.Porcentaje);
-
+                db.sp_ModificarCobertura(Convert.ToInt32(myCobertura["idCoberturaPoliza"]),myCobertura["Nombre"], myCobertura["Descripcion"], Convert.ToDecimal(myCobertura["Porcentaje"]));
                 return RedirectToAction("Index");
             }
             catch

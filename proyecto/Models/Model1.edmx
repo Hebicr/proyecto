@@ -112,6 +112,13 @@
           <Property Name="impuestos" Type="decimal" Precision="18" Scale="0" />
           <Property Name="primaFinal" Type="decimal" Precision="18" Scale="0" />
         </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="idRol" />
+          </Key>
+          <Property Name="idRol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rol" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -122,15 +129,9 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'ProyectoProgra6.dbo.Usuarios' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Usuarios">
           <Key>
             <PropertyRef Name="id" />
-            <PropertyRef Name="usuario" />
-            <PropertyRef Name="contrasena" />
-            <PropertyRef Name="estado" />
-            <PropertyRef Name="idRol" />
           </Key>
           <Property Name="id" Type="int" Nullable="false" />
           <Property Name="usuario" Type="varchar" MaxLength="50" Nullable="false" />
@@ -222,6 +223,18 @@ warning 6002: The table/view 'ProyectoProgra6.dbo.Usuarios' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_ClienteUsuario">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Clientes">
+              <PropertyRef Name="id_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_registrosClientes">
           <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
           <End Role="RegistrosPolizas" Type="Self.RegistrosPolizas" Multiplicity="*" />
@@ -292,6 +305,10 @@ warning 6002: The table/view 'ProyectoProgra6.dbo.Usuarios' does not have a prim
         <Function Name="sp_eliminarAdiccion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idAdiccion" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_eliminarAdiccionCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idAdiccion" Type="int" Mode="In" />
+          <Parameter Name="idCliente" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_eliminarCobertura" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idCoberturaPoliza" Type="int" Mode="In" />
         </Function>
@@ -299,6 +316,9 @@ warning 6002: The table/view 'ProyectoProgra6.dbo.Usuarios' does not have a prim
           <Parameter Name="idAdiccion" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_getAdicciones" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_getAdiccionesxClienteC" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idCliente" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_getCoberturaPolizas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_getCoberturaPolizasEditar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idCoberturaPoliza" Type="int" Mode="In" />
@@ -330,6 +350,10 @@ warning 6002: The table/view 'ProyectoProgra6.dbo.Usuarios' does not have a prim
           <Parameter Name="id_Provincia" Type="int" Mode="In" />
           <Parameter Name="nombre" Type="varchar" Mode="In" />
           <Parameter Name="id_CantonInec" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_insertAdiccionCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idCliente" Type="int" Mode="In" />
+          <Parameter Name="idAdicion" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_Login" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="usuario" Type="varchar" Mode="In" />
@@ -371,16 +395,9 @@ warning 6002: The table/view 'ProyectoProgra6.dbo.Usuarios' does not have a prim
           <EntitySet Name="Genero" EntityType="Self.Genero" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Provincia" EntityType="Self.Provincia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RegistrosPolizas" EntityType="Self.RegistrosPolizas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Usuarios].[id] AS [id], 
-    [Usuarios].[usuario] AS [usuario], 
-    [Usuarios].[contrasena] AS [contrasena], 
-    [Usuarios].[estado] AS [estado], 
-    [Usuarios].[idRol] AS [idRol]
-    FROM [dbo].[Usuarios] AS [Usuarios]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="Canton_ref_Provincia" Association="Self.Canton_ref_Provincia">
             <End Role="Provincia" EntitySet="Provincia" />
             <End Role="Canton" EntitySet="Canton" />
@@ -409,6 +426,10 @@ warning 6002: The table/view 'ProyectoProgra6.dbo.Usuarios' does not have a prim
             <End Role="Provincia" EntitySet="Provincia" />
             <End Role="Clientes" EntitySet="Clientes" />
           </AssociationSet>
+          <AssociationSet Name="fk_ClienteUsuario" Association="Self.fk_ClienteUsuario">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Clientes" EntitySet="Clientes" />
+          </AssociationSet>
           <AssociationSet Name="fk_registrosClientes" Association="Self.fk_registrosClientes">
             <End Role="Clientes" EntitySet="Clientes" />
             <End Role="RegistrosPolizas" EntitySet="RegistrosPolizas" />
@@ -423,14 +444,14 @@ warning 6002: The table/view 'ProyectoProgra6.dbo.Usuarios' does not have a prim
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ProyectoProgra6Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Adicione">
+        <EntityType Name="Adiciones">
           <Key>
             <PropertyRef Name="idAdiccion" />
           </Key>
           <Property Name="idAdiccion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Codigo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="AdicionesxClientes" Relationship="Self.fk_AdicionxCliente" FromRole="Adiciones" ToRole="AdicionesxCliente" />
+          <NavigationProperty Name="AdicionesxCliente" Relationship="Self.fk_AdicionxCliente" FromRole="Adiciones" ToRole="AdicionesxCliente" />
         </EntityType>
         <EntityType Name="AdicionesxCliente">
           <Key>
@@ -439,8 +460,8 @@ warning 6002: The table/view 'ProyectoProgra6.dbo.Usuarios' does not have a prim
           <Property Name="idAdicionesxCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idAdicion" Type="Int32" />
           <Property Name="idCliente" Type="Int32" />
-          <NavigationProperty Name="Adicione" Relationship="Self.fk_AdicionxCliente" FromRole="AdicionesxCliente" ToRole="Adiciones" />
-          <NavigationProperty Name="Cliente" Relationship="Self.fk_AdicionxCliente3" FromRole="AdicionesxCliente" ToRole="Clientes" />
+          <NavigationProperty Name="Adiciones" Relationship="Self.fk_AdicionxCliente" FromRole="AdicionesxCliente" ToRole="Adiciones" />
+          <NavigationProperty Name="Clientes" Relationship="Self.fk_AdicionxCliente3" FromRole="AdicionesxCliente" ToRole="Clientes" />
         </EntityType>
         <EntityType Name="Canton">
           <Key>
@@ -456,10 +477,10 @@ warning 6002: The table/view 'ProyectoProgra6.dbo.Usuarios' does not have a prim
           <Property Name="vc_Estado" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Name="id_CantonInec" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Provincia" Relationship="Self.Canton_ref_Provincia" FromRole="Canton" ToRole="Provincia" />
-          <NavigationProperty Name="Distritoes" Relationship="Self.Distrito_ref_Canton" FromRole="Canton" ToRole="Distrito" />
+          <NavigationProperty Name="Distrito" Relationship="Self.Distrito_ref_Canton" FromRole="Canton" ToRole="Distrito" />
           <NavigationProperty Name="Clientes" Relationship="Self.fk_ClienteCan" FromRole="Canton" ToRole="Clientes" />
         </EntityType>
-        <EntityType Name="Cliente">
+        <EntityType Name="Clientes">
           <Key>
             <PropertyRef Name="idCliente" />
           </Key>
@@ -478,13 +499,14 @@ warning 6002: The table/view 'ProyectoProgra6.dbo.Usuarios' does not have a prim
           <Property Name="id_Canton" Type="Int32" Nullable="false" />
           <Property Name="id_Distrito" Type="Int32" Nullable="false" />
           <Property Name="id_Usuario" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="AdicionesxClientes" Relationship="Self.fk_AdicionxCliente3" FromRole="Clientes" ToRole="AdicionesxCliente" />
+          <NavigationProperty Name="AdicionesxCliente" Relationship="Self.fk_AdicionxCliente3" FromRole="Clientes" ToRole="AdicionesxCliente" />
           <NavigationProperty Name="Canton" Relationship="Self.fk_ClienteCan" FromRole="Clientes" ToRole="Canton" />
           <NavigationProperty Name="Distrito" Relationship="Self.fk_ClienteDis" FromRole="Clientes" ToRole="Distrito" />
           <NavigationProperty Name="Provincia" Relationship="Self.fk_ClientePro" FromRole="Clientes" ToRole="Provincia" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.fk_ClienteUsuario" FromRole="Clientes" ToRole="Usuarios" />
           <NavigationProperty Name="RegistrosPolizas" Relationship="Self.fk_registrosClientes" FromRole="Clientes" ToRole="RegistrosPolizas" />
         </EntityType>
-        <EntityType Name="CoberturaPoliza">
+        <EntityType Name="CoberturaPolizas">
           <Key>
             <PropertyRef Name="idCoberturaPoliza" />
           </Key>
@@ -528,10 +550,10 @@ warning 6002: The table/view 'ProyectoProgra6.dbo.Usuarios' does not have a prim
           <Property Name="usuarioModifica" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="fechaModifica" Type="DateTime" Precision="3" />
           <Property Name="vc_Estado" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Cantons" Relationship="Self.Canton_ref_Provincia" FromRole="Provincia" ToRole="Canton" />
+          <NavigationProperty Name="Canton" Relationship="Self.Canton_ref_Provincia" FromRole="Provincia" ToRole="Canton" />
           <NavigationProperty Name="Clientes" Relationship="Self.fk_ClientePro" FromRole="Provincia" ToRole="Clientes" />
         </EntityType>
-        <EntityType Name="RegistrosPoliza">
+        <EntityType Name="RegistrosPolizas">
           <Key>
             <PropertyRef Name="idRegistroPoliza" />
           </Key>
@@ -545,10 +567,17 @@ warning 6002: The table/view 'ProyectoProgra6.dbo.Usuarios' does not have a prim
           <Property Name="primaAntesImpuestos" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="impuestos" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="primaFinal" Type="Decimal" Precision="18" Scale="0" />
-          <NavigationProperty Name="Cliente" Relationship="Self.fk_registrosClientes" FromRole="RegistrosPolizas" ToRole="Clientes" />
-          <NavigationProperty Name="CoberturaPoliza" Relationship="Self.fk_registrosCoberturas" FromRole="RegistrosPolizas" ToRole="CoberturaPolizas" />
+          <NavigationProperty Name="Clientes" Relationship="Self.fk_registrosClientes" FromRole="RegistrosPolizas" ToRole="Clientes" />
+          <NavigationProperty Name="CoberturaPolizas" Relationship="Self.fk_registrosCoberturas" FromRole="RegistrosPolizas" ToRole="CoberturaPolizas" />
         </EntityType>
-        <EntityType Name="sysdiagram">
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="idRol" />
+          </Key>
+          <Property Name="idRol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rol" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
           </Key>
@@ -558,22 +587,19 @@ warning 6002: The table/view 'ProyectoProgra6.dbo.Usuarios' does not have a prim
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <EntityType Name="Usuario">
+        <EntityType Name="Usuarios">
           <Key>
             <PropertyRef Name="id" />
-            <PropertyRef Name="usuario1" />
-            <PropertyRef Name="contrasena" />
-            <PropertyRef Name="estado" />
-            <PropertyRef Name="idRol" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="usuario1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="contrasena" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="estado" Type="Int32" Nullable="false" />
           <Property Name="idRol" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Clientes" Relationship="Self.fk_ClienteUsuario" FromRole="Usuarios" ToRole="Clientes" />
         </EntityType>
         <Association Name="fk_AdicionxCliente">
-          <End Role="Adiciones" Type="Self.Adicione" Multiplicity="0..1" />
+          <End Role="Adiciones" Type="Self.Adiciones" Multiplicity="0..1" />
           <End Role="AdicionesxCliente" Type="Self.AdicionesxCliente" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Adiciones">
@@ -585,7 +611,7 @@ warning 6002: The table/view 'ProyectoProgra6.dbo.Usuarios' does not have a prim
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_AdicionxCliente3">
-          <End Role="Clientes" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
           <End Role="AdicionesxCliente" Type="Self.AdicionesxCliente" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Clientes">
@@ -622,7 +648,7 @@ warning 6002: The table/view 'ProyectoProgra6.dbo.Usuarios' does not have a prim
         </Association>
         <Association Name="fk_ClienteCan">
           <End Role="Canton" Type="Self.Canton" Multiplicity="1" />
-          <End Role="Clientes" Type="Self.Cliente" Multiplicity="*" />
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Canton">
               <PropertyRef Name="id_Canton" />
@@ -634,7 +660,7 @@ warning 6002: The table/view 'ProyectoProgra6.dbo.Usuarios' does not have a prim
         </Association>
         <Association Name="fk_ClienteDis">
           <End Role="Distrito" Type="Self.Distrito" Multiplicity="1" />
-          <End Role="Clientes" Type="Self.Cliente" Multiplicity="*" />
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Distrito">
               <PropertyRef Name="id_Distrito" />
@@ -646,7 +672,7 @@ warning 6002: The table/view 'ProyectoProgra6.dbo.Usuarios' does not have a prim
         </Association>
         <Association Name="fk_ClientePro">
           <End Role="Provincia" Type="Self.Provincia" Multiplicity="1" />
-          <End Role="Clientes" Type="Self.Cliente" Multiplicity="*" />
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Provincia">
               <PropertyRef Name="id_Provincia" />
@@ -656,9 +682,21 @@ warning 6002: The table/view 'ProyectoProgra6.dbo.Usuarios' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_ClienteUsuario">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Clientes">
+              <PropertyRef Name="id_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_registrosClientes">
-          <End Role="Clientes" Type="Self.Cliente" Multiplicity="1" />
-          <End Role="RegistrosPolizas" Type="Self.RegistrosPoliza" Multiplicity="*" />
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="RegistrosPolizas" Type="Self.RegistrosPolizas" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Clientes">
               <PropertyRef Name="idCliente" />
@@ -669,8 +707,8 @@ warning 6002: The table/view 'ProyectoProgra6.dbo.Usuarios' does not have a prim
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_registrosCoberturas">
-          <End Role="CoberturaPolizas" Type="Self.CoberturaPoliza" Multiplicity="1" />
-          <End Role="RegistrosPolizas" Type="Self.RegistrosPoliza" Multiplicity="*" />
+          <End Role="CoberturaPolizas" Type="Self.CoberturaPolizas" Multiplicity="1" />
+          <End Role="RegistrosPolizas" Type="Self.RegistrosPolizas" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CoberturaPolizas">
               <PropertyRef Name="idCoberturaPoliza" />
@@ -681,43 +719,48 @@ warning 6002: The table/view 'ProyectoProgra6.dbo.Usuarios' does not have a prim
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="ProyectoProgra6Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Adiciones" EntityType="Self.Adicione" />
-          <EntitySet Name="AdicionesxClientes" EntityType="Self.AdicionesxCliente" />
-          <EntitySet Name="Cantons" EntityType="Self.Canton" />
-          <EntitySet Name="Clientes" EntityType="Self.Cliente" />
-          <EntitySet Name="CoberturaPolizas" EntityType="Self.CoberturaPoliza" />
-          <EntitySet Name="Distritoes" EntityType="Self.Distrito" />
-          <EntitySet Name="Generoes" EntityType="Self.Genero" />
-          <EntitySet Name="Provincias" EntityType="Self.Provincia" />
-          <EntitySet Name="RegistrosPolizas" EntityType="Self.RegistrosPoliza" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
-          <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+          <EntitySet Name="Adiciones" EntityType="Self.Adiciones" />
+          <EntitySet Name="AdicionesxCliente" EntityType="Self.AdicionesxCliente" />
+          <EntitySet Name="Canton" EntityType="Self.Canton" />
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" />
+          <EntitySet Name="CoberturaPolizas" EntityType="Self.CoberturaPolizas" />
+          <EntitySet Name="Distrito" EntityType="Self.Distrito" />
+          <EntitySet Name="Genero" EntityType="Self.Genero" />
+          <EntitySet Name="Provincia" EntityType="Self.Provincia" />
+          <EntitySet Name="RegistrosPolizas" EntityType="Self.RegistrosPolizas" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
           <AssociationSet Name="fk_AdicionxCliente" Association="Self.fk_AdicionxCliente">
             <End Role="Adiciones" EntitySet="Adiciones" />
-            <End Role="AdicionesxCliente" EntitySet="AdicionesxClientes" />
+            <End Role="AdicionesxCliente" EntitySet="AdicionesxCliente" />
           </AssociationSet>
           <AssociationSet Name="fk_AdicionxCliente3" Association="Self.fk_AdicionxCliente3">
             <End Role="Clientes" EntitySet="Clientes" />
-            <End Role="AdicionesxCliente" EntitySet="AdicionesxClientes" />
+            <End Role="AdicionesxCliente" EntitySet="AdicionesxCliente" />
           </AssociationSet>
           <AssociationSet Name="Canton_ref_Provincia" Association="Self.Canton_ref_Provincia">
-            <End Role="Provincia" EntitySet="Provincias" />
-            <End Role="Canton" EntitySet="Cantons" />
+            <End Role="Provincia" EntitySet="Provincia" />
+            <End Role="Canton" EntitySet="Canton" />
           </AssociationSet>
           <AssociationSet Name="Distrito_ref_Canton" Association="Self.Distrito_ref_Canton">
-            <End Role="Canton" EntitySet="Cantons" />
-            <End Role="Distrito" EntitySet="Distritoes" />
+            <End Role="Canton" EntitySet="Canton" />
+            <End Role="Distrito" EntitySet="Distrito" />
           </AssociationSet>
           <AssociationSet Name="fk_ClienteCan" Association="Self.fk_ClienteCan">
-            <End Role="Canton" EntitySet="Cantons" />
+            <End Role="Canton" EntitySet="Canton" />
             <End Role="Clientes" EntitySet="Clientes" />
           </AssociationSet>
           <AssociationSet Name="fk_ClienteDis" Association="Self.fk_ClienteDis">
-            <End Role="Distrito" EntitySet="Distritoes" />
+            <End Role="Distrito" EntitySet="Distrito" />
             <End Role="Clientes" EntitySet="Clientes" />
           </AssociationSet>
           <AssociationSet Name="fk_ClientePro" Association="Self.fk_ClientePro">
-            <End Role="Provincia" EntitySet="Provincias" />
+            <End Role="Provincia" EntitySet="Provincia" />
+            <End Role="Clientes" EntitySet="Clientes" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ClienteUsuario" Association="Self.fk_ClienteUsuario">
+            <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="Clientes" EntitySet="Clientes" />
           </AssociationSet>
           <AssociationSet Name="fk_registrosClientes" Association="Self.fk_registrosClientes">
@@ -769,6 +812,10 @@ warning 6002: The table/view 'ProyectoProgra6.dbo.Usuarios' does not have a prim
           <FunctionImport Name="sp_eliminarAdiccion">
             <Parameter Name="idAdiccion" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="sp_eliminarAdiccionCliente">
+            <Parameter Name="idAdiccion" Mode="In" Type="Int32" />
+            <Parameter Name="idCliente" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="sp_eliminarCobertura">
             <Parameter Name="idCoberturaPoliza" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -776,6 +823,9 @@ warning 6002: The table/view 'ProyectoProgra6.dbo.Usuarios' does not have a prim
             <Parameter Name="idAdiccion" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_getAdicciones" ReturnType="Collection(ProyectoProgra6Model.sp_getAdicciones_Result)" />
+          <FunctionImport Name="sp_getAdiccionesxClienteC" ReturnType="Collection(ProyectoProgra6Model.sp_getAdiccionesxClienteC_Result)">
+            <Parameter Name="idCliente" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="sp_getCoberturaPolizas" ReturnType="Collection(ProyectoProgra6Model.sp_getCoberturaPolizas_Result)" />
           <FunctionImport Name="sp_getCoberturaPolizasEditar" ReturnType="Collection(ProyectoProgra6Model.sp_getCoberturaPolizasEditar_Result)">
             <Parameter Name="idCoberturaPoliza" Mode="In" Type="Int32" />
@@ -807,6 +857,10 @@ warning 6002: The table/view 'ProyectoProgra6.dbo.Usuarios' does not have a prim
             <Parameter Name="id_Provincia" Mode="In" Type="Int32" />
             <Parameter Name="nombre" Mode="In" Type="String" />
             <Parameter Name="id_CantonInec" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_insertAdiccionCliente">
+            <Parameter Name="idCliente" Mode="In" Type="Int32" />
+            <Parameter Name="idAdicion" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Login" ReturnType="Collection(Int32)">
             <Parameter Name="usuario" Mode="In" Type="String" />
@@ -882,6 +936,11 @@ warning 6002: The table/view 'ProyectoProgra6.dbo.Usuarios' does not have a prim
           <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Codigo" Nullable="true" MaxLength="50" />
         </ComplexType>
+        <ComplexType Name="sp_getAdiccionesxClienteC_Result">
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Codigo" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="idAdicion" Nullable="true" />
+        </ComplexType>
         <ComplexType Name="sp_getCoberturaPolizas_Result">
           <Property Type="Int32" Name="idCoberturaPoliza" Nullable="false" />
           <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
@@ -942,7 +1001,7 @@ warning 6002: The table/view 'ProyectoProgra6.dbo.Usuarios' does not have a prim
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ProyectoProgra6ModelStoreContainer" CdmEntityContainer="ProyectoProgra6Entities">
           <EntitySetMapping Name="Adiciones">
-            <EntityTypeMapping TypeName="ProyectoProgra6Model.Adicione">
+            <EntityTypeMapping TypeName="ProyectoProgra6Model.Adiciones">
               <MappingFragment StoreEntitySet="Adiciones">
                 <ScalarProperty Name="idAdiccion" ColumnName="idAdiccion" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
@@ -950,7 +1009,7 @@ warning 6002: The table/view 'ProyectoProgra6.dbo.Usuarios' does not have a prim
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="AdicionesxClientes">
+          <EntitySetMapping Name="AdicionesxCliente">
             <EntityTypeMapping TypeName="ProyectoProgra6Model.AdicionesxCliente">
               <MappingFragment StoreEntitySet="AdicionesxCliente">
                 <ScalarProperty Name="idAdicionesxCliente" ColumnName="idAdicionesxCliente" />
@@ -959,7 +1018,7 @@ warning 6002: The table/view 'ProyectoProgra6.dbo.Usuarios' does not have a prim
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Cantons">
+          <EntitySetMapping Name="Canton">
             <EntityTypeMapping TypeName="ProyectoProgra6Model.Canton">
               <MappingFragment StoreEntitySet="Canton">
                 <ScalarProperty Name="id_Canton" ColumnName="id_Canton" />
@@ -975,7 +1034,7 @@ warning 6002: The table/view 'ProyectoProgra6.dbo.Usuarios' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Clientes">
-            <EntityTypeMapping TypeName="ProyectoProgra6Model.Cliente">
+            <EntityTypeMapping TypeName="ProyectoProgra6Model.Clientes">
               <MappingFragment StoreEntitySet="Clientes">
                 <ScalarProperty Name="idCliente" ColumnName="idCliente" />
                 <ScalarProperty Name="Cedula" ColumnName="Cedula" />
@@ -996,7 +1055,7 @@ warning 6002: The table/view 'ProyectoProgra6.dbo.Usuarios' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CoberturaPolizas">
-            <EntityTypeMapping TypeName="ProyectoProgra6Model.CoberturaPoliza">
+            <EntityTypeMapping TypeName="ProyectoProgra6Model.CoberturaPolizas">
               <MappingFragment StoreEntitySet="CoberturaPolizas">
                 <ScalarProperty Name="idCoberturaPoliza" ColumnName="idCoberturaPoliza" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
@@ -1005,7 +1064,7 @@ warning 6002: The table/view 'ProyectoProgra6.dbo.Usuarios' does not have a prim
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Distritoes">
+          <EntitySetMapping Name="Distrito">
             <EntityTypeMapping TypeName="ProyectoProgra6Model.Distrito">
               <MappingFragment StoreEntitySet="Distrito">
                 <ScalarProperty Name="id_Distrito" ColumnName="id_Distrito" />
@@ -1020,7 +1079,7 @@ warning 6002: The table/view 'ProyectoProgra6.dbo.Usuarios' does not have a prim
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Generoes">
+          <EntitySetMapping Name="Genero">
             <EntityTypeMapping TypeName="ProyectoProgra6Model.Genero">
               <MappingFragment StoreEntitySet="Genero">
                 <ScalarProperty Name="id" ColumnName="id" />
@@ -1028,7 +1087,7 @@ warning 6002: The table/view 'ProyectoProgra6.dbo.Usuarios' does not have a prim
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Provincias">
+          <EntitySetMapping Name="Provincia">
             <EntityTypeMapping TypeName="ProyectoProgra6Model.Provincia">
               <MappingFragment StoreEntitySet="Provincia">
                 <ScalarProperty Name="id_Provincia" ColumnName="id_Provincia" />
@@ -1042,7 +1101,7 @@ warning 6002: The table/view 'ProyectoProgra6.dbo.Usuarios' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RegistrosPolizas">
-            <EntityTypeMapping TypeName="ProyectoProgra6Model.RegistrosPoliza">
+            <EntityTypeMapping TypeName="ProyectoProgra6Model.RegistrosPolizas">
               <MappingFragment StoreEntitySet="RegistrosPolizas">
                 <ScalarProperty Name="idRegistroPoliza" ColumnName="idRegistroPoliza" />
                 <ScalarProperty Name="idCoberturaPoliza" ColumnName="idCoberturaPoliza" />
@@ -1057,8 +1116,16 @@ warning 6002: The table/view 'ProyectoProgra6.dbo.Usuarios' does not have a prim
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="ProyectoProgra6Model.Roles">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="idRol" ColumnName="idRol" />
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="ProyectoProgra6Model.sysdiagram">
+            <EntityTypeMapping TypeName="ProyectoProgra6Model.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -1069,10 +1136,10 @@ warning 6002: The table/view 'ProyectoProgra6.dbo.Usuarios' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Usuarios">
-            <EntityTypeMapping TypeName="ProyectoProgra6Model.Usuario">
+            <EntityTypeMapping TypeName="ProyectoProgra6Model.Usuarios">
               <MappingFragment StoreEntitySet="Usuarios">
                 <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="usuario1" ColumnName="usuario" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
                 <ScalarProperty Name="contrasena" ColumnName="contrasena" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
                 <ScalarProperty Name="idRol" ColumnName="idRol" />
@@ -1131,6 +1198,7 @@ warning 6002: The table/view 'ProyectoProgra6.dbo.Usuarios' does not have a prim
           <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="ProyectoProgra6Model.Store.sp_dropdiagram" />
           <FunctionImportMapping FunctionImportName="sp_EliminaCanton" FunctionName="ProyectoProgra6Model.Store.sp_EliminaCanton" />
           <FunctionImportMapping FunctionImportName="sp_eliminarAdiccion" FunctionName="ProyectoProgra6Model.Store.sp_eliminarAdiccion" />
+          <FunctionImportMapping FunctionImportName="sp_eliminarAdiccionCliente" FunctionName="ProyectoProgra6Model.Store.sp_eliminarAdiccionCliente" />
           <FunctionImportMapping FunctionImportName="sp_eliminarCobertura" FunctionName="ProyectoProgra6Model.Store.sp_eliminarCobertura" />
           <FunctionImportMapping FunctionImportName="sp_getAdiccionEditar" FunctionName="ProyectoProgra6Model.Store.sp_getAdiccionEditar">
             <ResultMapping>
@@ -1147,6 +1215,15 @@ warning 6002: The table/view 'ProyectoProgra6.dbo.Usuarios' does not have a prim
                 <ScalarProperty Name="idAdiccion" ColumnName="idAdiccion" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_getAdiccionesxClienteC" FunctionName="ProyectoProgra6Model.Store.sp_getAdiccionesxClienteC">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ProyectoProgra6Model.sp_getAdiccionesxClienteC_Result">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="idAdicion" ColumnName="idAdicion" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -1202,6 +1279,7 @@ warning 6002: The table/view 'ProyectoProgra6.dbo.Usuarios' does not have a prim
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_InsertaCanton" FunctionName="ProyectoProgra6Model.Store.sp_InsertaCanton" />
+          <FunctionImportMapping FunctionImportName="sp_insertAdiccionCliente" FunctionName="ProyectoProgra6Model.Store.sp_insertAdiccionCliente" />
           <FunctionImportMapping FunctionImportName="sp_Login" FunctionName="ProyectoProgra6Model.Store.sp_Login" />
           <FunctionImportMapping FunctionImportName="sp_ModificaCanton" FunctionName="ProyectoProgra6Model.Store.sp_ModificaCanton" />
           <FunctionImportMapping FunctionImportName="sp_ModificarAdiccion" FunctionName="ProyectoProgra6Model.Store.sp_ModificarAdiccion" />
@@ -1248,10 +1326,10 @@ warning 6002: The table/view 'ProyectoProgra6.dbo.Usuarios' does not have a prim
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
