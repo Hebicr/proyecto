@@ -7,28 +7,101 @@
             @Html.AntiForgeryToken()
 
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
-    <div class="container">
-        <div class="row">
-            <div style="border: 1px solid #d5d7dd; margin-top:30px;padding:30px; border-radius: 15px; width:500px">
-                <div class="form-group col-md-6">
-                    Adicciones:
-                    <div class="col-md-8">
-                        @Html.DropDownListFor(model => model.idAdiccion, ViewBag.adiccionList as SelectList, "-- Seleccione la Adiccion --", new { @class = "form-control", @required = "required", @id = "aux1" });
+    <div class="container" style="height: auto; width: auto; text-align: center; padding-top: 50px; ">
+        <div style=" height: auto; width: 700px; margin: 0px auto; ">
+            <form id="frm">
+                <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                    @Html.Label("Adicciones", "Adicciones", htmlAttributes: new { @class = "control-label col-xs-2 col-md-2" })
+                    <div class="col-xs-5 col-md-5">
+                        @Html.DropDownListFor(model => model.idAdiccion, ViewBag.adiccionList as SelectList, "-- Seleccione la Adiccion --", new { @class = "form-control", @required = "required", @id = "aux1" })
                         @Html.ValidationMessageFor(model => model.idAdiccion, "", new { @class = "text-danger" })
                     </div>
-                    <input type="submit" value="Agregar" onclick="INSERT(aux1)" class="btn btn-success" />
+                    <div class="col-xs-2 col-md-2">
+                        @*<input type="submit" value="Agregar" onclick="INSERT(aux1)" class="btn btn-success" />*@
+                        <input type="submit" class="btn btn-success" value="Agregar" />
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
-        <button class="btn btn-success btn-sm" type="button" onclick="location.href='@Url.Action("Adicciones", "Clientes")'">Siguiente</button>
+        @*<button class="btn btn-success btn-sm" type="button" onclick="location.href='@Url.Action("Adicciones", "Clientes")'">Siguiente</button>*@
+        @if (ViewData["Mensaje"] != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                @ViewData["Mensaje"]
+            </div>
+        }
     </div>
 }
-<script type="text/javascript">
+
+<div class="container">
+    <div class="row">
+        <div class="table-responsive">
+            <table class="table caption-top table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">Codigo</th>
+                        <th scope="col">Nombre</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in ViewBag.AdiccionesU)
+                    {
+                        <tr>
+                            <td>@item.Codigo)</td>
+                            <td>@item.Nombre</td>
+                            <td class="actions">
+                                <button class="btn btn-danger btn-sm" type="button" id="@item.idAdicion" onClick="DeleteElement(id)">Eliminar</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+</div>
+
+@section scripts{
+
+    <script type="text/javascript">
+
+        debugger;
+        $("#frm").validate()({
+            $(document).ready(function () {
+                debugger;
+                $("#frm").submit(function (e) {
+                    e.preventDefault();
+                    url = "@Url.Content("~/Clientes/InsertarAdicciones")"
+                    parametros = @Session["usuario"];
+
+                    $.post(url, parametros, function (data) {
+                        if (data == "1") {
+                            document.location.href = "@Url.Content("~/")"
+                        } else {
+                            alert(data);
+                        }
+                    })
+                })
+            })
+        })
+
+
     function INSERT() {
         debugger;
         var value = $("#aux1").val();
         let url = '/Clientes/InsertarAdicciones?idCliente=' + '@Session["usuario"]' + '&idAdicion=' + value;
         location.href = url;
 
-    }</script>
+    }
 
+     function DeleteElement(val) {
+        debugger;
+        let url = '/Clientes/EliminarAdiccion?idAdicion=' + val +  '&idCliente=' + '@Session["usuario"]';
+        location.href = url;
+    }
+    </script>
+
+
+}

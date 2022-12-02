@@ -119,60 +119,7 @@ namespace ProyectoProgra6.Controllers
 
         }
 
-        void EnviarCorreo(string userU,string passU,string nombreU,string apellido1U,string apellido2U,string correoU)
-        {
-            try {
-                //Se definen variables pasa enviar
-                string para;
-                string asunto;
-                string mensaje;
-                string apellido1;
-                string apellido2;
-                string nombreC;
-                string userUC;
-                string passUC;
-
-                para = correoU;
-                apellido1 = apellido1U;
-                apellido2 = apellido2U;
-                nombreC = nombreU;
-                userUC = userU;
-                passUC = passU;
-                asunto = "Credenciales Equipo Siglo XXI";
-                mensaje = "Estimado cliente: " + apellido1 + " " + apellido2 + " " + nombreC + ", " +
-                          "gracias por  confiar en Seguros del Equipo del Siglo XXI." + "\n" + 
-                          " Para nosotros es un placer servirle. " + 
-                          "A continuación, sus credenciales para ingresar a la aplicación Usuario: " +
-                          "("+ userUC + ") Contraseña: ("+ passUC + ") http://localhost:61823/";
-
-
-
-                MailMessage correo = new MailMessage(); //variable de tipo mailmessage  se usan para construir mensajes de correo electrónico que se transmiten a un servidor SMTP para su entrega mediante la SmtpClient clase
-                correo.From = new MailAddress("stev.199279@gmail.com"); //correo que nuestro software utilizará para enviar los correos
-                correo.To.Add(para);
-                correo.Subject = asunto;
-                correo.Body = mensaje;
-                correo.IsBodyHtml = true;
-                correo.Priority = MailPriority.Normal; //prioridad
-
-                //configuración del servidor smpt PROVEEDOR GMAIL PUERTO 25
-
-                SmtpClient smtp = new SmtpClient();//La SmtpClient se usa para enviar correo electrónico a un servidor SMTP para su entrega. 
-                smtp.Host = "smtp.gmail.com"; //hOST
-                smtp.Port = 25; //PUERTO DEL PROVEEDOR ES VARIABLE
-                smtp.EnableSsl = true;
-                smtp.UseDefaultCredentials = true;
-
-                string sCuentaCorreo = "stev.199279@gmail.com";
-                string sPassword = "qzcpixbhupavxjmk";
-                smtp.Credentials = new System.Net.NetworkCredential(sCuentaCorreo, sPassword);
-
-                smtp.Send(correo);
-                RedirectToAction("Login");
-            } catch (Exception ex) {
-                ViewData["Mensaje"] = "Ocurrio un error : " + ex.Message;
-            }
-        }
+       
 
         void enviarCorreo2(string userU, string passU, string nombreU, string apellido1U, string apellido2U, string correoU) {
             var fromAddress = new MailAddress("stev.199279@gmail.com", "Equipo Siglo XXI");
@@ -184,7 +131,7 @@ namespace ProyectoProgra6.Controllers
                           "gracias por  confiar en Seguros del Equipo del Siglo XXI." + "\n" +
                           "Para nosotros es un placer servirle. " +
                           "A continuación, sus credenciales para ingresar a la aplicación " + "\n" + 
-                          "Usuario: " +" (" + userU + ") Contraseña: (" + passU + ") http://localhost:61823/";
+                          "Usuario: " +" (" + userU + ")"+ "\n" + "Contraseña: (" + passU + ")"+ "\n" + "http://localhost:61823/";
             string body = mensaje;
 
             var smtp = new SmtpClient

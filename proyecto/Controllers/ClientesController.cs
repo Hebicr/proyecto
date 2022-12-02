@@ -22,7 +22,7 @@ namespace proyecto.Controllers
         public ActionResult Adicciones()
         {
             
-           // ViewBag.AdiccionesU = db.sp_getAdiccionesxClienteC();
+           ViewBag.AdiccionesU = db.sp_getAdiccionesxClienteC((int)Session["usuario"]);
            return View();
 
         }
@@ -31,17 +31,22 @@ namespace proyecto.Controllers
             //var idUsuario = Session["usuario"];
             List<Adiciones> adiccionList = db.Adiciones.ToList();
             ViewBag.adiccionList = new SelectList(adiccionList, "idAdiccion", "Nombre");
+            ViewBag.AdiccionesU = db.sp_getAdiccionesxClienteC((int)Session["usuario"]);
             return View();
         }
         public ActionResult InsertarAdicciones(int idCliente,int idAdicion)
         {
+            
             try
             {
-                db.sp_insertAdiccionCliente(idCliente, idAdicion);
-                return RedirectToAction("Adicciones", "Clientes");
+                Nullable<int> myValue = db.sp_insertAdiccionCliente(idCliente, idAdicion);
+                int result = myValue.Value;
+                //var result = db.sp_insertAdiccionCliente(idCliente, idAdicion);
+                return RedirectToAction("InsertarAdiccion", "Clientes");
             }
-            catch
+            catch (Exception ex)
             {
+                ViewData["Mensaje"] = "Ocurrio un Error al guardar el registro " +ex.Message;
                 return View();
             }
 
@@ -52,10 +57,11 @@ namespace proyecto.Controllers
             try
             {
                 db.sp_eliminarAdiccionCliente(idAdicion, idCliente);
-                return RedirectToAction("Adicciones", "Clientes");
+                return RedirectToAction("InsertarAdiccion", "Clientes");
             }
-            catch
+            catch (Exception ex)
             {
+                ViewData["Mensaje"] = "Ocurrio un Error al eliminar el registro " +ex.Message;
                 return View();
             }
         }
