@@ -41,7 +41,7 @@
           </Key>
           <Property Name="idCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Cedula" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Genero" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="id_Genero" Type="int" Nullable="false" />
           <Property Name="FechadeNacimiento" Type="date" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="PrimerApellido" Type="varchar" MaxLength="50" Nullable="false" />
@@ -223,6 +223,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Clientes_Genero">
+          <End Role="Genero" Type="Self.Genero" Multiplicity="1" />
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genero">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Clientes">
+              <PropertyRef Name="id_Genero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_ClienteUsuario">
           <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
           <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
@@ -256,6 +268,18 @@
             </Principal>
             <Dependent Role="RegistrosPolizas">
               <PropertyRef Name="idCoberturaPoliza" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuarios_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="idRol" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="idRol" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -333,7 +357,7 @@
         </Function>
         <Function Name="sp_Inserta_Clientes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="cedula" Type="varchar" Mode="In" />
-          <Parameter Name="genero" Type="int" Mode="In" />
+          <Parameter Name="id_genero" Type="int" Mode="In" />
           <Parameter Name="fecha_nacimiento" Type="datetime" Mode="In" />
           <Parameter Name="nombre" Type="varchar" Mode="In" />
           <Parameter Name="primer_apellido" Type="varchar" Mode="In" />
@@ -426,6 +450,10 @@
             <End Role="Provincia" EntitySet="Provincia" />
             <End Role="Clientes" EntitySet="Clientes" />
           </AssociationSet>
+          <AssociationSet Name="FK_Clientes_Genero" Association="Self.FK_Clientes_Genero">
+            <End Role="Genero" EntitySet="Genero" />
+            <End Role="Clientes" EntitySet="Clientes" />
+          </AssociationSet>
           <AssociationSet Name="fk_ClienteUsuario" Association="Self.fk_ClienteUsuario">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="Clientes" EntitySet="Clientes" />
@@ -437,6 +465,10 @@
           <AssociationSet Name="fk_registrosCoberturas" Association="Self.fk_registrosCoberturas">
             <End Role="CoberturaPolizas" EntitySet="CoberturaPolizas" />
             <End Role="RegistrosPolizas" EntitySet="RegistrosPolizas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuarios_Roles" Association="Self.FK_Usuarios_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -486,7 +518,7 @@
           </Key>
           <Property Name="idCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Cedula" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Genero" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_Genero" Type="Int32" Nullable="false" />
           <Property Name="FechadeNacimiento" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PrimerApellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
@@ -503,6 +535,7 @@
           <NavigationProperty Name="Canton" Relationship="Self.fk_ClienteCan" FromRole="Clientes" ToRole="Canton" />
           <NavigationProperty Name="Distrito" Relationship="Self.fk_ClienteDis" FromRole="Clientes" ToRole="Distrito" />
           <NavigationProperty Name="Provincia" Relationship="Self.fk_ClientePro" FromRole="Clientes" ToRole="Provincia" />
+          <NavigationProperty Name="Genero" Relationship="Self.FK_Clientes_Genero" FromRole="Clientes" ToRole="Genero" />
           <NavigationProperty Name="Usuarios" Relationship="Self.fk_ClienteUsuario" FromRole="Clientes" ToRole="Usuarios" />
           <NavigationProperty Name="RegistrosPolizas" Relationship="Self.fk_registrosClientes" FromRole="Clientes" ToRole="RegistrosPolizas" />
         </EntityType>
@@ -538,6 +571,7 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="genero1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Clientes" Relationship="Self.FK_Clientes_Genero" FromRole="Genero" ToRole="Clientes" />
         </EntityType>
         <EntityType Name="Provincia">
           <Key>
@@ -576,6 +610,7 @@
           </Key>
           <Property Name="idRol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Rol" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK_Usuarios_Roles" FromRole="Roles" ToRole="Usuarios" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -597,6 +632,7 @@
           <Property Name="estado" Type="Int32" Nullable="false" />
           <Property Name="idRol" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Clientes" Relationship="Self.fk_ClienteUsuario" FromRole="Usuarios" ToRole="Clientes" />
+          <NavigationProperty Name="Roles" Relationship="Self.FK_Usuarios_Roles" FromRole="Usuarios" ToRole="Roles" />
         </EntityType>
         <Association Name="fk_AdicionxCliente">
           <End Role="Adiciones" Type="Self.Adiciones" Multiplicity="0..1" />
@@ -682,6 +718,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Clientes_Genero">
+          <End Role="Genero" Type="Self.Genero" Multiplicity="1" />
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genero">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Clientes">
+              <PropertyRef Name="id_Genero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_ClienteUsuario">
           <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
           <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
@@ -715,6 +763,18 @@
             </Principal>
             <Dependent Role="RegistrosPolizas">
               <PropertyRef Name="idCoberturaPoliza" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuarios_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="idRol" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="idRol" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -759,6 +819,10 @@
             <End Role="Provincia" EntitySet="Provincia" />
             <End Role="Clientes" EntitySet="Clientes" />
           </AssociationSet>
+          <AssociationSet Name="FK_Clientes_Genero" Association="Self.FK_Clientes_Genero">
+            <End Role="Genero" EntitySet="Genero" />
+            <End Role="Clientes" EntitySet="Clientes" />
+          </AssociationSet>
           <AssociationSet Name="fk_ClienteUsuario" Association="Self.fk_ClienteUsuario">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="Clientes" EntitySet="Clientes" />
@@ -770,6 +834,10 @@
           <AssociationSet Name="fk_registrosCoberturas" Association="Self.fk_registrosCoberturas">
             <End Role="CoberturaPolizas" EntitySet="CoberturaPolizas" />
             <End Role="RegistrosPolizas" EntitySet="RegistrosPolizas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuarios_Roles" Association="Self.FK_Usuarios_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
           </AssociationSet>
           <FunctionImport Name="RetornaCantones" ReturnType="Collection(ProyectoProgra6Model.RetornaCantones_Result)">
             <Parameter Name="nombre" Mode="In" Type="String" />
@@ -830,17 +898,17 @@
           <FunctionImport Name="sp_getCoberturaPolizasEditar" ReturnType="Collection(ProyectoProgra6Model.sp_getCoberturaPolizasEditar_Result)">
             <Parameter Name="idCoberturaPoliza" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="sp_helpdiagramdefinition">
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(ProyectoProgra6Model.sp_helpdiagramdefinition_Result)">
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="sp_helpdiagrams">
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(ProyectoProgra6Model.sp_helpdiagrams_Result)">
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Inserta_Clientes" ReturnType="Collection(ProyectoProgra6Model.sp_Inserta_Clientes_Result)">
             <Parameter Name="cedula" Mode="In" Type="String" />
-            <Parameter Name="genero" Mode="In" Type="Int32" />
+            <Parameter Name="id_genero" Mode="In" Type="Int32" />
             <Parameter Name="fecha_nacimiento" Mode="In" Type="DateTime" />
             <Parameter Name="nombre" Mode="In" Type="String" />
             <Parameter Name="primer_apellido" Mode="In" Type="String" />
@@ -953,6 +1021,17 @@
           <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="50" />
           <Property Type="Decimal" Name="Porcentaje" Nullable="true" Precision="18" Scale="0" />
         </ComplexType>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
         <ComplexType Name="sp_Inserta_Clientes_Result">
           <Property Type="String" Name="usuario" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="contrasena" Nullable="false" MaxLength="50" />
@@ -964,7 +1043,7 @@
         <ComplexType Name="sp_Seleccionar_Cliente_Result">
           <Property Type="Int32" Name="idCliente" Nullable="false" />
           <Property Type="String" Name="Cedula" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Genero" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="id_Genero" Nullable="false" />
           <Property Type="DateTime" Name="FechadeNacimiento" Nullable="false" />
           <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="PrimerApellido" Nullable="false" MaxLength="50" />
@@ -1027,7 +1106,7 @@
               <MappingFragment StoreEntitySet="Clientes">
                 <ScalarProperty Name="idCliente" ColumnName="idCliente" />
                 <ScalarProperty Name="Cedula" ColumnName="Cedula" />
-                <ScalarProperty Name="Genero" ColumnName="Genero" />
+                <ScalarProperty Name="id_Genero" ColumnName="id_Genero" />
                 <ScalarProperty Name="FechadeNacimiento" ColumnName="FechadeNacimiento" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="PrimerApellido" ColumnName="PrimerApellido" />
@@ -1236,8 +1315,25 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="ProyectoProgra6Model.Store.sp_helpdiagramdefinition" />
-          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="ProyectoProgra6Model.Store.sp_helpdiagrams" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="ProyectoProgra6Model.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ProyectoProgra6Model.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="ProyectoProgra6Model.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ProyectoProgra6Model.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_Inserta_Clientes" FunctionName="ProyectoProgra6Model.Store.sp_Inserta_Clientes">
             <ResultMapping>
               <ComplexTypeMapping TypeName="ProyectoProgra6Model.sp_Inserta_Clientes_Result">
@@ -1262,7 +1358,7 @@
               <ComplexTypeMapping TypeName="ProyectoProgra6Model.sp_Seleccionar_Cliente_Result">
                 <ScalarProperty Name="idCliente" ColumnName="idCliente" />
                 <ScalarProperty Name="Cedula" ColumnName="Cedula" />
-                <ScalarProperty Name="Genero" ColumnName="Genero" />
+                <ScalarProperty Name="id_Genero" ColumnName="id_Genero" />
                 <ScalarProperty Name="FechadeNacimiento" ColumnName="FechadeNacimiento" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="PrimerApellido" ColumnName="PrimerApellido" />

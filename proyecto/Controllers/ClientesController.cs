@@ -11,19 +11,19 @@ namespace proyecto.Controllers
     public class ClientesController : Controller
     {
         // GET: Clientes
-        
+
         ProyectoProgra6Entities db = new ProyectoProgra6Entities();
-        
+
         public ActionResult Index()
         {
-           
+
             return View();
         }
         public ActionResult Adicciones()
         {
-            
-           ViewBag.AdiccionesU = db.sp_getAdiccionesxClienteC((int)Session["usuario"]);
-           return View();
+
+            ViewBag.AdiccionesU = db.sp_getAdiccionesxClienteC((int)Session["usuario"]);
+            return View();
 
         }
         public ActionResult InsertarAdiccion()
@@ -34,20 +34,26 @@ namespace proyecto.Controllers
             ViewBag.AdiccionesU = db.sp_getAdiccionesxClienteC((int)Session["usuario"]);
             return View();
         }
-        public ActionResult InsertarAdicciones(int idCliente,int idAdicion)
+        [HttpPost]
+        public ActionResult InsertarAdicciones(FormCollection newAdicion)
         {
-            
+            var id = Session["clientelogID"];
             try
             {
-                Nullable<int> myValue = db.sp_insertAdiccionCliente(idCliente, idAdicion);
+                Nullable<int> myValue = db.sp_insertAdiccionCliente((int)id ,Convert.ToInt32(newAdicion["idAdiccion"]));
                 int result = myValue.Value;
+                if (result == -1) {
+                    ViewData["Error"] = "Adiccion Ya esta Agregada";
+                    TempData["Error"] = "Adiccion Ya esta Agregada";
+                }
                 //var result = db.sp_insertAdiccionCliente(idCliente, idAdicion);
                 return RedirectToAction("InsertarAdiccion", "Clientes");
             }
             catch (Exception ex)
             {
-                ViewData["Mensaje"] = "Ocurrio un Error al guardar el registro " +ex.Message;
-                return View();
+                ViewData["Error"] = "Ocurrio un Error al guardar el registro " + ex.Message;
+                TempData["Error"] = "Ocurrio un Error al guardar el registro " + ex.Message;
+                return RedirectToAction("InsertarAdiccion", "Clientes");
             }
 
         }

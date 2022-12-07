@@ -23,6 +23,7 @@ namespace proyecto.Controllers
                     Session["clientelogapellido1"] = clientelog[0].PrimerApellido;
                     Session["clientelogapellido2"] = clientelog[0].SegundoApellido;
                     Session["clientelogRol"] = clientelog[0].idRol;
+                    Session["clientelogID"] = clientelog[0].id;
 
                     //ViewBag.clientelog = clientelog.ToList();
                 }
@@ -39,6 +40,10 @@ namespace proyecto.Controllers
         {
             Session["usuario"] = null;
             Session["clientelog"] = null;
+            Session["clientelognombre"] = null;
+            Session["clientelogapellido1"] = null;
+            Session["clientelogapellido2"] = null;
+            Session["clientelogRol"] = null;
             return RedirectToAction("Login", "Login");
         }
 

@@ -56,10 +56,10 @@
                         @*@Html.EditorFor(model => model.Genero, new { htmlAttributes = new { @class = "form-control" } })*@
                         @if (ViewBag.generoList != null)
                         {
-                            @Html.DropDownListFor(model => model.Genero, ViewBag.generoList as SelectList, "-- Selecciones Genero --", new { @class = "form-control", @required = "required" });
+                            @Html.DropDownListFor(model => model.id_Genero, ViewBag.generoList as SelectList, "-- Selecciones Genero --", new { @class = "form-control", @required = "required" });
 
                         }
-                        @Html.ValidationMessageFor(model => model.Genero, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(model => model.id_Genero, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
@@ -108,7 +108,7 @@
                     @*@Html.LabelFor(model => model.CorreoElectronico, htmlAttributes: new { @class = "control-label col-md-2" })*@
                     @Html.Label("Correo Electronico", "Correo Electronico", htmlAttributes: new { @class = "control-label col-md-4" })
                     <div class="col-md-8">
-                        @Html.EditorFor(model => model.CorreoElectronico, new { htmlAttributes = new { @class = "form-control", @required = "required",@type = "email", @maxlength = "99" } })
+                        @Html.EditorFor(model => model.CorreoElectronico, new { htmlAttributes = new { @class = "form-control", @required = "required", @type = "email", @maxlength = "99" } })
                         @Html.ValidationMessageFor(model => model.CorreoElectronico, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -155,12 +155,33 @@
                     </div>
                 </div>
             </div>
-           
+
 
             @if (ViewData["Mensaje"] != null)
             {
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-success" role="alert">
                     @ViewData["Mensaje"]
+                </div>
+            }
+
+            @if (ViewData["Error"] != null)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @ViewData["Error"]
+                </div>
+            }
+
+            @if (TempData["info"] != null)
+            {
+                <div class="alert alert-success" role="alert">
+                    @TempData["info"]
+                </div>
+            }
+
+            @if (TempData["error"] != null)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @TempData["error"]
                 </div>
             }
             <br />

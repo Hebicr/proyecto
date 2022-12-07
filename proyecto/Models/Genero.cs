@@ -14,7 +14,16 @@ namespace proyecto.Models
     
     public partial class Genero
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Genero()
+        {
+            this.Clientes = new HashSet<Clientes>();
+        }
+    
         public int id { get; set; }
         public string genero1 { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Clientes> Clientes { get; set; }
     }
 }

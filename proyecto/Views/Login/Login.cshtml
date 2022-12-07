@@ -25,11 +25,17 @@
 
             @if (ViewData["Mensaje"] != null)
             {
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-success" role="alert">
                     @ViewData["Mensaje"]
                 </div>
             }
 
+            @if (ViewData["Error"] != null)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @ViewData["Error"]
+                </div>
+            }
             <br />
             <div class="d-flex justify-content-center mt-3 login_container">
                 <button type="submit" name="button" class="btn btn-success">Iniciar Sesion</button>

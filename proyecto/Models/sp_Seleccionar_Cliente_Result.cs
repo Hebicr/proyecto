@@ -15,7 +15,7 @@ namespace proyecto.Models
     {
         public int idCliente { get; set; }
         public string Cedula { get; set; }
-        public string Genero { get; set; }
+        public int id_Genero { get; set; }
         public System.DateTime FechadeNacimiento { get; set; }
         public string Nombre { get; set; }
         public string PrimerApellido { get; set; }

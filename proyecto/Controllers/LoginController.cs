@@ -44,7 +44,7 @@ namespace ProyectoProgra6.Controllers
 
             try
             {
-                var result = db.sp_Inserta_Clientes(myCliente["Cedula"], int.Parse(myCliente["Genero"]), Convert.ToDateTime(myCliente["FechadeNacimiento"]), myCliente["Nombre"], myCliente["PrimerApellido"], myCliente["SegundoApellido"], myCliente["DireccionFisica"], myCliente["TelefonoPrincipal"], myCliente["TelefonoSecundario"],
+                var result = db.sp_Inserta_Clientes(myCliente["Cedula"], int.Parse(myCliente["id_Genero"]), Convert.ToDateTime(myCliente["FechadeNacimiento"]), myCliente["Nombre"], myCliente["PrimerApellido"], myCliente["SegundoApellido"], myCliente["DireccionFisica"], myCliente["TelefonoPrincipal"], myCliente["TelefonoSecundario"],
                                                     myCliente["CorreoElectronico"], int.Parse(myCliente["id_Provincia"]), int.Parse(myCliente["id_Canton"]), int.Parse(myCliente["id_Distrito"]));
 
                 var result2 = result.ToList();
@@ -53,10 +53,11 @@ namespace ProyectoProgra6.Controllers
                     //EnviarCorreo(result2[0].usuario, result2[0].contrasena, result2[0].Nombre, result2[0].PrimerApellido, result2[0].SegundoApellido, result2[0].CorreoElectronico);
                     enviarCorreo2(result2[0].usuario, result2[0].contrasena, result2[0].Nombre, result2[0].PrimerApellido, result2[0].SegundoApellido, result2[0].CorreoElectronico);
                     ViewData["Mensaje"] = "Registro Exitoso, se le enviara un email con su informacion";
-
                     return View();
+                    //TempData["info"] = "Registro Exitoso, se le enviara un email con su informacion";
+                    //return RedirectToAction("Login", "Login");
                 } else {
-                    ViewData["Mensaje"] = "Cedula Ya esta Registrada" ;
+                    ViewData["Error"] = "Cedula Ya esta Registrada" ;
                     return View();
                 }
                 
@@ -65,7 +66,7 @@ namespace ProyectoProgra6.Controllers
             catch (Exception ex)
             {
                 //return Content("Ocurrio un error : " + ex.Message);
-                ViewData["Mensaje"] = "Ocurrio un error : " + ex.Message;
+                ViewData["Error"] = "Ocurrio un error : " + ex.Message;
                 return View();
             }
         }
@@ -104,7 +105,7 @@ namespace ProyectoProgra6.Controllers
                 }
                 else
                 {
-                    ViewData["Mensaje"] = "Credenciales NO Validas";
+                    ViewData["Error"] = "Credenciales NO Validas";
                     return View();
                 }
 
@@ -113,7 +114,7 @@ namespace ProyectoProgra6.Controllers
             catch (Exception ex)
             {
                 //return Content("Ocurrio un error : " + ex.Message);
-                ViewData["Mensaje"] = "Ocurrio un error : " + ex.Message;
+                ViewData["Error"] = "Ocurrio un error : " + ex.Message;
                 return View();
             }
 

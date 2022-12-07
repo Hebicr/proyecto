@@ -23,7 +23,7 @@ namespace proyecto.Models
     
         public int idCliente { get; set; }
         public string Cedula { get; set; }
-        public string Genero { get; set; }
+        public int id_Genero { get; set; }
         public System.DateTime FechadeNacimiento { get; set; }
         public string Nombre { get; set; }
         public string PrimerApellido { get; set; }
@@ -42,6 +42,7 @@ namespace proyecto.Models
         public virtual Canton Canton { get; set; }
         public virtual Distrito Distrito { get; set; }
         public virtual Provincia Provincia { get; set; }
+        public virtual Genero Genero { get; set; }
         public virtual Usuarios Usuarios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RegistrosPolizas> RegistrosPolizas { get; set; }
