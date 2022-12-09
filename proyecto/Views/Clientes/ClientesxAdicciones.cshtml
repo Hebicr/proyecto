@@ -1,0 +1,42 @@
+﻿@model IEnumerable<proyecto.Models.sp_getClientesDDL_Result>
+
+@{
+    ViewBag.Title = "ClientesxAdicciones";
+}
+
+<h3><p>Seleccione el cliente</p></h3>
+
+<div class="table-responsive">
+    <table class="table caption-top table-sm">
+        <thead>
+            <tr>
+                <th scope="col">Código</th>
+                <th scope="col">Nombre</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th>@Html.DisplayFor(modelItem => item.idCliente)</th>
+                    <td>@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.PrimerApellido) @Html.DisplayFor(modelItem => item.SegundoApellido) </td>
+
+
+                    <td class="actions">
+                        <button class="btn btn-primary btn-sm" onClick="edit(@Html.DisplayFor(modelItem => item.idCliente))">Comprar Poliza</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @*@Html.ActionLink("Crear poliza nueva", "Create")*@
+</div>
+
+<script type="text/javascript">
+    function edit(value) {
+        debugger;
+        let url = '/Clientes/InsertarAdiccion?idCliente=' + value;
+        location.href = url;
+    }
+</script>
