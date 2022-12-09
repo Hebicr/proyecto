@@ -36,6 +36,21 @@ namespace proyecto.Controllers
             }
 
         }
+
+        public ActionResult InfoCliente()
+        {
+            try {
+                var idUsuario = Session["usuario"];
+                var infoCliente = db.sp_Seleccionar_Cliente((int)idUsuario).ToList();
+                ViewBag.infoCliente = infoCliente;
+                return View();
+            }
+            catch (Exception ex) {
+                ViewData["Mensaje"] = "Ocurrio un error : " + ex.Message;
+                return View();
+            }
+        
+        }
         public ActionResult LogOut()
         {
             Session["usuario"] = null;

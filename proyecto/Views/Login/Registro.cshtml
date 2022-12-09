@@ -11,7 +11,7 @@
         <br />
         <br />
         <form action="@Url.Action("Registro","Login")" method="post">
-            <div class="form-horizontal form-group-sm">
+            <div class="form-horizontal form-group-sm col-md-8 col-md-offset-2">
                 <h2>Registro</h2>
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -153,37 +153,41 @@
                         <input type="submit" value="Registro" class="btn btn-success" />
                         <input type="button" value="Cancelar" class="btn btn-danger" onclick="location.href='@Url.Action("Login","Login")';" />
                     </div>
+                    <br />
+                    <div class="col-md-offset-2 col-md-8">
+                        @if (ViewData["Mensaje"] != null)
+                        {
+                            <div class="alert alert-success" role="alert">
+                                @ViewData["Mensaje"]
+                            </div>
+                        }
+
+                        @if (ViewData["Error"] != null)
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                @ViewData["Error"]
+                            </div>
+                        }
+
+                        @if (TempData["info"] != null)
+                        {
+                            <div class="alert alert-success" role="alert">
+                                @TempData["info"]
+                            </div>
+                        }
+
+                        @if (TempData["error"] != null)
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                @TempData["error"]
+                            </div>
+                        }
+                    </div>
                 </div>
             </div>
 
 
-            @if (ViewData["Mensaje"] != null)
-            {
-                <div class="alert alert-success" role="alert">
-                    @ViewData["Mensaje"]
-                </div>
-            }
-
-            @if (ViewData["Error"] != null)
-            {
-                <div class="alert alert-danger" role="alert">
-                    @ViewData["Error"]
-                </div>
-            }
-
-            @if (TempData["info"] != null)
-            {
-                <div class="alert alert-success" role="alert">
-                    @TempData["info"]
-                </div>
-            }
-
-            @if (TempData["error"] != null)
-            {
-                <div class="alert alert-danger" role="alert">
-                    @TempData["error"]
-                </div>
-            }
+           
             <br />
         </form>
     </div>
