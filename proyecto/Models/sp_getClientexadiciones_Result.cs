@@ -11,9 +11,10 @@ namespace proyecto.Models
 {
     using System;
     
-    public partial class sp_helpdiagramdefinition_Result
+    public partial class sp_getClientexadiciones_Result
     {
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public int idAdicionesxCliente { get; set; }
+        public Nullable<int> idAdicion { get; set; }
+        public Nullable<int> idCliente { get; set; }
     }
 }
