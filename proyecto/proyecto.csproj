@@ -199,6 +199,12 @@
     <Compile Include="Models\sp_getAdicciones_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_getClientesDDL_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_getClientexadiciones_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_getCoberturaPolizasEditar_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -287,8 +293,9 @@
     <Content Include="Views\Adicciones\Index.cshtml" />
     <Content Include="Views\Adicciones\Create.cshtml" />
     <Content Include="Views\Adicciones\Editar.cshtml" />
-    <Content Include="Views\Clientes\Adicciones.cshtml" />
     <Content Include="Views\Clientes\InsertarAdiccion.cshtml" />
+    <Content Include="Views\Clientes\ClientesxAdicciones.cshtml" />
+    <Content Include="Views\Clientes\Comprar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
