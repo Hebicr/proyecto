@@ -75,7 +75,7 @@ namespace proyecto.Controllers
                 Nullable<int> myValue = db.sp_insertAdiccionCliente(Convert.ToInt32(newAdicion["idCliente"]), Convert.ToInt32(newAdicion["idAdiccion"]));
                 int result = myValue.Value;
                 if (result == -1) {
-                    ViewData["Error"] = "Adiccion Ya esta Agregada";
+                    //ViewData["Error"] = "Adiccion Ya esta Agregada";
                     TempData["Error"] = "Adiccion Ya esta Agregada";
                 }
 
@@ -88,7 +88,7 @@ namespace proyecto.Controllers
             }
             catch (Exception ex)
             {
-                ViewData["Error"] = "Ocurrio un Error al guardar el registro " + ex.Message;
+                //ViewData["Error"] = "Ocurrio un Error al guardar el registro " + ex.Message;
                 TempData["Error"] = "Ocurrio un Error al guardar el registro " + ex.Message;
                 return RedirectToAction("InsertarAdiccion", "Clientes");
             }
@@ -114,5 +114,13 @@ namespace proyecto.Controllers
                 return View();
             }
         }
+
+        //public ActionResult ReporteClientes() {
+        //    try { 
+                
+        //    } catch (Exception ex) {
+            
+        //    }
+        //}
     }
 }
