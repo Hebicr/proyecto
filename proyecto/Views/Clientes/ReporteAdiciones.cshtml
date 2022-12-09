@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "ReporteAdiciones";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ReporteAdiciones</h2>
+
+<div id="reporteAdicionesKendo">
+    $("#reporteAdicionesKendo").kendoGrid
+</div>
+
+
+@section scripts{
+    <script>
+        $("#divKendoGrid").kendoGrid({
+            dataSource: listaPersonas,///objeto de tipo lista
+            height: 550,
+            filterable: true,
+            columns: [
+                {
+                    field: "nombre",
+                    title: "Nombre"
+                },
+                {
+                    field: "apellido1",
+                    title: "Primer Apellido"
+                },
+                 {
+                    field: "apellido2",
+                    title: "Segundo Apellido"
+                },
+            ]
+    </script>
+}
