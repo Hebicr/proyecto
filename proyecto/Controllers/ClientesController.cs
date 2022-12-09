@@ -34,7 +34,7 @@ namespace proyecto.Controllers
 
             return RedirectToAction("", "");
         }
-            public ActionResult ClientesxAdicciones()
+        public ActionResult ClientesxAdicciones()
         {
 
             try
