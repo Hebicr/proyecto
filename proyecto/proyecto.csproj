@@ -393,7 +393,6 @@
     <Content Include="Views\Adicciones\Index.cshtml" />
     <Content Include="Views\Adicciones\Create.cshtml" />
     <Content Include="Views\Adicciones\Editar.cshtml" />
-    <Content Include="Views\Clientes\Adicciones.cshtml" />
     <Content Include="Views\Clientes\InsertarAdiccion.cshtml" />
     <Content Include="Views\Clientes\ReporteAdiciones.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
