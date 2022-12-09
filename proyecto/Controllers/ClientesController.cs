@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
 using System.Web;
 using System.Web.Mvc;
 using static System.Collections.Specialized.BitVector32;
@@ -11,6 +10,8 @@ namespace proyecto.Controllers
 {
     public class ClientesController : Controller
     {
+        // GET: Clientes
+
         ProyectoProgra6Entities db = new ProyectoProgra6Entities();
 
         public ActionResult Index()
@@ -18,73 +19,35 @@ namespace proyecto.Controllers
 
             return View();
         }
-        public ActionResult Comprar(int idCliente)
+        public ActionResult Adicciones()
         {
-            TempData["idCliente"] = idCliente;
-            List<CoberturaPolizas> coberturaList = db.CoberturaPolizas.ToList();
-            ViewBag.coberturas = new SelectList(coberturaList, "idCoberturaPoliza", "Nombre");
+
+            ViewBag.AdiccionesU = db.sp_getAdiccionesxClienteC((int)Session["usuario"]);
             return View();
+
         }
-
-        [HttpPost]
-        public ActionResult ComprarPoliza(FormCollection newPoliza)
+        public ActionResult InsertarAdiccion()
         {
-
-            ///Calculos 
-
-            return RedirectToAction("", "");
-        }
-            public ActionResult ClientesxAdicciones()
-        {
-
-            try
-            {
-                var clientesList = db.sp_getClientesDDL();
-                return View(clientesList);
-            }
-            catch (Exception ex)
-            {
-                return View(ex.Message);
-            }
-        }
-        public ActionResult InsertarAdiccion(int idCliente)
-        {
-            try
-            {
-                List<Adiciones> adiccionList = db.Adiciones.ToList();
-                TempData["idCliente"]= idCliente;
-                ViewBag.adiccionList = new SelectList(adiccionList, "idAdiccion", "Nombre");
-                ViewBag.AdiccionesU = db.sp_getAdiccionesxClienteC(idCliente);
-                return View();
-            }
-            catch (Exception ex)
-            {
-                ViewData["Error"] = "Ocurrio un Error" + ex.Message;
-                TempData["Error"] = "Ocurrio un Error" + ex.Message;
-                return RedirectToAction("InsertarAdiccion", "Clientes");
-            }
-
+            //var idUsuario = Session["usuario"];
+            List<Adiciones> adiccionList = db.Adiciones.ToList();
+            ViewBag.adiccionList = new SelectList(adiccionList, "idAdiccion", "Nombre");
+            ViewBag.AdiccionesU = db.sp_getAdiccionesxClienteC((int)Session["usuario"]);
+            return View();
         }
         [HttpPost]
         public ActionResult InsertarAdicciones(FormCollection newAdicion)
         {
-            int idCliente;
+            var id = Session["clientelogID"];
             try
             {
-                idCliente = Convert.ToInt32(newAdicion["idCliente"]);
-                Nullable<int> myValue = db.sp_insertAdiccionCliente(Convert.ToInt32(newAdicion["idCliente"]), Convert.ToInt32(newAdicion["idAdiccion"]));
+                Nullable<int> myValue = db.sp_insertAdiccionCliente((int)id ,Convert.ToInt32(newAdicion["idAdiccion"]));
                 int result = myValue.Value;
                 if (result == -1) {
                     //ViewData["Error"] = "Adiccion Ya esta Agregada";
                     TempData["Error"] = "Adiccion Ya esta Agregada";
                 }
-
-
-                List<Adiciones> adiccionList = db.Adiciones.ToList();
-                ViewBag.adiccionList = new SelectList(adiccionList, "idAdiccion", "Nombre");
-                ViewBag.AdiccionesU = db.sp_getAdiccionesxClienteC(idCliente);
-
-                return RedirectToAction("InsertarAdiccion", new { idCliente = idCliente });
+                //var result = db.sp_insertAdiccionCliente(idCliente, idAdicion);
+                return RedirectToAction("InsertarAdiccion", "Clientes");
             }
             catch (Exception ex)
             {
@@ -93,7 +56,6 @@ namespace proyecto.Controllers
                 return RedirectToAction("InsertarAdiccion", "Clientes");
             }
 
-
         }
 
         public ActionResult EliminarAdiccion(int idCliente,int idAdicion)
@@ -101,12 +63,7 @@ namespace proyecto.Controllers
             try
             {
                 db.sp_eliminarAdiccionCliente(idAdicion, idCliente);
-
-                List<Adiciones> adiccionList = db.Adiciones.ToList();
-                TempData["idCliente"] = idCliente;
-                ViewBag.adiccionList = new SelectList(adiccionList, "idAdiccion", "Nombre");
-                ViewBag.AdiccionesU = db.sp_getAdiccionesxClienteC(idCliente);
-                return RedirectToAction("InsertarAdiccion", new { idCliente = idCliente });
+                return RedirectToAction("InsertarAdiccion", "Clientes");
             }
             catch (Exception ex)
             {
