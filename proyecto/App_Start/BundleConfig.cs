@@ -6,6 +6,7 @@ namespace proyecto
     public class BundleConfig
     {
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
+        // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
@@ -24,7 +25,7 @@ namespace proyecto
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/Site.css"));
+                      "~/Content/site.css"));
         }
     }
 }
