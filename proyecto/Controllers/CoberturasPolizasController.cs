@@ -15,7 +15,7 @@ namespace ProyectoProgra6.Controllers
         //OBTENER UNA LISTA DE LAS COBERTURAS DE POLIZAS DISPONIBLES
         public ActionResult Index()
         {
-            var coberturas = db.sp_getClientesDDL();
+            var coberturas = db.sp_getCoberturaPolizas();
             return View(coberturas);
         }
         //VISTA PARA CREAR UNA NUEVA COBERTURA

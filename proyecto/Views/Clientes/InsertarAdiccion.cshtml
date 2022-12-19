@@ -1,97 +1,95 @@
 ﻿@model proyecto.Models.Adiciones
 @{
     ViewBag.Title = "InsertarAdiccion";
-    @*}
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
-
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
-
-<div class="container" style="height: auto; width: auto; text-align: center; padding-top: 50px; ">
-    <div style=" height: auto; width: 700px; margin: 0px auto; ">
-        <form id="" action="@Url.Action("InsertarAdicciones", "Clientes")" method="post">
-            <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                @Html.Label("Adicciones", "Adicciones", htmlAttributes: new { @class = "control-label col-xs-2 col-md-2" })
-                <div class="col-xs-5 col-md-5">
-                    @Html.DropDownListFor(model => model.idAdiccion, ViewBag.adiccionList as SelectList, "-- Seleccione la Adiccion --", new { @class = "form-control", @required = "required" })
-                    @Html.ValidationMessageFor(model => model.idAdiccion, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-xs-2 col-md-2">
-
-                    @Html.Hidden("idCliente", "idCliente", new { htmlAttributes = new { @class = "form-control", @required = "required", @Value = @TempData["idCliente"], @hidden = "hidden" } })
-                    @*<input type="submit" value="Agregar" onclick="INSERT(aux1)" class="btn btn-success" />*@
-                    <input type="submit" class="btn btn-success" value="Agregar" />
-                </div>
-            </div>
-        </form>
-    </div>
-    @*<button class="btn btn-success btn-sm" type="button" onclick="location.href='@Url.Action("Adicciones", "Clientes")'">Siguiente</button>*@
-  
-
-</div>
 }
 
-<div class="container">
-    <div class="row">
+    <body background="\img\Prueba.png" style="width:100%; height:100%; background-size: cover;">
 
-        <div class="table-responsive">
-            <table class="table caption-top table-sm">
-                <thead>
-                    <tr>
-                        <th scope="col">Codigo</th>
-                        <th scope="col">Nombre</th>
-                    </tr>
-                </thead>
-                <tbody>
+        <div class="container justify-content-center" style="height: 120px; width: 700px; text-align: center; background-color: white; padding-top: 50px; border-radius: 10px 10px ">
+            <div style=" height: auto; width: 700px; margin: 0px auto; ">
+                <form id="" action="@Url.Action("InsertarAdicciones", "Clientes")" method="post">
+                    <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                        @Html.Label("Adicciones", "Adicciones", htmlAttributes: new { @class = "control-label col-xs-2 col-md-2" })
+                        <div class="col-xs-5 col-md-5">
+                            @Html.DropDownListFor(model => model.idAdiccion, ViewBag.adiccionList as SelectList, "-- Seleccione la Adiccion --", new { @class = "form-control", @required = "required" })
+                            @Html.ValidationMessageFor(model => model.idAdiccion, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-xs-2 col-md-2">
 
-                    @foreach (var item in ViewBag.AdiccionesU)
-                    {
-                        <tr>
-                            <td>@item.Codigo)</td>
-                            <td>@item.Nombre</td>
-                            <td class="actions">
-                                <button class="btn btn-danger btn-sm" type="button" id="@item.idAdicion" onClick="DeleteElement(id,@item.idCliente)">Eliminar</button>
-                            </td>
-                        </tr>
+                            @Html.Hidden("idCliente", "idCliente", new { htmlAttributes = new { @class = "form-control", @required = "required", @Value = @TempData["idCliente"], @hidden = "hidden" } })
+                            <input type="submit" class="btn btn-success" value="Agregar" />
+                        </div>
+                    </div>
+                </form>
+            </div>
 
-                    }
-                </tbody>
-            </table>
+
         </div>
-        <button class="btn btn-primary btn-sm" type="button" onClick="Comprar(@TempData["idCliente"])">Comprar Poliza</button>
-    </div>
-    <div>
-        @if (ViewData["Mensaje"] != null)
-        {
-            <div class="alert alert-success" role="alert">
-                @ViewData["Mensaje"]
-            </div>
-        }
 
-        @if (ViewData["Error"] != null)
-        {
-            <div class="alert alert-danger" role="alert">
-                @ViewData["Error"]
-            </div>
-        }
 
-        @if (TempData["info"] != null)
-        {
-            <div class="alert alert-success" role="alert">
-                @TempData["info"]
-            </div>
-        }
+<div class="container justify-content-center" style="height: 500px; width: 700px; background-color:white; border-radius:10px 10px; margin-top:30px">
+    <div class="container" style="width:650px; height:450px">
+        <div class="row">
 
-        @if (TempData["error"] != null)
-        {
-            <div class="alert alert-danger" role="alert">
-                @TempData["error"]
+            <div class="table-responsive">
+                <table class="table caption-top table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">Codigo</th>
+                            <th scope="col">Nombre</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in ViewBag.AdiccionesU)
+                        {
+                            <tr>
+                                <td>@item.Codigo)</td>
+                                <td>@item.Nombre</td>
+                                <td class="actions">
+                                    <button class="btn btn-danger btn-sm" type="button" id="@item.idAdicion" onClick="DeleteElement(id,@item.idCliente)">Eliminar</button>
+                                </td>
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
             </div>
-        }
+            <button class="btn btn-primary btn-sm" style="margin-left:40%;" type="button" onClick="Comprar(@TempData["idCliente"])">Comprar Poliza</button>
+        </div>
+        <div>
+            @if (ViewData["Mensaje"] != null)
+            {
+                <div class="alert alert-success" role="alert">
+                    @ViewData["Mensaje"]
+                </div>
+            }
+
+            @if (ViewData["Error"] != null)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @ViewData["Error"]
+                </div>
+            }
+
+            @if (TempData["info"] != null)
+            {
+                <div class="alert alert-success" role="alert">
+                    @TempData["info"]
+                </div>
+            }
+
+            @if (TempData["error"] != null)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @TempData["error"]
+                </div>
+            }
+        </div>
     </div>
 </div>
 
+</body>
 @section scripts{
 
     <script type="text/javascript">
@@ -111,4 +109,8 @@
             location.href = url;
         }
     </script>
+
 }
+
+
+
