@@ -32,7 +32,6 @@
                     }
                 </tbody>
             </table>
-            @*@Html.ActionLink("Crear poliza nueva", "Create")*@
         </div>
     </div>
 </body>
@@ -40,7 +39,7 @@
     <script type="text/javascript">
         function edit(value) {
             debugger;
-            let url = '/Clientes/InsertarAdiccion?idCliente=' + value;
+            let url = '/Clientes/Comprar?idCliente=' + value;
             location.href = url;
         }
     </script>

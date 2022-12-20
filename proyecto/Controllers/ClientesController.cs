@@ -115,11 +115,24 @@ namespace proyecto.Controllers
             }
         }
 
+        public ActionResult RetornaPorcentaje(int idCoberturaPoliza)
+        {
+            try
+            {
+                List<sp_getCoberturaPorcentaje_Result> porcentaje = db.sp_getCoberturaPorcentaje(idCoberturaPoliza).ToList();
+                return Json(porcentaje, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                ViewData["Mensaje"] = "Ocurrio un Error a conseguir el porcentaje " + ex.Message;
+                return View();
+            }
+        }
         //public ActionResult ReporteClientes() {
         //    try { 
-                
+
         //    } catch (Exception ex) {
-            
+
         //    }
         //}
     }

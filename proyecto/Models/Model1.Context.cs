@@ -29,6 +29,7 @@ namespace proyecto.Models
     
         public virtual DbSet<Adiciones> Adiciones { get; set; }
         public virtual DbSet<AdicionesxCliente> AdicionesxCliente { get; set; }
+        public virtual DbSet<AdicionesxClienteCompradas> AdicionesxClienteCompradas { get; set; }
         public virtual DbSet<Canton> Canton { get; set; }
         public virtual DbSet<Clientes> Clientes { get; set; }
         public virtual DbSet<CoberturaPolizas> CoberturaPolizas { get; set; }
@@ -236,6 +237,15 @@ namespace proyecto.Models
                 new ObjectParameter("idCoberturaPoliza", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_getCoberturaPolizasEditar_Result>("sp_getCoberturaPolizasEditar", idCoberturaPolizaParameter);
+        }
+    
+        public virtual ObjectResult<sp_getCoberturaPorcentaje_Result> sp_getCoberturaPorcentaje(Nullable<int> idCoberturaPoliza)
+        {
+            var idCoberturaPolizaParameter = idCoberturaPoliza.HasValue ?
+                new ObjectParameter("idCoberturaPoliza", idCoberturaPoliza) :
+                new ObjectParameter("idCoberturaPoliza", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_getCoberturaPorcentaje_Result>("sp_getCoberturaPorcentaje", idCoberturaPolizaParameter);
         }
     
         public virtual int sp_helpdiagramdefinition(string diagramname, Nullable<int> owner_id)

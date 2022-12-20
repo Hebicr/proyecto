@@ -14,6 +14,12 @@ namespace proyecto.Models
     
     public partial class RegistrosPolizas
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public RegistrosPolizas()
+        {
+            this.AdicionesxClienteCompradas = new HashSet<AdicionesxClienteCompradas>();
+        }
+    
         public int idRegistroPoliza { get; set; }
         public int idCoberturaPoliza { get; set; }
         public int idCliente { get; set; }
@@ -25,6 +31,8 @@ namespace proyecto.Models
         public Nullable<decimal> impuestos { get; set; }
         public Nullable<decimal> primaFinal { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AdicionesxClienteCompradas> AdicionesxClienteCompradas { get; set; }
         public virtual Clientes Clientes { get; set; }
         public virtual CoberturaPolizas CoberturaPolizas { get; set; }
     }

@@ -21,6 +21,15 @@
           <Property Name="idAdicion" Type="int" />
           <Property Name="idCliente" Type="int" />
         </EntityType>
+        <EntityType Name="AdicionesxClienteCompradas">
+          <Key>
+            <PropertyRef Name="idAdicionesxClienteComprada" />
+          </Key>
+          <Property Name="idAdicionesxClienteComprada" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idAdicion" Type="int" />
+          <Property Name="idCliente" Type="int" />
+          <Property Name="idRegistroPoliza" Type="int" />
+        </EntityType>
         <EntityType Name="Canton">
           <Key>
             <PropertyRef Name="id_Canton" />
@@ -163,6 +172,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_Adiccion">
+          <End Role="Adiciones" Type="Self.Adiciones" Multiplicity="0..1" />
+          <End Role="AdicionesxClienteCompradas" Type="Self.AdicionesxClienteCompradas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Adiciones">
+              <PropertyRef Name="idAdiccion" />
+            </Principal>
+            <Dependent Role="AdicionesxClienteCompradas">
+              <PropertyRef Name="idAdicion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_AdicionxCliente">
           <End Role="Adiciones" Type="Self.Adiciones" Multiplicity="0..1" />
           <End Role="AdicionesxCliente" Type="Self.AdicionesxCliente" Multiplicity="*" />
@@ -183,6 +204,18 @@
               <PropertyRef Name="idCliente" />
             </Principal>
             <Dependent Role="AdicionesxCliente">
+              <PropertyRef Name="idCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Cliente">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
+          <End Role="AdicionesxClienteCompradas" Type="Self.AdicionesxClienteCompradas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="idCliente" />
+            </Principal>
+            <Dependent Role="AdicionesxClienteCompradas">
               <PropertyRef Name="idCliente" />
             </Dependent>
           </ReferentialConstraint>
@@ -244,6 +277,18 @@
             </Principal>
             <Dependent Role="Clientes">
               <PropertyRef Name="id_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Poliza">
+          <End Role="RegistrosPolizas" Type="Self.RegistrosPolizas" Multiplicity="0..1" />
+          <End Role="AdicionesxClienteCompradas" Type="Self.AdicionesxClienteCompradas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RegistrosPolizas">
+              <PropertyRef Name="idRegistroPoliza" />
+            </Principal>
+            <Dependent Role="AdicionesxClienteCompradas">
+              <PropertyRef Name="idRegistroPoliza" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -348,6 +393,9 @@
         <Function Name="sp_getCoberturaPolizasEditar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idCoberturaPoliza" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_getCoberturaPorcentaje" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idCoberturaPoliza" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -413,6 +461,7 @@
         <EntityContainer Name="ProyectoProgra6ModelStoreContainer">
           <EntitySet Name="Adiciones" EntityType="Self.Adiciones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AdicionesxCliente" EntityType="Self.AdicionesxCliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AdicionesxClienteCompradas" EntityType="Self.AdicionesxClienteCompradas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Canton" EntityType="Self.Canton" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CoberturaPolizas" EntityType="Self.CoberturaPolizas" Schema="dbo" store:Type="Tables" />
@@ -431,6 +480,10 @@
             <End Role="Canton" EntitySet="Canton" />
             <End Role="Distrito" EntitySet="Distrito" />
           </AssociationSet>
+          <AssociationSet Name="fk_Adiccion" Association="Self.fk_Adiccion">
+            <End Role="Adiciones" EntitySet="Adiciones" />
+            <End Role="AdicionesxClienteCompradas" EntitySet="AdicionesxClienteCompradas" />
+          </AssociationSet>
           <AssociationSet Name="fk_AdicionxCliente" Association="Self.fk_AdicionxCliente">
             <End Role="Adiciones" EntitySet="Adiciones" />
             <End Role="AdicionesxCliente" EntitySet="AdicionesxCliente" />
@@ -438,6 +491,10 @@
           <AssociationSet Name="fk_AdicionxCliente3" Association="Self.fk_AdicionxCliente3">
             <End Role="Clientes" EntitySet="Clientes" />
             <End Role="AdicionesxCliente" EntitySet="AdicionesxCliente" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Cliente" Association="Self.fk_Cliente">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="AdicionesxClienteCompradas" EntitySet="AdicionesxClienteCompradas" />
           </AssociationSet>
           <AssociationSet Name="fk_ClienteCan" Association="Self.fk_ClienteCan">
             <End Role="Canton" EntitySet="Canton" />
@@ -458,6 +515,10 @@
           <AssociationSet Name="fk_ClienteUsuario" Association="Self.fk_ClienteUsuario">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="Clientes" EntitySet="Clientes" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Poliza" Association="Self.fk_Poliza">
+            <End Role="RegistrosPolizas" EntitySet="RegistrosPolizas" />
+            <End Role="AdicionesxClienteCompradas" EntitySet="AdicionesxClienteCompradas" />
           </AssociationSet>
           <AssociationSet Name="fk_registrosClientes" Association="Self.fk_registrosClientes">
             <End Role="Clientes" EntitySet="Clientes" />
@@ -484,6 +545,7 @@
           <Property Name="idAdiccion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Codigo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AdicionesxClienteCompradas" Relationship="Self.fk_Adiccion" FromRole="Adiciones" ToRole="AdicionesxClienteCompradas" />
           <NavigationProperty Name="AdicionesxCliente" Relationship="Self.fk_AdicionxCliente" FromRole="Adiciones" ToRole="AdicionesxCliente" />
         </EntityType>
         <EntityType Name="AdicionesxCliente">
@@ -495,6 +557,18 @@
           <Property Name="idCliente" Type="Int32" />
           <NavigationProperty Name="Adiciones" Relationship="Self.fk_AdicionxCliente" FromRole="AdicionesxCliente" ToRole="Adiciones" />
           <NavigationProperty Name="Clientes" Relationship="Self.fk_AdicionxCliente3" FromRole="AdicionesxCliente" ToRole="Clientes" />
+        </EntityType>
+        <EntityType Name="AdicionesxClienteCompradas">
+          <Key>
+            <PropertyRef Name="idAdicionesxClienteComprada" />
+          </Key>
+          <Property Name="idAdicionesxClienteComprada" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idAdicion" Type="Int32" />
+          <Property Name="idCliente" Type="Int32" />
+          <Property Name="idRegistroPoliza" Type="Int32" />
+          <NavigationProperty Name="Adiciones" Relationship="Self.fk_Adiccion" FromRole="AdicionesxClienteCompradas" ToRole="Adiciones" />
+          <NavigationProperty Name="Clientes" Relationship="Self.fk_Cliente" FromRole="AdicionesxClienteCompradas" ToRole="Clientes" />
+          <NavigationProperty Name="RegistrosPolizas" Relationship="Self.fk_Poliza" FromRole="AdicionesxClienteCompradas" ToRole="RegistrosPolizas" />
         </EntityType>
         <EntityType Name="Canton">
           <Key>
@@ -533,6 +607,7 @@
           <Property Name="id_Distrito" Type="Int32" Nullable="false" />
           <Property Name="id_Usuario" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AdicionesxCliente" Relationship="Self.fk_AdicionxCliente3" FromRole="Clientes" ToRole="AdicionesxCliente" />
+          <NavigationProperty Name="AdicionesxClienteCompradas" Relationship="Self.fk_Cliente" FromRole="Clientes" ToRole="AdicionesxClienteCompradas" />
           <NavigationProperty Name="Canton" Relationship="Self.fk_ClienteCan" FromRole="Clientes" ToRole="Canton" />
           <NavigationProperty Name="Distrito" Relationship="Self.fk_ClienteDis" FromRole="Clientes" ToRole="Distrito" />
           <NavigationProperty Name="Provincia" Relationship="Self.fk_ClientePro" FromRole="Clientes" ToRole="Provincia" />
@@ -602,6 +677,7 @@
           <Property Name="primaAntesImpuestos" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="impuestos" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="primaFinal" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="AdicionesxClienteCompradas" Relationship="Self.fk_Poliza" FromRole="RegistrosPolizas" ToRole="AdicionesxClienteCompradas" />
           <NavigationProperty Name="Clientes" Relationship="Self.fk_registrosClientes" FromRole="RegistrosPolizas" ToRole="Clientes" />
           <NavigationProperty Name="CoberturaPolizas" Relationship="Self.fk_registrosCoberturas" FromRole="RegistrosPolizas" ToRole="CoberturaPolizas" />
         </EntityType>
@@ -635,6 +711,18 @@
           <NavigationProperty Name="Clientes" Relationship="Self.fk_ClienteUsuario" FromRole="Usuarios" ToRole="Clientes" />
           <NavigationProperty Name="Roles" Relationship="Self.FK_Usuarios_Roles" FromRole="Usuarios" ToRole="Roles" />
         </EntityType>
+        <Association Name="fk_Adiccion">
+          <End Role="Adiciones" Type="Self.Adiciones" Multiplicity="0..1" />
+          <End Role="AdicionesxClienteCompradas" Type="Self.AdicionesxClienteCompradas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Adiciones">
+              <PropertyRef Name="idAdiccion" />
+            </Principal>
+            <Dependent Role="AdicionesxClienteCompradas">
+              <PropertyRef Name="idAdicion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_AdicionxCliente">
           <End Role="Adiciones" Type="Self.Adiciones" Multiplicity="0..1" />
           <End Role="AdicionesxCliente" Type="Self.AdicionesxCliente" Multiplicity="*" />
@@ -656,6 +744,30 @@
             </Principal>
             <Dependent Role="AdicionesxCliente">
               <PropertyRef Name="idCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Cliente">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
+          <End Role="AdicionesxClienteCompradas" Type="Self.AdicionesxClienteCompradas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="idCliente" />
+            </Principal>
+            <Dependent Role="AdicionesxClienteCompradas">
+              <PropertyRef Name="idCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Poliza">
+          <End Role="RegistrosPolizas" Type="Self.RegistrosPolizas" Multiplicity="0..1" />
+          <End Role="AdicionesxClienteCompradas" Type="Self.AdicionesxClienteCompradas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RegistrosPolizas">
+              <PropertyRef Name="idRegistroPoliza" />
+            </Principal>
+            <Dependent Role="AdicionesxClienteCompradas">
+              <PropertyRef Name="idRegistroPoliza" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -782,6 +894,7 @@
         <EntityContainer Name="ProyectoProgra6Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Adiciones" EntityType="Self.Adiciones" />
           <EntitySet Name="AdicionesxCliente" EntityType="Self.AdicionesxCliente" />
+          <EntitySet Name="AdicionesxClienteCompradas" EntityType="Self.AdicionesxClienteCompradas" />
           <EntitySet Name="Canton" EntityType="Self.Canton" />
           <EntitySet Name="Clientes" EntityType="Self.Clientes" />
           <EntitySet Name="CoberturaPolizas" EntityType="Self.CoberturaPolizas" />
@@ -792,6 +905,10 @@
           <EntitySet Name="Roles" EntityType="Self.Roles" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
+          <AssociationSet Name="fk_Adiccion" Association="Self.fk_Adiccion">
+            <End Role="Adiciones" EntitySet="Adiciones" />
+            <End Role="AdicionesxClienteCompradas" EntitySet="AdicionesxClienteCompradas" />
+          </AssociationSet>
           <AssociationSet Name="fk_AdicionxCliente" Association="Self.fk_AdicionxCliente">
             <End Role="Adiciones" EntitySet="Adiciones" />
             <End Role="AdicionesxCliente" EntitySet="AdicionesxCliente" />
@@ -799,6 +916,14 @@
           <AssociationSet Name="fk_AdicionxCliente3" Association="Self.fk_AdicionxCliente3">
             <End Role="Clientes" EntitySet="Clientes" />
             <End Role="AdicionesxCliente" EntitySet="AdicionesxCliente" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Cliente" Association="Self.fk_Cliente">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="AdicionesxClienteCompradas" EntitySet="AdicionesxClienteCompradas" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Poliza" Association="Self.fk_Poliza">
+            <End Role="RegistrosPolizas" EntitySet="RegistrosPolizas" />
+            <End Role="AdicionesxClienteCompradas" EntitySet="AdicionesxClienteCompradas" />
           </AssociationSet>
           <AssociationSet Name="Canton_ref_Provincia" Association="Self.Canton_ref_Provincia">
             <End Role="Provincia" EntitySet="Provincia" />
@@ -898,6 +1023,9 @@
           <FunctionImport Name="sp_getClientesDDL" ReturnType="Collection(ProyectoProgra6Model.sp_getClientesDDL_Result)" />
           <FunctionImport Name="sp_getCoberturaPolizas" ReturnType="Collection(ProyectoProgra6Model.sp_getCoberturaPolizas_Result)" />
           <FunctionImport Name="sp_getCoberturaPolizasEditar" ReturnType="Collection(ProyectoProgra6Model.sp_getCoberturaPolizasEditar_Result)">
+            <Parameter Name="idCoberturaPoliza" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_getCoberturaPorcentaje" ReturnType="Collection(ProyectoProgra6Model.sp_getCoberturaPorcentaje_Result)">
             <Parameter Name="idCoberturaPoliza" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_helpdiagramdefinition">
@@ -1030,6 +1158,12 @@
           <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="50" />
           <Property Type="Decimal" Name="Porcentaje" Nullable="true" Precision="18" Scale="0" />
         </ComplexType>
+        <ComplexType Name="sp_getCoberturaPorcentaje_Result">
+          <Property Type="Int32" Name="idCoberturaPoliza" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="Porcentaje" Nullable="true" Precision="18" Scale="0" />
+        </ComplexType>
         <ComplexType Name="sp_Inserta_Clientes_Result">
           <Property Type="String" Name="usuario" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="contrasena" Nullable="false" MaxLength="50" />
@@ -1081,6 +1215,16 @@
                 <ScalarProperty Name="idAdicionesxCliente" ColumnName="idAdicionesxCliente" />
                 <ScalarProperty Name="idAdicion" ColumnName="idAdicion" />
                 <ScalarProperty Name="idCliente" ColumnName="idCliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AdicionesxClienteCompradas">
+            <EntityTypeMapping TypeName="ProyectoProgra6Model.AdicionesxClienteCompradas">
+              <MappingFragment StoreEntitySet="AdicionesxClienteCompradas">
+                <ScalarProperty Name="idAdicionesxClienteComprada" ColumnName="idAdicionesxClienteComprada" />
+                <ScalarProperty Name="idAdicion" ColumnName="idAdicion" />
+                <ScalarProperty Name="idCliente" ColumnName="idCliente" />
+                <ScalarProperty Name="idRegistroPoliza" ColumnName="idRegistroPoliza" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1317,6 +1461,16 @@
           <FunctionImportMapping FunctionImportName="sp_getCoberturaPolizasEditar" FunctionName="ProyectoProgra6Model.Store.sp_getCoberturaPolizasEditar">
             <ResultMapping>
               <ComplexTypeMapping TypeName="ProyectoProgra6Model.sp_getCoberturaPolizasEditar_Result">
+                <ScalarProperty Name="idCoberturaPoliza" ColumnName="idCoberturaPoliza" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Porcentaje" ColumnName="Porcentaje" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_getCoberturaPorcentaje" FunctionName="ProyectoProgra6Model.Store.sp_getCoberturaPorcentaje">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ProyectoProgra6Model.sp_getCoberturaPorcentaje_Result">
                 <ScalarProperty Name="idCoberturaPoliza" ColumnName="idCoberturaPoliza" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />

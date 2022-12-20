@@ -17,6 +17,7 @@ namespace proyecto.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Adiciones()
         {
+            this.AdicionesxClienteCompradas = new HashSet<AdicionesxClienteCompradas>();
             this.AdicionesxCliente = new HashSet<AdicionesxCliente>();
         }
     
@@ -24,6 +25,8 @@ namespace proyecto.Models
         public string Nombre { get; set; }
         public string Codigo { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AdicionesxClienteCompradas> AdicionesxClienteCompradas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AdicionesxCliente> AdicionesxCliente { get; set; }
     }
