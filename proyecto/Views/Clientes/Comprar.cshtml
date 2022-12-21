@@ -10,76 +10,87 @@
     {
         @Html.AntiForgeryToken()
 
-        <div class="container justify-content-center" style="height: 670px; width: 350px; background-color: white; padding-top: 50px; border-radius: 10px 10px ">
-            <div class="form-horizontal">
+        <div class="container" style="background-color: white; border-radius:5px 5px">
+            <div class="form-horizontal form-group-sm col-md-12">
                 <div class="text-center">
                     <h4>Compra Polizas</h4>
                 </div>
                 <br />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                @Html.Hidden("idCliente", "idCliente", new { htmlAttributes = new { @class = "form-control", @required = "required", @Value = @TempData["idCliente"], @hidden = "hidden" } })
 
-                <div class="form-group">
-                    <div class="col-md-10">
-                        Cobertura:
-                        @Html.DropDownListFor(model => model.idCoberturaPoliza, ViewBag.coberturas as SelectList, "-- Seleccione una Cobertura --", new { @class = "form-control", @required = "required" })
-                        @Html.ValidationMessageFor(model => model.idCoberturaPoliza, "", new { @class = "text-danger" })
-                    </div>
+            <div class="form-group col-xs-12 col-md-6">
+                @Html.Label("idCliete:", "idCliete:", htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.Editor("idCliente", "idCliente", new { htmlAttributes = new { @class = "form-control", @required = "required", @Value = @TempData["idCliente"], @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.idCoberturaPoliza, "", new { @class = "text-danger" })
                 </div>
-                @Html.Hidden("Porcentaje", new { htmlAttributes = new { @class = "form-control", @required = "required", @readonly = "readonly" } })
-                <div class="form-group">
+            </div>
 
 
-                    <div class="col-md-10">
-                        Monto Asegurado:
-                        @Html.EditorFor(model => model.montoAsegurado, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.montoAsegurado, "", new { @class = "text-danger" })
-                    </div>
+            <div class="form-group col-xs-12 col-md-6">
+                @Html.Label("Cobertura:", "Cobertura:", htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.DropDownListFor(model => model.idCoberturaPoliza, ViewBag.coberturas as SelectList, "-- Seleccione una Cobertura --", new { @class = "form-control", @required = "required" })
+                    @Html.ValidationMessageFor(model => model.idCoberturaPoliza, "", new { @class = "text-danger" })
                 </div>
-                <div class="form-group">
+            </div>
 
-                    <div class="col-md-10">
-                        Número adiciones:
-                        @Html.EditorFor(model => model.numeroAdiciones, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.numeroAdiciones, "", new { @class = "text-danger" })
-                    </div>
+            <div class="form-group col-xs-12 col-md-6">
+                @Html.Label("Porcentaje %:", "Porcentaje %:", htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.Editor("Porcentaje", new { htmlAttributes = new { @class = "form-control", @required = "required", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.idCoberturaPoliza, "", new { @class = "text-danger" })
                 </div>
-                <div class="form-group">
+            </div>
+            <div class="form-group col-xs-12 col-md-6">
+                @Html.Label("Monto Asegurado:", "Monto Asegurado:", htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.montoAsegurado, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.montoAsegurado, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-                    <div class="col-md-10">
-                        Monto adicciones:
-                        @Html.EditorFor(model => model.montoAdiciones, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.montoAdiciones, "", new { @class = "text-danger" })
-                    </div>
+            <div class="form-group col-xs-12 col-md-6">
+                @Html.Label("Número adiciones:", "Número adiciones:", htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.Editor("cantAdiciones1", "cantAdiciones1", new { htmlAttributes = new { @class = "form-control", @Value = Convert.ToInt32(@ViewBag.cantAdiciones), @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.numeroAdiciones, "", new { @class = "text-danger" })
                 </div>
-                <div class="form-group">
-
-                    <div class="col-md-10">
-                        Prima Antes:
-                        @Html.EditorFor(model => model.primaAntesImpuestos, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.primaAntesImpuestos, "", new { @class = "text-danger" })
-                    </div>
+            </div>
+            <div class="form-group col-xs-12 col-md-6">
+                @Html.Label("Monto adicciones:", "Monto adicciones:", htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.montoAdiciones, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.montoAdiciones, "", new { @class = "text-danger" })
                 </div>
-                <div class="form-group">
-
-                    <div class="col-md-10">
-                        Impuestos:
-                        @Html.EditorFor(model => model.impuestos, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.impuestos, "", new { @class = "text-danger" })
-                    </div>
+            </div>
+            <div class="form-group  col-xs-12 col-md-6">
+                @Html.Label("Prima Antes:", "Prima Antes:", htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.primaAntesImpuestos, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.primaAntesImpuestos, "", new { @class = "text-danger" })
                 </div>
-                <div class="form-group">
-
-                    <div class="col-md-10">
-                        Prima final:
-                        @Html.EditorFor(model => model.primaFinal, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.primaFinal, "", new { @class = "text-danger" })
-                    </div>
+            </div>
+            <div class="form-group col-xs-12 col-md-6">
+                @Html.Label("Impuestos:", "Impuestos:", htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8"> 
+                    @Html.EditorFor(model => model.impuestos, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.impuestos, "", new { @class = "text-danger" })
                 </div>
+            </div>
+            <div class="form-group col-xs-12 col-md-6">
+                @Html.Label("Prima final:", "Prima final:", htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.primaFinal, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.primaFinal, "", new { @class = "text-danger" })
+                </div>
+            </div>
                 <br />
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" style="float:right" value="Comprar" class="btn btn-primary" />
+                <div class="form-group col-xs-12 col-md-12">
+                    <div class="col-md-7">
+                        <input type="submit" style="float:right; margin-left:20px" value="Comprar" class="btn btn-success" />
+                        <input type="button" style="float:right" value="Cancelar" class="btn btn-danger" onclick="location.href='@Url.Action("ClientesxPolizas","Clientes")';" />
+
                     </div>
                 </div>
             </div>
@@ -102,6 +113,8 @@
                         }
                     )
                 });
+                var x = $("#cantAdiciones2").val();
+                $("#cantAdiciones").val(x);
             });
         </script>
     }

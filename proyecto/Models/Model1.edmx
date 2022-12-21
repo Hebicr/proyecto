@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ProyectoProgra6Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ProyectoProgra6Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Adiciones">
           <Key>
             <PropertyRef Name="idAdiccion" />
@@ -412,6 +412,9 @@
         <Function Name="sp_Seleccionar_Cliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id_usuario" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_Selecionar_Cantidad_Adiciones_Cliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idCliente" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="ProyectoProgra6ModelStoreContainer">
           <EntitySet Name="Adiciones" EntityType="Self.Adiciones" Schema="dbo" store:Type="Tables" />
@@ -475,8 +478,7 @@
             <End Role="Usuarios" EntitySet="Usuarios" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ProyectoProgra6Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -848,10 +850,10 @@
             <Parameter Name="id_Provincia" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="RetornaCantonesID" ReturnType="Collection(ProyectoProgra6Model.RetornaCantonesID_Result)">
-            <Parameter Name="id_Canton" Mode="In" Type="Int32" />
+          <Parameter Name="id_Canton" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="RetornaProvincias" ReturnType="Collection(ProyectoProgra6Model.RetornaProvincias_Result)">
-            <Parameter Name="nombre" Mode="In" Type="String" />
+          <Parameter Name="nombre" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_AgregarAdiccion">
             <Parameter Name="Nombre" Mode="In" Type="String" />
@@ -879,32 +881,32 @@
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_EliminaCanton">
-            <Parameter Name="id_Canton" Mode="In" Type="Int32" />
+          <Parameter Name="id_Canton" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_eliminarAdiccion">
-            <Parameter Name="idAdiccion" Mode="In" Type="Int32" />
+          <Parameter Name="idAdiccion" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_eliminarAdiccionCliente">
             <Parameter Name="idAdiccion" Mode="In" Type="Int32" />
             <Parameter Name="idCliente" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_eliminarCobertura">
-            <Parameter Name="idCoberturaPoliza" Mode="In" Type="Int32" />
+          <Parameter Name="idCoberturaPoliza" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_getAdiccionEditar" ReturnType="Collection(ProyectoProgra6Model.sp_getAdiccionEditar_Result)">
-            <Parameter Name="idAdiccion" Mode="In" Type="Int32" />
+          <Parameter Name="idAdiccion" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_getAdicciones" ReturnType="Collection(ProyectoProgra6Model.sp_getAdicciones_Result)" />
           <FunctionImport Name="sp_getAdiccionesxClienteC" ReturnType="Collection(ProyectoProgra6Model.sp_getAdiccionesxClienteC_Result)">
-            <Parameter Name="idCliente" Mode="In" Type="Int32" />
+          <Parameter Name="idCliente" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_getClientesDDL" ReturnType="Collection(ProyectoProgra6Model.sp_getClientesDDL_Result)" />
           <FunctionImport Name="sp_getCoberturaPolizas" ReturnType="Collection(ProyectoProgra6Model.sp_getCoberturaPolizas_Result)" />
           <FunctionImport Name="sp_getCoberturaPolizasEditar" ReturnType="Collection(ProyectoProgra6Model.sp_getCoberturaPolizasEditar_Result)">
-            <Parameter Name="idCoberturaPoliza" Mode="In" Type="Int32" />
+          <Parameter Name="idCoberturaPoliza" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_getCoberturaPorcentaje" ReturnType="Collection(ProyectoProgra6Model.sp_getCoberturaPorcentaje_Result)">
-            <Parameter Name="idCoberturaPoliza" Mode="In" Type="Int32" />
+          <Parameter Name="idCoberturaPoliza" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(ProyectoProgra6Model.sp_helpdiagramdefinition_Result)">
             <Parameter Name="diagramname" Mode="In" Type="String" />
@@ -965,9 +967,12 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_Seleccionar_Cliente" ReturnType="Collection(ProyectoProgra6Model.sp_Seleccionar_Cliente_Result)">
-            <Parameter Name="id_usuario" Mode="In" Type="Int32" />
+          <Parameter Name="id_usuario" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
+          <FunctionImport Name="sp_Selecionar_Cantidad_Adiciones_Cliente" ReturnType="Collection(Int32)">
+            <Parameter Name="idCliente" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="RetornaCantones_Result">
           <Property Type="Int32" Name="id_Canton" Nullable="false" />
@@ -1422,6 +1427,7 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="ProyectoProgra6Model.Store.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="sp_Selecionar_Cantidad_Adiciones_Cliente" FunctionName="ProyectoProgra6Model.Store.sp_Selecionar_Cantidad_Adiciones_Cliente" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

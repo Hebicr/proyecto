@@ -4,8 +4,8 @@
 
 
 <body background="\img\Prueba.png" style="width:100%; height:100%; background-size: cover;">
-    <div class="row">
-        <div class="container justify-content-center" style="height: 700px; width: 300px; background-color: white; border-radius: 10px 10px; margin-left:500px ">
+    <div class="row col-md-12">
+        <div class="container col-md-4" style="background-color: white; border-radius: 10px 10px; ">
 
             <div class=" text-center">
                 <h2>Contáctenos</h2>
@@ -23,18 +23,19 @@
                 <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
                 <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
             </address>
+            <audio controls="controls">
+                <source src="~/img/Audio.mp3" type="audio/mpeg" />
+            </audio>
         </div>
-        <div class="container justify-content-center" style="height: 700px; width: 500px; background-color: white; border-radius: 10px 10px; margin-right:500px ">
+        <div class="container col-md-6" style="background-color: white; border-radius: 10px 10px;">
             <div class=" text-center">
-                <h2>Video:</h2>
+                <h4>Video:</h4>
                 <br />
-                <iframe width="400" height="400" src="https://www.youtube.com/embed/a1KUiMv0BDk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe width="300" height="300" src="https://www.youtube.com/embed/a1KUiMv0BDk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 <br />
-                <h2>Audio:</h2>
+                <h4>Audio:</h4>
                 <br />
-                    <audio controls="controls">
-                        <source src="~/img/Audio.mp3" type="audio/mpeg" />
-                    </audio>
+                    
             </div>
         </div>
     </div>

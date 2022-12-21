@@ -21,6 +21,8 @@ namespace proyecto.Controllers
         public ActionResult Comprar(int idCliente)
         {
             TempData["idCliente"] = idCliente;
+            var cantAdiciones = db.sp_Selecionar_Cantidad_Adiciones_Cliente(idCliente).ToList();
+            ViewBag.cantAdiciones = cantAdiciones[0];
             List<CoberturaPolizas> coberturaList = db.CoberturaPolizas.ToList();
             ViewBag.coberturas = new SelectList(coberturaList, "idCoberturaPoliza", "Nombre");
             return View();
