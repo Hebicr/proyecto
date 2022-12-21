@@ -10,9 +10,8 @@
 namespace proyecto.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class RegistrosPolizas
+    public partial class sp_getPolizasxCliente_Result
     {
         public int idRegistroPoliza { get; set; }
         public int idCoberturaPoliza { get; set; }
@@ -24,8 +23,5 @@ namespace proyecto.Models
         public Nullable<decimal> primaAntesImpuestos { get; set; }
         public Nullable<decimal> impuestos { get; set; }
         public Nullable<decimal> primaFinal { get; set; }
-    
-        public virtual Clientes Clientes { get; set; }
-        public virtual CoberturaPolizas CoberturaPolizas { get; set; }
     }
 }

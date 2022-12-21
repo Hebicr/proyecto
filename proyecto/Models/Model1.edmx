@@ -351,6 +351,12 @@
         <Function Name="sp_getCoberturaPorcentaje" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idCoberturaPoliza" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_getInformacion_Cliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idCliente" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_getPolizasxCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idCliente" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -427,6 +433,8 @@
           <Parameter Name="idCliente" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_Selecionar_Polizas_Admin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_Selecionar_Polizas_Admin_Detalles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_Selecionar_Polizas_Admin_Detalles_Id" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="ProyectoProgra6ModelStoreContainer">
           <EntitySet Name="Adiciones" EntityType="Self.Adiciones" Schema="dbo" store:Type="Tables" />
@@ -920,6 +928,12 @@
           <FunctionImport Name="sp_getCoberturaPorcentaje" ReturnType="Collection(ProyectoProgra6Model.sp_getCoberturaPorcentaje_Result)">
           <Parameter Name="idCoberturaPoliza" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="sp_getInformacion_Cliente" ReturnType="Collection(ProyectoProgra6Model.sp_getInformacion_Cliente_Result)">
+          <Parameter Name="idCliente" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_getPolizasxCliente" ReturnType="Collection(ProyectoProgra6Model.sp_getPolizasxCliente_Result)">
+          <Parameter Name="idCliente" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(ProyectoProgra6Model.sp_helpdiagramdefinition_Result)">
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
@@ -952,6 +966,17 @@
             <Parameter Name="idCliente" Mode="In" Type="Int32" />
             <Parameter Name="idAdicion" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="sp_Insertar_Polizas">
+            <Parameter Name="idCoberturaPoliza" Mode="In" Type="Int32" />
+            <Parameter Name="idCliente" Mode="In" Type="Int32" />
+            <Parameter Name="montoAsegurado" Mode="In" Type="Decimal" />
+            <Parameter Name="porcentajeCobertura" Mode="In" Type="Decimal" />
+            <Parameter Name="numeroAdiciones" Mode="In" Type="Int32" />
+            <Parameter Name="montoAdiciones" Mode="In" Type="Int32" />
+            <Parameter Name="primaAntesImpuestos" Mode="In" Type="Decimal" />
+            <Parameter Name="impuestos" Mode="In" Type="Decimal" />
+            <Parameter Name="primaFinal" Mode="In" Type="Decimal" />
+          </FunctionImport>
           <FunctionImport Name="sp_Login" ReturnType="Collection(Int32)">
             <Parameter Name="usuario" Mode="In" Type="String" />
             <Parameter Name="contrasena" Mode="In" Type="String" />
@@ -981,22 +1006,14 @@
           <FunctionImport Name="sp_Seleccionar_Cliente" ReturnType="Collection(ProyectoProgra6Model.sp_Seleccionar_Cliente_Result)">
           <Parameter Name="id_usuario" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="sp_upgraddiagrams" />
           <FunctionImport Name="sp_Selecionar_Cantidad_Adiciones_Cliente" ReturnType="Collection(Int32)">
           <Parameter Name="idCliente" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="sp_Insertar_Polizas">
-            <Parameter Name="idCoberturaPoliza" Mode="In" Type="Int32" />
-            <Parameter Name="idCliente" Mode="In" Type="Int32" />
-            <Parameter Name="montoAsegurado" Mode="In" Type="Decimal" />
-            <Parameter Name="porcentajeCobertura" Mode="In" Type="Decimal" />
-            <Parameter Name="numeroAdiciones" Mode="In" Type="Int32" />
-            <Parameter Name="montoAdiciones" Mode="In" Type="Int32" />
-            <Parameter Name="primaAntesImpuestos" Mode="In" Type="Decimal" />
-            <Parameter Name="impuestos" Mode="In" Type="Decimal" />
-            <Parameter Name="primaFinal" Mode="In" Type="Decimal" />
-          </FunctionImport>
           <FunctionImport Name="sp_Selecionar_Polizas_Admin" ReturnType="Collection(ProyectoProgra6Model.sp_Selecionar_Polizas_Admin_Result)" />
+          <FunctionImport Name="sp_Selecionar_Polizas_Admin_Detalles" ReturnType="Collection(ProyectoProgra6Model.sp_Selecionar_Polizas_Admin_Detalles_Result)" />
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <FunctionImport Name="sp_Selecionar_Polizas_Admin_Detalles_Id" ReturnType="Collection(ProyectoProgra6Model.sp_Selecionar_Polizas_Admin_Detalles_Id_Result)">
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="RetornaCantones_Result">
           <Property Type="Int32" Name="id_Canton" Nullable="false" />
@@ -1071,6 +1088,29 @@
           <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="50" />
           <Property Type="Decimal" Name="Porcentaje" Nullable="true" Precision="18" Scale="0" />
         </ComplexType>
+        <ComplexType Name="sp_getInformacion_Cliente_Result">
+          <Property Type="Int32" Name="idCliente" Nullable="false" />
+          <Property Type="String" Name="Cedula" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="FechadeNacimiento" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="PrimerApellido" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="SegundoApellido" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="DireccionFisica" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="TelefonoPrincipal" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="CorreoElectronico" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="sp_getPolizasxCliente_Result">
+          <Property Type="Int32" Name="idRegistroPoliza" Nullable="false" />
+          <Property Type="Int32" Name="idCoberturaPoliza" Nullable="false" />
+          <Property Type="Int32" Name="idCliente" Nullable="false" />
+          <Property Type="Decimal" Name="montoAsegurado" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="porcentajeCobertura" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="numeroAdiciones" Nullable="true" />
+          <Property Type="Decimal" Name="montoAdiciones" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="primaAntesImpuestos" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="impuestos" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="primaFinal" Nullable="true" Precision="18" Scale="0" />
+        </ComplexType>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
           <Property Type="Binary" Name="definition" Nullable="true" />
@@ -1117,6 +1157,32 @@
           <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Cedula" Nullable="false" MaxLength="50" />
           <Property Type="Decimal" Name="primaFinal" Nullable="true" Precision="18" Scale="0" />
+        </ComplexType>
+        <ComplexType Name="sp_Selecionar_Polizas_Admin_Detalles_Result">
+          <Property Type="Int32" Name="idRegistroPoliza" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="montoAsegurado" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="porcentajeCobertura" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="numeroAdiciones" Nullable="true" />
+          <Property Type="Decimal" Name="montoAdiciones" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="primaAntesImpuestos" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="impuestos" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="primaFinal" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="Cedula" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="nombreCompleto" Nullable="false" MaxLength="150" />
+        </ComplexType>
+        <ComplexType Name="sp_Selecionar_Polizas_Admin_Detalles_Id_Result">
+          <Property Type="Int32" Name="idRegistroPoliza" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="montoAsegurado" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="porcentajeCobertura" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="numeroAdiciones" Nullable="true" />
+          <Property Type="Decimal" Name="montoAdiciones" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="primaAntesImpuestos" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="impuestos" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="primaFinal" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="Cedula" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="nombreCompleto" Nullable="false" MaxLength="150" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1392,6 +1458,37 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_getInformacion_Cliente" FunctionName="ProyectoProgra6Model.Store.sp_getInformacion_Cliente">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ProyectoProgra6Model.sp_getInformacion_Cliente_Result">
+                <ScalarProperty Name="idCliente" ColumnName="idCliente" />
+                <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+                <ScalarProperty Name="FechadeNacimiento" ColumnName="FechadeNacimiento" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="PrimerApellido" ColumnName="PrimerApellido" />
+                <ScalarProperty Name="SegundoApellido" ColumnName="SegundoApellido" />
+                <ScalarProperty Name="DireccionFisica" ColumnName="DireccionFisica" />
+                <ScalarProperty Name="TelefonoPrincipal" ColumnName="TelefonoPrincipal" />
+                <ScalarProperty Name="CorreoElectronico" ColumnName="CorreoElectronico" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_getPolizasxCliente" FunctionName="ProyectoProgra6Model.Store.sp_getPolizasxCliente">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ProyectoProgra6Model.sp_getPolizasxCliente_Result">
+                <ScalarProperty Name="idRegistroPoliza" ColumnName="idRegistroPoliza" />
+                <ScalarProperty Name="idCoberturaPoliza" ColumnName="idCoberturaPoliza" />
+                <ScalarProperty Name="idCliente" ColumnName="idCliente" />
+                <ScalarProperty Name="montoAsegurado" ColumnName="montoAsegurado" />
+                <ScalarProperty Name="porcentajeCobertura" ColumnName="porcentajeCobertura" />
+                <ScalarProperty Name="numeroAdiciones" ColumnName="numeroAdiciones" />
+                <ScalarProperty Name="montoAdiciones" ColumnName="montoAdiciones" />
+                <ScalarProperty Name="primaAntesImpuestos" ColumnName="primaAntesImpuestos" />
+                <ScalarProperty Name="impuestos" ColumnName="impuestos" />
+                <ScalarProperty Name="primaFinal" ColumnName="primaFinal" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="ProyectoProgra6Model.Store.sp_helpdiagramdefinition">
             <ResultMapping>
               <ComplexTypeMapping TypeName="ProyectoProgra6Model.sp_helpdiagramdefinition_Result">
@@ -1425,6 +1522,7 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_InsertaCanton" FunctionName="ProyectoProgra6Model.Store.sp_InsertaCanton" />
           <FunctionImportMapping FunctionImportName="sp_insertAdiccionCliente" FunctionName="ProyectoProgra6Model.Store.sp_insertAdiccionCliente" />
+          <FunctionImportMapping FunctionImportName="sp_Insertar_Polizas" FunctionName="ProyectoProgra6Model.Store.sp_Insertar_Polizas" />
           <FunctionImportMapping FunctionImportName="sp_Login" FunctionName="ProyectoProgra6Model.Store.sp_Login" />
           <FunctionImportMapping FunctionImportName="sp_ModificaCanton" FunctionName="ProyectoProgra6Model.Store.sp_ModificaCanton" />
           <FunctionImportMapping FunctionImportName="sp_ModificarAdiccion" FunctionName="ProyectoProgra6Model.Store.sp_ModificarAdiccion" />
@@ -1456,9 +1554,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="ProyectoProgra6Model.Store.sp_upgraddiagrams" />
           <FunctionImportMapping FunctionImportName="sp_Selecionar_Cantidad_Adiciones_Cliente" FunctionName="ProyectoProgra6Model.Store.sp_Selecionar_Cantidad_Adiciones_Cliente" />
-          <FunctionImportMapping FunctionImportName="sp_Insertar_Polizas" FunctionName="ProyectoProgra6Model.Store.sp_Insertar_Polizas" />
           <FunctionImportMapping FunctionImportName="sp_Selecionar_Polizas_Admin" FunctionName="ProyectoProgra6Model.Store.sp_Selecionar_Polizas_Admin">
             <ResultMapping>
               <ComplexTypeMapping TypeName="ProyectoProgra6Model.sp_Selecionar_Polizas_Admin_Result">
@@ -1466,6 +1562,41 @@
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Cedula" ColumnName="Cedula" />
                 <ScalarProperty Name="primaFinal" ColumnName="primaFinal" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Selecionar_Polizas_Admin_Detalles" FunctionName="ProyectoProgra6Model.Store.sp_Selecionar_Polizas_Admin_Detalles">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ProyectoProgra6Model.sp_Selecionar_Polizas_Admin_Detalles_Result">
+                <ScalarProperty Name="idRegistroPoliza" ColumnName="idRegistroPoliza" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="montoAsegurado" ColumnName="montoAsegurado" />
+                <ScalarProperty Name="porcentajeCobertura" ColumnName="porcentajeCobertura" />
+                <ScalarProperty Name="numeroAdiciones" ColumnName="numeroAdiciones" />
+                <ScalarProperty Name="montoAdiciones" ColumnName="montoAdiciones" />
+                <ScalarProperty Name="primaAntesImpuestos" ColumnName="primaAntesImpuestos" />
+                <ScalarProperty Name="impuestos" ColumnName="impuestos" />
+                <ScalarProperty Name="primaFinal" ColumnName="primaFinal" />
+                <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+                <ScalarProperty Name="nombreCompleto" ColumnName="nombreCompleto" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="ProyectoProgra6Model.Store.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="sp_Selecionar_Polizas_Admin_Detalles_Id" FunctionName="ProyectoProgra6Model.Store.sp_Selecionar_Polizas_Admin_Detalles_Id">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ProyectoProgra6Model.sp_Selecionar_Polizas_Admin_Detalles_Id_Result">
+                <ScalarProperty Name="idRegistroPoliza" ColumnName="idRegistroPoliza" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="montoAsegurado" ColumnName="montoAsegurado" />
+                <ScalarProperty Name="porcentajeCobertura" ColumnName="porcentajeCobertura" />
+                <ScalarProperty Name="numeroAdiciones" ColumnName="numeroAdiciones" />
+                <ScalarProperty Name="montoAdiciones" ColumnName="montoAdiciones" />
+                <ScalarProperty Name="primaAntesImpuestos" ColumnName="primaAntesImpuestos" />
+                <ScalarProperty Name="impuestos" ColumnName="impuestos" />
+                <ScalarProperty Name="primaFinal" ColumnName="primaFinal" />
+                <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+                <ScalarProperty Name="nombreCompleto" ColumnName="nombreCompleto" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

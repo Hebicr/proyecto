@@ -28,7 +28,11 @@ namespace proyecto.Controllers
         // GET: PolizasClientes/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            //var listaPolizas = db.sp_Selecionar_Polizas_Admin_Detalles_Id(id);
+            //return View(listaPolizas);
+
+            sp_Selecionar_Polizas_Admin_Detalles_Id_Result listaPolizas = (from c in db.sp_Selecionar_Polizas_Admin_Detalles_Id() where id == c.idRegistroPoliza select c).First();
+            return View(listaPolizas);
         }
 
         // GET: PolizasClientes/Create

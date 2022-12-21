@@ -1,0 +1,107 @@
+﻿@model proyecto.Models.sp_Selecionar_Polizas_Admin_Detalles_Id_Result
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>sp_Selecionar_Polizas_Admin_Detalles_Id_Result</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.idRegistroPoliza)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idRegistroPoliza)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.montoAsegurado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.montoAsegurado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.porcentajeCobertura)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.porcentajeCobertura)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.numeroAdiciones)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.numeroAdiciones)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.montoAdiciones)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.montoAdiciones)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.primaAntesImpuestos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.primaAntesImpuestos)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.impuestos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.impuestos)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.primaFinal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.primaFinal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cedula)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cedula)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nombreCompleto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombreCompleto)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
