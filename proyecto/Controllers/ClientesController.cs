@@ -20,21 +20,37 @@ namespace proyecto.Controllers
         }
         public ActionResult Comprar(int idCliente)
         {
-            TempData["idCliente"] = idCliente;
-            var cantAdiciones = db.sp_Selecionar_Cantidad_Adiciones_Cliente(idCliente).ToList();
-            ViewBag.cantAdiciones = cantAdiciones[0];
-            List<CoberturaPolizas> coberturaList = db.CoberturaPolizas.ToList();
-            ViewBag.coberturas = new SelectList(coberturaList, "idCoberturaPoliza", "Nombre");
-            return View();
+            
+
+            try
+            {
+                TempData["idCliente"] = idCliente;
+                var cantAdiciones = db.sp_Selecionar_Cantidad_Adiciones_Cliente(idCliente).ToList();
+                ViewBag.cantAdiciones = cantAdiciones[0];
+                List<CoberturaPolizas> coberturaList = db.CoberturaPolizas.ToList();
+                ViewBag.coberturas = new SelectList(coberturaList, "idCoberturaPoliza", "Nombre");
+                return View();
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Ocurrio un Error" + ex.Message;
+                return View();
+            }
         }
 
         [HttpPost]
         public ActionResult ComprarPoliza(FormCollection newPoliza)
         {
 
-            ///Calculos 
-
-            return RedirectToAction("", "");
+            try {
+                db.sp_Insertar_Polizas(Convert.ToInt32(newPoliza["idCoberturaPoliza"]), Convert.ToInt32(newPoliza["idCliente"]), Convert.ToDecimal(newPoliza["montoAsegurado"]), Convert.ToDecimal(newPoliza["Porcentaje"]), Convert.ToInt32(newPoliza["cantAdiciones1"]), Convert.ToInt32(newPoliza["montoAdiciones"]), Convert.ToDecimal(newPoliza["primaAntesImpuestos"]), Convert.ToDecimal(newPoliza["impuestos"]), Convert.ToDecimal(newPoliza["primaFinal"]));
+                TempData["Mensaje"] = "Coliza Agregada";
+                return View();
+            
+            } catch (Exception ex) {
+                TempData["Error"] = "Ocurrio un Error" + ex.Message;
+                return View();
+            }
         }
         public ActionResult ClientesxPolizas()
         {

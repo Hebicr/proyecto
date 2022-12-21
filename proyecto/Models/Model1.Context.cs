@@ -471,5 +471,51 @@ namespace proyecto.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_Selecionar_Cantidad_Adiciones_Cliente", idClienteParameter);
         }
+    
+        public virtual int sp_Insertar_Polizas(Nullable<int> idCoberturaPoliza, Nullable<int> idCliente, Nullable<decimal> montoAsegurado, Nullable<decimal> porcentajeCobertura, Nullable<int> numeroAdiciones, Nullable<int> montoAdiciones, Nullable<decimal> primaAntesImpuestos, Nullable<decimal> impuestos, Nullable<decimal> primaFinal)
+        {
+            var idCoberturaPolizaParameter = idCoberturaPoliza.HasValue ?
+                new ObjectParameter("idCoberturaPoliza", idCoberturaPoliza) :
+                new ObjectParameter("idCoberturaPoliza", typeof(int));
+    
+            var idClienteParameter = idCliente.HasValue ?
+                new ObjectParameter("idCliente", idCliente) :
+                new ObjectParameter("idCliente", typeof(int));
+    
+            var montoAseguradoParameter = montoAsegurado.HasValue ?
+                new ObjectParameter("montoAsegurado", montoAsegurado) :
+                new ObjectParameter("montoAsegurado", typeof(decimal));
+    
+            var porcentajeCoberturaParameter = porcentajeCobertura.HasValue ?
+                new ObjectParameter("porcentajeCobertura", porcentajeCobertura) :
+                new ObjectParameter("porcentajeCobertura", typeof(decimal));
+    
+            var numeroAdicionesParameter = numeroAdiciones.HasValue ?
+                new ObjectParameter("numeroAdiciones", numeroAdiciones) :
+                new ObjectParameter("numeroAdiciones", typeof(int));
+    
+            var montoAdicionesParameter = montoAdiciones.HasValue ?
+                new ObjectParameter("montoAdiciones", montoAdiciones) :
+                new ObjectParameter("montoAdiciones", typeof(int));
+    
+            var primaAntesImpuestosParameter = primaAntesImpuestos.HasValue ?
+                new ObjectParameter("primaAntesImpuestos", primaAntesImpuestos) :
+                new ObjectParameter("primaAntesImpuestos", typeof(decimal));
+    
+            var impuestosParameter = impuestos.HasValue ?
+                new ObjectParameter("impuestos", impuestos) :
+                new ObjectParameter("impuestos", typeof(decimal));
+    
+            var primaFinalParameter = primaFinal.HasValue ?
+                new ObjectParameter("primaFinal", primaFinal) :
+                new ObjectParameter("primaFinal", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Insertar_Polizas", idCoberturaPolizaParameter, idClienteParameter, montoAseguradoParameter, porcentajeCoberturaParameter, numeroAdicionesParameter, montoAdicionesParameter, primaAntesImpuestosParameter, impuestosParameter, primaFinalParameter);
+        }
+    
+        public virtual ObjectResult<sp_Selecionar_Polizas_Admin_Result> sp_Selecionar_Polizas_Admin()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Selecionar_Polizas_Admin_Result>("sp_Selecionar_Polizas_Admin");
+        }
     }
 }
