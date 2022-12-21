@@ -1,8 +1,9 @@
 ﻿@model IEnumerable<proyecto.Models.sp_getClientesDDL_Result>
 
 @{
-    ViewBag.Title = "ClientesxAdicciones";
+    ViewBag.Title = "ClientesxAdiciones";
 }
+
 
 <body background="\img\Prueba.png" style="width:100%; height:100%; background-size: cover;">
     <div class="container justify-content-center" style="height: 700px; width: 1000px; background-color:white; border-radius:10px 10px ">
@@ -26,7 +27,7 @@
 
 
                             <td class="actions">
-                                <button class="btn btn-primary btn-sm" onClick="edit(@Html.DisplayFor(modelItem => item.idCliente))">Comprar Poliza</button>
+                                <button class="btn btn-primary btn-sm" onClick="edit(@Html.DisplayFor(modelItem => item.idCliente))">Agregar Adiciones</button>
                             </td>
                         </tr>
                     }
@@ -39,9 +40,11 @@
     <script type="text/javascript">
         function edit(value) {
             debugger;
-            let url = '/Clientes/Comprar?idCliente=' + value;
+            let url = '/Clientes/InsertarAdiccion?idCliente=' + value;
             location.href = url;
         }
     </script>
 }
+
+
 

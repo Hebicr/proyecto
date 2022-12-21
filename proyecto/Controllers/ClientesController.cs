@@ -34,7 +34,7 @@ namespace proyecto.Controllers
 
             return RedirectToAction("", "");
         }
-        public ActionResult ClientesxAdicciones()
+        public ActionResult ClientesxPolizas()
         {
 
             try
@@ -47,6 +47,19 @@ namespace proyecto.Controllers
                 return View(ex.Message);
             }
         }
+        public ActionResult ClientesxAdiciones()
+        {
+            try
+            {
+                var clientesList = db.sp_getClientesDDL();
+                return View(clientesList);
+            }
+            catch (Exception ex)
+            {
+                return View(ex.Message);
+            }
+        }
+
         public ActionResult InsertarAdiccion(int idCliente)
         {
             try
