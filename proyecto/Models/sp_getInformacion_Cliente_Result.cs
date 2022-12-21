@@ -11,11 +11,16 @@ namespace proyecto.Models
 {
     using System;
     
-    public partial class sp_getAdiccionesxClienteC_Result
+    public partial class sp_getInformacion_Cliente_Result
     {
         public int idCliente { get; set; }
+        public string Cedula { get; set; }
+        public System.DateTime FechadeNacimiento { get; set; }
         public string Nombre { get; set; }
-        public string Codigo { get; set; }
-        public Nullable<int> idAdicion { get; set; }
+        public string PrimerApellido { get; set; }
+        public string SegundoApellido { get; set; }
+        public string DireccionFisica { get; set; }
+        public string TelefonoPrincipal { get; set; }
+        public string CorreoElectronico { get; set; }
     }
 }
