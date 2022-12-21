@@ -390,8 +390,9 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
-    <Content Include="Views\Clientes\ClientesxAdicciones.cshtml" />
+    <Content Include="Views\Clientes\ClientesxPolizas.cshtml" />
     <Content Include="Views\Clientes\Comprar.cshtml" />
+    <Content Include="Views\Clientes\ClientesxAdiciones.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
