@@ -397,7 +397,6 @@
     <Content Include="Views\Clientes\Comprar.cshtml" />
     <Content Include="Views\Clientes\ClientesxAdiciones.cshtml" />
     <Content Include="Views\Clientes\PerfilCliente.cshtml" />
-    <Content Include="Views\Clientes\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
