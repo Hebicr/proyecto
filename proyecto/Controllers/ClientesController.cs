@@ -18,6 +18,14 @@ namespace proyecto.Controllers
 
             return View();
         }
+
+        ///Retorna la vista para el perfil del cliente
+        public ActionResult PerfilCliente()
+        {
+            var id_Cliente = Session["clientelogID"];
+            var Cliente = db.sp_getInformacion_Cliente((int)id_Cliente).ToList();
+            return View(Cliente);
+        }
         public ActionResult Comprar(int idCliente)
         {
             TempData["idCliente"] = idCliente;

@@ -135,6 +135,9 @@
     <Compile Include="Models\AdicionesxCliente.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AdicionesxClienteCompradas.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Canton.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -204,10 +207,7 @@
     <Compile Include="Models\sp_getCoberturaPorcentaje_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_helpdiagrams_Result.cs">
+    <Compile Include="Models\sp_getInformacion_Cliente_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_Inserta_Clientes_Result.cs">
@@ -396,6 +396,8 @@
     <Content Include="Views\Clientes\ClientesxPolizas.cshtml" />
     <Content Include="Views\Clientes\Comprar.cshtml" />
     <Content Include="Views\Clientes\ClientesxAdiciones.cshtml" />
+    <Content Include="Views\Clientes\PerfilCliente.cshtml" />
+    <Content Include="Views\Clientes\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -10,12 +10,17 @@
 namespace proyecto.Models
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class sp_getAdiccionesxClienteC_Result
+    public partial class AdicionesxClienteCompradas
     {
-        public int idCliente { get; set; }
-        public string Nombre { get; set; }
-        public string Codigo { get; set; }
+        public int idAdicionesxClienteComprada { get; set; }
         public Nullable<int> idAdicion { get; set; }
+        public Nullable<int> idCliente { get; set; }
+        public Nullable<int> idRegistroPoliza { get; set; }
+    
+        public virtual Adiciones Adiciones { get; set; }
+        public virtual Clientes Clientes { get; set; }
+        public virtual RegistrosPolizas RegistrosPolizas { get; set; }
     }
 }

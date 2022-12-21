@@ -1,0 +1,45 @@
+﻿@model IEnumerable<proyecto.Models.sp_getInformacion_Cliente_Result>
+
+@{
+    ViewBag.Title = "PerfilCliente";
+}
+
+<body background="\img\Prueba.png" style="width:100%; height:100%; background-size: cover;">
+    <div class="container col-md-9" style="background-color:white; border-radius:10px 10px">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-3">
+                Cedula:@Html.DisplayFor(modelItem => item.Cedula)
+            </div>
+
+            <div class="col-md-4">
+                Nombre:
+
+                @Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.PrimerApellido) @Html.DisplayFor(modelItem => item.SegundoApellido)
+            </div>
+
+
+            <div class="col-md-3">
+                Fecha Nacimiento:
+                @Html.DisplayFor(modelItem => item.FechadeNacimiento)
+
+            </div>
+            <div class="col-md-4">
+                Dirección Fisica:@Html.DisplayFor(modelItem => item.DireccionFisica)
+
+            </div>
+            <div class="col-md-3">
+                Telefono:@Html.DisplayFor(modelItem => item.TelefonoPrincipal)
+            </div>
+            <div class="col-md-3">
+                Email:@Html.DisplayFor(modelItem => item.CorreoElectronico)
+            </div>
+
+            <br />
+            <a class="btn btn-primary" href="@Url.Action("Index", "Home")" style="float:left">Regresar</a>
+        }
+    </div>
+
+
+
+</body>
