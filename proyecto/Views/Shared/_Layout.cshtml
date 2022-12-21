@@ -46,6 +46,24 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" style="color:white" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                Clientes
+                            </a>
+
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
+                                <li><a class="dropdown-item" href="@Url.Action("Index", "Clientes")">Ver Clientes</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" style="color:white" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                Polizas
+                            </a>
+
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
+                                <li><a class="dropdown-item" href="@Url.Action("KendoGridPolizas", "PolizasClientes")">Ver Polizas</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" style="color:white" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
                                 Administrar
                             </a>
 
@@ -69,6 +87,7 @@
                                 <li><a class="dropdown-item" href="@Url.Action("ClientesxPolizas", "Clientes")">Comprar Polizas</a></li>
                                 <li><a class="dropdown-item" href="@Url.Action("ClientesxAdiciones", "Clientes")">Adicciones</a></li>
                                 <li><a class="dropdown-item" href="@Url.Action("Index", "PolizasClientes")">Clientes Polizas</a></li>
+                                <li><a class="dropdown-item" href="@Url.Action("KendoGridPoliza", "PolizasClientes")">Ver mis polizas</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">

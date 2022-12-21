@@ -25,6 +25,41 @@ namespace proyecto.Controllers
             }
         }
 
+        public ActionResult KendoGridPolizas()
+        {
+            try
+            {
+                return View();
+            }catch(Exception ex)
+            {
+                TempData["Error"] = "Ocurrio un Error" + ex.Message;
+                return View();
+            }
+        }
+        public ActionResult KendoGridPoliza()
+        {
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Ocurrio un Error" + ex.Message;
+                return View();
+            }
+        }
+
+        public ActionResult GetDataPolizas()
+        {
+            var polizasClientes = db.sp_getPolizasClientes().ToList();
+            return Json(polizasClientes, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult GetDataPoliza()
+        {
+            var id_Cliente = Session["clientelogID"];
+            var polizasClientes = db.sp_getPolizasCliente((int)id_Cliente).ToList();
+            return Json(polizasClientes, JsonRequestBehavior.AllowGet);
+        }
         // GET: PolizasClientes/Details/5
         public ActionResult Details(int id)
         {

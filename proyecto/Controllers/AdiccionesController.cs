@@ -74,8 +74,9 @@ namespace proyecto.Controllers
                 db.sp_eliminarAdiccion(idAdiccion);
                 return RedirectToAction("Index", "Adicciones");
             }
-            catch
+            catch(Exception ex)
             {
+                TempData["Error"] = "Ocurrio un Error" + ex.Message;
                 return View();
             }
         }

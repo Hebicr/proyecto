@@ -15,16 +15,64 @@ namespace proyecto.Controllers
 
         public ActionResult Index()
         {
-
-            return View();
+            var clientes = db.sp_getClientes();
+            return View(clientes);
         }
+
 
         ///Retorna la vista para el perfil del cliente
         public ActionResult PerfilCliente()
         {
-            var id_Cliente = Session["clientelogID"];
-            var Cliente = db.sp_getInformacion_Cliente((int)id_Cliente).ToList();
+            try
+            {
+                var id_Cliente = Session["clientelogID"];
+                var Cliente = db.sp_getInformacion_Cliente((int)id_Cliente).ToList();
+                return View(Cliente);
+            }
+            catch(Exception ex)
+            {
+                TempData["Error"] = "Ocurrio un Error" + ex.Message;
+                return View();
+            }
+
+        }
+
+        public ActionResult EditarCliente(int idCliente)
+        {
+            Clientes Cliente = (from c in db.Clientes where idCliente == c.idCliente select c).First();
             return View(Cliente);
+
+        }
+
+       [HttpPost]
+        public ActionResult EditarCliente(FormCollection myCliente)
+        {
+            try
+            {
+
+                db.sp_ModificarCliente(Convert.ToInt32(myCliente["idCliente"]),myCliente["Cedula"], myCliente["Nombre"], myCliente["PrimerApellido"], myCliente["SegundoApellido"], myCliente["DireccionFisica"], myCliente["TelefonoPrincipal"], myCliente["TelefonoSecundario"], myCliente["CorreoElectronico"]);
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Ocurrio un Error" + ex.Message;
+                return View();
+            }
+        }
+
+        public ActionResult EliminarCliente(int idUsuario)
+        {
+            try
+            {
+                db.sp_eliminarCliente(idUsuario);
+                return RedirectToAction("Index", "Clientes");
+            }
+            catch(Exception ex)
+            {
+                TempData["Error"] = "Ocurrio un Error" + ex.Message;
+                return View();
+            }
         }
         public ActionResult Comprar(int idCliente)
         {
