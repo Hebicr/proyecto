@@ -623,5 +623,19 @@ namespace proyecto.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
         }
+    
+        public virtual ObjectResult<sp_getAdicionesxCliente_Result> sp_getAdicionesxCliente(Nullable<int> idCliente)
+        {
+            var idClienteParameter = idCliente.HasValue ?
+                new ObjectParameter("idCliente", idCliente) :
+                new ObjectParameter("idCliente", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_getAdicionesxCliente_Result>("sp_getAdicionesxCliente", idClienteParameter);
+        }
+    
+        public virtual ObjectResult<sp_getAdicionesxClientes_Result> sp_getAdicionesxClientes()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_getAdicionesxClientes_Result>("sp_getAdicionesxClientes");
+        }
     }
 }

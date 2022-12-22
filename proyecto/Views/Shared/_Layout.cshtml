@@ -22,10 +22,6 @@
                 {
                     if ((int)Session["clientelogRol"] != 1)
                     {
-                        @*<li class="nav-link">@Html.ActionLink("Cobertura Polizas", "Index", "CoberturasPolizas")</li>
-                <li class="nav-link">@Html.ActionLink("Adicciones", "Index", "Adicciones")</li>*@
-
-
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" style="color:white" role="button" data-toggle="dropdown" aria-expanded="false">
                                 Adicciones
@@ -60,6 +56,7 @@
 
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
                                 <li><a class="dropdown-item" href="@Url.Action("KendoGridPolizas", "PolizasClientes")">Ver Polizas</a></li>
+                                <li><a class="dropdown-item" href="@Url.Action("KendoGridAdiciones", "PolizasClientes")">Ver Adicciones</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -88,6 +85,7 @@
                                 <li><a class="dropdown-item" href="@Url.Action("ClientesxAdiciones", "Clientes")">Adicciones</a></li>
                                 <li><a class="dropdown-item" href="@Url.Action("Index", "PolizasClientes")">Clientes Polizas</a></li>
                                 <li><a class="dropdown-item" href="@Url.Action("KendoGridPoliza", "PolizasClientes")">Ver mis polizas</a></li>
+                                <li><a class="dropdown-item" href="@Url.Action("KendoGridAdicionesxCliente", "PolizasClientes")">Ver mis adiciones</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
