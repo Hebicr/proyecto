@@ -47,6 +47,8 @@
 
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
                                 <li><a class="dropdown-item" href="@Url.Action("Index", "Clientes")">Ver Clientes</a></li>
+                                <li><a class="dropdown-item" href="@Url.Action("KendoGridPolizas", "PolizasClientes")">Ver Polizas</a></li>
+                                <li><a class="dropdown-item" href="@Url.Action("KendoGridAdiciones", "PolizasClientes")">Ver Adicciones</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -55,8 +57,8 @@
                             </a>
 
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
-                                <li><a class="dropdown-item" href="@Url.Action("KendoGridPolizas", "PolizasClientes")">Ver Polizas</a></li>
-                                <li><a class="dropdown-item" href="@Url.Action("KendoGridAdiciones", "PolizasClientes")">Ver Adicciones</a></li>
+                                <li><a class="dropdown-item" href="@Url.Action("ClientesxAdiciones", "Clientes")">Comprar Poliza</a></li>
+                                <li><a class="dropdown-item" href="@Url.Action("Index", "PolizasClientes")">Editar Polizas</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -65,9 +67,7 @@
                             </a>
 
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                <li><a class="dropdown-item" href="@Url.Action("PerfilCliente", "Clientes")">Mi Cuenta</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a class="dropdown-item" href="@Url.Action("LogOut", "Home")">Salir</a></li>
                             </ul>
@@ -81,9 +81,6 @@
                             </a>
 
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" href="@Url.Action("ClientesxPolizas", "Clientes")">Comprar Polizas</a></li>
-                                <li><a class="dropdown-item" href="@Url.Action("ClientesxAdiciones", "Clientes")">Adicciones</a></li>
-                                <li><a class="dropdown-item" href="@Url.Action("Index", "PolizasClientes")">Clientes Polizas</a></li>
                                 <li><a class="dropdown-item" href="@Url.Action("KendoGridPoliza", "PolizasClientes")">Ver mis polizas</a></li>
                                 <li><a class="dropdown-item" href="@Url.Action("KendoGridAdicionesxCliente", "PolizasClientes")">Ver mis adiciones</a></li>
                             </ul>

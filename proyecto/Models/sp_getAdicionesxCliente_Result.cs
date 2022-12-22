@@ -16,7 +16,7 @@ namespace proyecto.Models
         public string Nombre { get; set; }
         public string PrimerApellido { get; set; }
         public Nullable<int> idRegistroPoliza { get; set; }
-        public string Nombre1 { get; set; }
+        public string Adicion { get; set; }
         public string Codigo { get; set; }
     }
 }
