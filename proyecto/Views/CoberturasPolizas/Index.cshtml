@@ -5,42 +5,71 @@
 }
 
 <body background="\img\Prueba.png" style="width:100%; height:100%; background-size: cover;">
-    <div class="container justify-content-center" style="height: 700px; background-color: white; border-radius: 10px 10px ">
+    <div class="container justify-content-center" style="background-color: white; border-radius: 10px 10px ">
 
         <div class="text-center">
             <h3><p>A continuación se muestran la información de las coberturas de las polizas</p></h3>
-            </div>
-            <div class="table-responsive">
-                <table class="table caption-top table-sm">
-                    <thead>
-                        <tr>
-                            <th scope="col">Código</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Descripción</th>
-                            <th scope="col">Porcentaje</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <th>@Html.DisplayFor(modelItem => item.idCoberturaPoliza)</th>
-                                <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Porcentaje)%</td>
-
-                                <td class="actions">
-                                    <button class="btn btn-warning btn-sm" onClick="edit(@Html.DisplayFor(modelItem => item.idCoberturaPoliza))">Editar</button>
-                                    <button class="btn btn-danger btn-sm" type="button" onClick="deleteElement(@Html.DisplayFor(modelItem => item.idCoberturaPoliza))">Eliminar</button>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-
-                <a class="btn btn-primary" style="margin-left:40%;" @Html.ActionLink("Crear poliza nueva", "Create")</a>
-            </div>
         </div>
+        <div class="table-responsive">
+            <table class="table caption-top table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">Código</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Porcentaje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <th>@Html.DisplayFor(modelItem => item.idCoberturaPoliza)</th>
+                            <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Porcentaje)%</td>
+
+                            <td class="actions">
+                                <button class="btn btn-warning btn-sm" onClick="edit(@Html.DisplayFor(modelItem => item.idCoberturaPoliza))">Editar</button>
+                                <button class="btn btn-danger btn-sm" type="button" onClick="deleteElement(@Html.DisplayFor(modelItem => item.idCoberturaPoliza))">Eliminar</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <a class="btn btn-primary" style="margin-left:40%;" @Html.ActionLink("Crear poliza nueva", "Create")</a>
+        </div>
+        <div class="col-md-offset-2 col-md-8">
+            @if (ViewData["Mensaje"] != null)
+            {
+                <div class="alert alert-success" role="alert">
+                    @ViewData["Mensaje"]
+                </div>
+            }
+
+            @if (ViewData["Error"] != null)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @ViewData["Error"]
+                </div>
+            }
+
+            @if (TempData["info"] != null)
+            {
+                <div class="alert alert-success" role="alert">
+                    @TempData["info"]
+                </div>
+            }
+
+            @if (TempData["error"] != null)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @TempData["error"]
+                </div>
+            }
+        </div>
+    </div>
 </body>
         <script type="text/javascript">
             function deleteElement(value) {

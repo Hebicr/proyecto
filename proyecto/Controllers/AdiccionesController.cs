@@ -92,11 +92,12 @@ namespace proyecto.Controllers
             try
             {
                 db.sp_eliminarAdiccion(idAdiccion);
+                TempData["info"] = "Registro Eliminado exitosamente";
                 return RedirectToAction("Index", "Adicciones");
             }
             catch(Exception ex)
             {
-                TempData["Error"] = "Ocurrio un Error" + ex.Message;
+                TempData["error"] = "Ocurrio un Error" + ex.Message;
                 return View();
             }
         }

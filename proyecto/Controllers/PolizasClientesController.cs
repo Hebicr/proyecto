@@ -49,6 +49,32 @@ namespace proyecto.Controllers
                 return View();
             }
         }
+        //CARGA LA VISTA INDEX DE KendoGridAdiciones
+        public ActionResult KendoGridAdiciones()
+        {
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Ocurrio un Error" + ex.Message;
+                return View();
+            }
+        }
+        //CARGA LA VISTA INDEX DE KendoGridAdicionesxCliente
+        public ActionResult KendoGridAdicionesxCliente()
+        {
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Ocurrio un Error" + ex.Message;
+                return View();
+            }
+        }
         //PROCEDIMIENTO PARA CARGAR UN KENDO GRID
         public ActionResult GetDataPolizas()
         {
@@ -65,6 +91,21 @@ namespace proyecto.Controllers
 
         }
         //PROCEDIMIENTO PARA CARGAR UN KENDO GRID
+        public ActionResult GetDataAdiciones()
+        {
+            try
+            {
+                var adiciones = db.sp_getAdicionesxClientes().ToList();
+                return Json(adiciones, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Ocurrio un Error" + ex.Message;
+                return View();
+            }
+
+        }
+        //PROCEDIMIENTO PARA CARGAR UN KENDO GRID
         public ActionResult GetDataPoliza()
         {
             try
@@ -72,6 +113,22 @@ namespace proyecto.Controllers
                 var id_Cliente = Session["clientelogID"];
                 var polizasClientes = db.sp_getPolizasCliente((int)id_Cliente).ToList();
                 return Json(polizasClientes, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Ocurrio un Error" + ex.Message;
+                return View();
+            }
+
+        }
+        //PROCEDIMIENTO PARA CARGAR UN KENDO GRID
+        public ActionResult GetDataAdicionesxCliente()
+        {
+            try
+            {
+                var id_Cliente = Session["clientelogID"];
+                var adiciones = db.sp_getAdicionesxCliente((int)id_Cliente).ToList();
+                return Json(adiciones, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
