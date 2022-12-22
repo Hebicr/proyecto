@@ -87,11 +87,12 @@ namespace proyecto.Controllers
             try
             {
                 db.sp_eliminarCliente(idUsuario);
+                TempData["info"] = "Registro Eliminado exitosamente";
                 return RedirectToAction("Index", "Clientes");
             }
             catch(Exception ex)
             {
-                TempData["Error"] = "Ocurrio un Error" + ex.Message;
+                TempData["error"] = "Ocurrio un Error" + ex.Message;
                 return View();
             }
         }

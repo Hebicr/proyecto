@@ -70,10 +70,12 @@ namespace ProyectoProgra6.Controllers
             try
             {
                 db.sp_eliminarCobertura(idCoberturaPoliza);
+                TempData["info"] = "Registro Eliminado exitosamente";
                 return RedirectToAction("Index", "CoberturasPolizas");
             }
-            catch
+            catch(Exception ex)
             {
+                TempData["error"] = "Ocurrio un Error" + ex.Message;
                 return View();
             }
         }

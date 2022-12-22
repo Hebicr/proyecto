@@ -38,7 +38,36 @@
             </table>
             <a class="btn btn-primary" style="margin-left:40%;" @Html.ActionLink("Crear adiccion nueva", "Create")</a>
         </div>
+        <div class="col-md-offset-2 col-md-8">
+            @if (ViewData["Mensaje"] != null)
+            {
+                <div class="alert alert-success" role="alert">
+                    @ViewData["Mensaje"]
+                </div>
+            }
+
+            @if (ViewData["Error"] != null)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @ViewData["Error"]
+                </div>
+            }
+
+            @if (TempData["info"] != null)
+            {
+                <div class="alert alert-success" role="alert">
+                    @TempData["info"]
+                </div>
+            }
+
+            @if (TempData["error"] != null)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @TempData["error"]
+                </div>
+            }
         </div>
+    </div>
 </body>
 
         <script type="text/javascript">
