@@ -95,7 +95,7 @@ namespace proyecto.Controllers
         {
             try
             {
-                var adiciones = db.sp_getAdiccionesxClientes().ToList();
+                var adiciones = db.sp_getAdicionesxClientes().ToList();
                 return Json(adiciones, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -127,7 +127,7 @@ namespace proyecto.Controllers
             try
             {
                 var id_Cliente = Session["clientelogID"];
-                var adiciones = db.sp_getAdiccionesxCliente((int)id_Cliente).ToList();
+                var adiciones = db.sp_getAdicionesxCliente((int)id_Cliente).ToList();
                 return Json(adiciones, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
