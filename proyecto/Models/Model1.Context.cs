@@ -29,7 +29,6 @@ namespace proyecto.Models
     
         public virtual DbSet<Adiciones> Adiciones { get; set; }
         public virtual DbSet<AdicionesxCliente> AdicionesxCliente { get; set; }
-        public virtual DbSet<AdicionesxClienteCompradas> AdicionesxClienteCompradas { get; set; }
         public virtual DbSet<Canton> Canton { get; set; }
         public virtual DbSet<Clientes> Clientes { get; set; }
         public virtual DbSet<CoberturaPolizas> CoberturaPolizas { get; set; }
@@ -188,6 +187,15 @@ namespace proyecto.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_eliminarAdiccionCliente", idAdiccionParameter, idClienteParameter);
         }
     
+        public virtual int sp_eliminarCliente(Nullable<int> idUsuario)
+        {
+            var idUsuarioParameter = idUsuario.HasValue ?
+                new ObjectParameter("idUsuario", idUsuario) :
+                new ObjectParameter("idUsuario", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_eliminarCliente", idUsuarioParameter);
+        }
+    
         public virtual int sp_eliminarCobertura(Nullable<int> idCoberturaPoliza)
         {
             var idCoberturaPolizaParameter = idCoberturaPoliza.HasValue ?
@@ -218,6 +226,20 @@ namespace proyecto.Models
                 new ObjectParameter("idCliente", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_getAdiccionesxClienteC_Result>("sp_getAdiccionesxClienteC", idClienteParameter);
+        }
+    
+        public virtual ObjectResult<sp_getCliente_Result> sp_getCliente(Nullable<int> idCliente)
+        {
+            var idClienteParameter = idCliente.HasValue ?
+                new ObjectParameter("idCliente", idCliente) :
+                new ObjectParameter("idCliente", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_getCliente_Result>("sp_getCliente", idClienteParameter);
+        }
+    
+        public virtual ObjectResult<sp_getClientes_Result> sp_getClientes()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_getClientes_Result>("sp_getClientes");
         }
     
         public virtual ObjectResult<sp_getClientesDDL_Result> sp_getClientesDDL()
@@ -255,6 +277,20 @@ namespace proyecto.Models
                 new ObjectParameter("idCliente", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_getInformacion_Cliente_Result>("sp_getInformacion_Cliente", idClienteParameter);
+        }
+    
+        public virtual ObjectResult<sp_getPolizasCliente_Result> sp_getPolizasCliente(Nullable<int> idCliente)
+        {
+            var idClienteParameter = idCliente.HasValue ?
+                new ObjectParameter("idCliente", idCliente) :
+                new ObjectParameter("idCliente", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_getPolizasCliente_Result>("sp_getPolizasCliente", idClienteParameter);
+        }
+    
+        public virtual ObjectResult<sp_getPolizasClientes_Result> sp_getPolizasClientes()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_getPolizasClientes_Result>("sp_getPolizasClientes");
         }
     
         public virtual ObjectResult<sp_getPolizasxCliente_Result> sp_getPolizasxCliente(Nullable<int> idCliente)
@@ -379,6 +415,47 @@ namespace proyecto.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_insertAdiccionCliente", idClienteParameter, idAdicionParameter);
         }
     
+        public virtual int sp_Insertar_Polizas(Nullable<int> idCoberturaPoliza, Nullable<int> idCliente, Nullable<decimal> montoAsegurado, Nullable<decimal> porcentajeCobertura, Nullable<int> numeroAdiciones, Nullable<int> montoAdiciones, Nullable<decimal> primaAntesImpuestos, Nullable<decimal> impuestos, Nullable<decimal> primaFinal)
+        {
+            var idCoberturaPolizaParameter = idCoberturaPoliza.HasValue ?
+                new ObjectParameter("idCoberturaPoliza", idCoberturaPoliza) :
+                new ObjectParameter("idCoberturaPoliza", typeof(int));
+    
+            var idClienteParameter = idCliente.HasValue ?
+                new ObjectParameter("idCliente", idCliente) :
+                new ObjectParameter("idCliente", typeof(int));
+    
+            var montoAseguradoParameter = montoAsegurado.HasValue ?
+                new ObjectParameter("montoAsegurado", montoAsegurado) :
+                new ObjectParameter("montoAsegurado", typeof(decimal));
+    
+            var porcentajeCoberturaParameter = porcentajeCobertura.HasValue ?
+                new ObjectParameter("porcentajeCobertura", porcentajeCobertura) :
+                new ObjectParameter("porcentajeCobertura", typeof(decimal));
+    
+            var numeroAdicionesParameter = numeroAdiciones.HasValue ?
+                new ObjectParameter("numeroAdiciones", numeroAdiciones) :
+                new ObjectParameter("numeroAdiciones", typeof(int));
+    
+            var montoAdicionesParameter = montoAdiciones.HasValue ?
+                new ObjectParameter("montoAdiciones", montoAdiciones) :
+                new ObjectParameter("montoAdiciones", typeof(int));
+    
+            var primaAntesImpuestosParameter = primaAntesImpuestos.HasValue ?
+                new ObjectParameter("primaAntesImpuestos", primaAntesImpuestos) :
+                new ObjectParameter("primaAntesImpuestos", typeof(decimal));
+    
+            var impuestosParameter = impuestos.HasValue ?
+                new ObjectParameter("impuestos", impuestos) :
+                new ObjectParameter("impuestos", typeof(decimal));
+    
+            var primaFinalParameter = primaFinal.HasValue ?
+                new ObjectParameter("primaFinal", primaFinal) :
+                new ObjectParameter("primaFinal", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Insertar_Polizas", idCoberturaPolizaParameter, idClienteParameter, montoAseguradoParameter, porcentajeCoberturaParameter, numeroAdicionesParameter, montoAdicionesParameter, primaAntesImpuestosParameter, impuestosParameter, primaFinalParameter);
+        }
+    
         public virtual ObjectResult<Nullable<int>> sp_Login(string usuario, string contrasena)
         {
             var usuarioParameter = usuario != null ?
@@ -428,6 +505,47 @@ namespace proyecto.Models
                 new ObjectParameter("Codigo", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ModificarAdiccion", idAdiccionParameter, nombreParameter, codigoParameter);
+        }
+    
+        public virtual int sp_ModificarCliente(Nullable<int> idCliente, string cedula, string nombre, string primerApellido, string segundoApellido, string direccionFisica, string telefonoPrincipal, string telefonoSecundario, string correoElectronico)
+        {
+            var idClienteParameter = idCliente.HasValue ?
+                new ObjectParameter("idCliente", idCliente) :
+                new ObjectParameter("idCliente", typeof(int));
+    
+            var cedulaParameter = cedula != null ?
+                new ObjectParameter("Cedula", cedula) :
+                new ObjectParameter("Cedula", typeof(string));
+    
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("Nombre", nombre) :
+                new ObjectParameter("Nombre", typeof(string));
+    
+            var primerApellidoParameter = primerApellido != null ?
+                new ObjectParameter("PrimerApellido", primerApellido) :
+                new ObjectParameter("PrimerApellido", typeof(string));
+    
+            var segundoApellidoParameter = segundoApellido != null ?
+                new ObjectParameter("SegundoApellido", segundoApellido) :
+                new ObjectParameter("SegundoApellido", typeof(string));
+    
+            var direccionFisicaParameter = direccionFisica != null ?
+                new ObjectParameter("DireccionFisica", direccionFisica) :
+                new ObjectParameter("DireccionFisica", typeof(string));
+    
+            var telefonoPrincipalParameter = telefonoPrincipal != null ?
+                new ObjectParameter("TelefonoPrincipal", telefonoPrincipal) :
+                new ObjectParameter("TelefonoPrincipal", typeof(string));
+    
+            var telefonoSecundarioParameter = telefonoSecundario != null ?
+                new ObjectParameter("TelefonoSecundario", telefonoSecundario) :
+                new ObjectParameter("TelefonoSecundario", typeof(string));
+    
+            var correoElectronicoParameter = correoElectronico != null ?
+                new ObjectParameter("CorreoElectronico", correoElectronico) :
+                new ObjectParameter("CorreoElectronico", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ModificarCliente", idClienteParameter, cedulaParameter, nombreParameter, primerApellidoParameter, segundoApellidoParameter, direccionFisicaParameter, telefonoPrincipalParameter, telefonoSecundarioParameter, correoElectronicoParameter);
         }
     
         public virtual int sp_ModificarCobertura(Nullable<int> idCoberturaPoliza, string nombre, string descripcion, Nullable<decimal> porcentaje)
@@ -504,125 +622,6 @@ namespace proyecto.Models
         public virtual int sp_upgraddiagrams()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
-        }
-    
-        public virtual int sp_Insertar_Polizas(Nullable<int> idCoberturaPoliza, Nullable<int> idCliente, Nullable<decimal> montoAsegurado, Nullable<decimal> porcentajeCobertura, Nullable<int> numeroAdiciones, Nullable<int> montoAdiciones, Nullable<decimal> primaAntesImpuestos, Nullable<decimal> impuestos, Nullable<decimal> primaFinal)
-        {
-            var idCoberturaPolizaParameter = idCoberturaPoliza.HasValue ?
-                new ObjectParameter("idCoberturaPoliza", idCoberturaPoliza) :
-                new ObjectParameter("idCoberturaPoliza", typeof(int));
-    
-            var idClienteParameter = idCliente.HasValue ?
-                new ObjectParameter("idCliente", idCliente) :
-                new ObjectParameter("idCliente", typeof(int));
-    
-            var montoAseguradoParameter = montoAsegurado.HasValue ?
-                new ObjectParameter("montoAsegurado", montoAsegurado) :
-                new ObjectParameter("montoAsegurado", typeof(decimal));
-    
-            var porcentajeCoberturaParameter = porcentajeCobertura.HasValue ?
-                new ObjectParameter("porcentajeCobertura", porcentajeCobertura) :
-                new ObjectParameter("porcentajeCobertura", typeof(decimal));
-    
-            var numeroAdicionesParameter = numeroAdiciones.HasValue ?
-                new ObjectParameter("numeroAdiciones", numeroAdiciones) :
-                new ObjectParameter("numeroAdiciones", typeof(int));
-    
-            var montoAdicionesParameter = montoAdiciones.HasValue ?
-                new ObjectParameter("montoAdiciones", montoAdiciones) :
-                new ObjectParameter("montoAdiciones", typeof(int));
-    
-            var primaAntesImpuestosParameter = primaAntesImpuestos.HasValue ?
-                new ObjectParameter("primaAntesImpuestos", primaAntesImpuestos) :
-                new ObjectParameter("primaAntesImpuestos", typeof(decimal));
-    
-            var impuestosParameter = impuestos.HasValue ?
-                new ObjectParameter("impuestos", impuestos) :
-                new ObjectParameter("impuestos", typeof(decimal));
-    
-            var primaFinalParameter = primaFinal.HasValue ?
-                new ObjectParameter("primaFinal", primaFinal) :
-                new ObjectParameter("primaFinal", typeof(decimal));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Insertar_Polizas", idCoberturaPolizaParameter, idClienteParameter, montoAseguradoParameter, porcentajeCoberturaParameter, numeroAdicionesParameter, montoAdicionesParameter, primaAntesImpuestosParameter, impuestosParameter, primaFinalParameter);
-        }
-    
-        public virtual int sp_eliminarCliente(Nullable<int> idUsuario)
-        {
-            var idUsuarioParameter = idUsuario.HasValue ?
-                new ObjectParameter("idUsuario", idUsuario) :
-                new ObjectParameter("idUsuario", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_eliminarCliente", idUsuarioParameter);
-        }
-    
-        public virtual ObjectResult<sp_getCliente_Result> sp_getCliente(Nullable<int> idCliente)
-        {
-            var idClienteParameter = idCliente.HasValue ?
-                new ObjectParameter("idCliente", idCliente) :
-                new ObjectParameter("idCliente", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_getCliente_Result>("sp_getCliente", idClienteParameter);
-        }
-    
-        public virtual ObjectResult<sp_getClientes_Result> sp_getClientes()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_getClientes_Result>("sp_getClientes");
-        }
-    
-        public virtual int sp_ModificarCliente(Nullable<int> idCliente, string cedula, string nombre, string primerApellido, string segundoApellido, string direccionFisica, string telefonoPrincipal, string telefonoSecundario, string correoElectronico)
-        {
-            var idClienteParameter = idCliente.HasValue ?
-                new ObjectParameter("idCliente", idCliente) :
-                new ObjectParameter("idCliente", typeof(int));
-    
-            var cedulaParameter = cedula != null ?
-                new ObjectParameter("Cedula", cedula) :
-                new ObjectParameter("Cedula", typeof(string));
-    
-            var nombreParameter = nombre != null ?
-                new ObjectParameter("Nombre", nombre) :
-                new ObjectParameter("Nombre", typeof(string));
-    
-            var primerApellidoParameter = primerApellido != null ?
-                new ObjectParameter("PrimerApellido", primerApellido) :
-                new ObjectParameter("PrimerApellido", typeof(string));
-    
-            var segundoApellidoParameter = segundoApellido != null ?
-                new ObjectParameter("SegundoApellido", segundoApellido) :
-                new ObjectParameter("SegundoApellido", typeof(string));
-    
-            var direccionFisicaParameter = direccionFisica != null ?
-                new ObjectParameter("DireccionFisica", direccionFisica) :
-                new ObjectParameter("DireccionFisica", typeof(string));
-    
-            var telefonoPrincipalParameter = telefonoPrincipal != null ?
-                new ObjectParameter("TelefonoPrincipal", telefonoPrincipal) :
-                new ObjectParameter("TelefonoPrincipal", typeof(string));
-    
-            var telefonoSecundarioParameter = telefonoSecundario != null ?
-                new ObjectParameter("TelefonoSecundario", telefonoSecundario) :
-                new ObjectParameter("TelefonoSecundario", typeof(string));
-    
-            var correoElectronicoParameter = correoElectronico != null ?
-                new ObjectParameter("CorreoElectronico", correoElectronico) :
-                new ObjectParameter("CorreoElectronico", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ModificarCliente", idClienteParameter, cedulaParameter, nombreParameter, primerApellidoParameter, segundoApellidoParameter, direccionFisicaParameter, telefonoPrincipalParameter, telefonoSecundarioParameter, correoElectronicoParameter);
-        }
-    
-        public virtual ObjectResult<sp_getPolizasClientes_Result> sp_getPolizasClientes()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_getPolizasClientes_Result>("sp_getPolizasClientes");
-        }
-    
-        public virtual ObjectResult<sp_getPolizasCliente_Result> sp_getPolizasCliente(Nullable<int> idCliente)
-        {
-            var idClienteParameter = idCliente.HasValue ?
-                new ObjectParameter("idCliente", idCliente) :
-                new ObjectParameter("idCliente", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_getPolizasCliente_Result>("sp_getPolizasCliente", idClienteParameter);
         }
     }
 }

@@ -17,8 +17,6 @@ namespace proyecto.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Clientes()
         {
-            this.AdicionesxCliente = new HashSet<AdicionesxCliente>();
-            this.AdicionesxClienteCompradas = new HashSet<AdicionesxClienteCompradas>();
             this.RegistrosPolizas = new HashSet<RegistrosPolizas>();
         }
     
@@ -38,10 +36,6 @@ namespace proyecto.Models
         public int id_Distrito { get; set; }
         public int id_Usuario { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AdicionesxCliente> AdicionesxCliente { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AdicionesxClienteCompradas> AdicionesxClienteCompradas { get; set; }
         public virtual Canton Canton { get; set; }
         public virtual Distrito Distrito { get; set; }
         public virtual Provincia Provincia { get; set; }

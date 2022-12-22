@@ -10,7 +10,7 @@ namespace proyecto.Controllers
     public class PolizasClientesController : Controller
     {
         ProyectoProgra6Entities db = new ProyectoProgra6Entities();
-        // GET: PolizasClientes
+        //CARGA LA VISTA INDEX DE POLIZASCLIENTES
         public ActionResult Index()
         {
             try
@@ -24,7 +24,7 @@ namespace proyecto.Controllers
                 return View();
             }
         }
-
+        //CARGA LA VISTA INDEX DE KendoGridPolizas
         public ActionResult KendoGridPolizas()
         {
             try
@@ -36,6 +36,7 @@ namespace proyecto.Controllers
                 return View();
             }
         }
+        //CARGA LA VISTA INDEX DE KendoGridPoliza
         public ActionResult KendoGridPoliza()
         {
             try
@@ -48,41 +49,63 @@ namespace proyecto.Controllers
                 return View();
             }
         }
-
+        //PROCEDIMIENTO PARA CARGAR UN KENDO GRID
         public ActionResult GetDataPolizas()
         {
-            var polizasClientes = db.sp_getPolizasClientes().ToList();
-            return Json(polizasClientes, JsonRequestBehavior.AllowGet);
+            try
+            {
+                var polizasClientes = db.sp_getPolizasClientes().ToList();
+                return Json(polizasClientes, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Ocurrio un Error" + ex.Message;
+                return View();
+            }
+
         }
+        //PROCEDIMIENTO PARA CARGAR UN KENDO GRID
         public ActionResult GetDataPoliza()
         {
-            var id_Cliente = Session["clientelogID"];
-            var polizasClientes = db.sp_getPolizasCliente((int)id_Cliente).ToList();
-            return Json(polizasClientes, JsonRequestBehavior.AllowGet);
+            try
+            {
+                var id_Cliente = Session["clientelogID"];
+                var polizasClientes = db.sp_getPolizasCliente((int)id_Cliente).ToList();
+                return Json(polizasClientes, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Ocurrio un Error" + ex.Message;
+                return View();
+            }
+
         }
-        // GET: PolizasClientes/Details/5
+        //PROCEDIMIENTO PARA CARGAR LOS DETALLES DE LAS POLIZAS
         public ActionResult Details(int id)
         {
-            //var listaPolizas = db.sp_Selecionar_Polizas_Admin_Detalles_Id(id);
-            //return View(listaPolizas);
-
-            sp_Selecionar_Polizas_Admin_Detalles_Id_Result listaPolizas = (from c in db.sp_Selecionar_Polizas_Admin_Detalles_Id() where id == c.idRegistroPoliza select c).First();
-            return View(listaPolizas);
+            try
+            {
+                sp_Selecionar_Polizas_Admin_Detalles_Id_Result listaPolizas = (from c in db.sp_Selecionar_Polizas_Admin_Detalles_Id() where id == c.idRegistroPoliza select c).First();
+                return View(listaPolizas);
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Ocurrio un Error" + ex.Message;
+                return View();
+            }
+           
         }
-
-        // GET: PolizasClientes/Create
+        //RETORNA LA VISTA CREATE DE POLIZAS
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: PolizasClientes/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
             try
             {
-                // TODO: Add insert logic here
 
                 return RedirectToAction("Index");
             }
@@ -92,19 +115,17 @@ namespace proyecto.Controllers
             }
         }
 
-        // GET: PolizasClientes/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: PolizasClientes/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
             try
             {
-                // TODO: Add update logic here
+
 
                 return RedirectToAction("Index");
             }
@@ -114,20 +135,17 @@ namespace proyecto.Controllers
             }
         }
 
-        // GET: PolizasClientes/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: PolizasClientes/Delete/5
+
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
             try
             {
-                // TODO: Add delete logic here
-
                 return RedirectToAction("Index");
             }
             catch

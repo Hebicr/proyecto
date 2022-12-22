@@ -10,6 +10,8 @@ namespace proyecto.Controllers
     public class HomeController : Controller
     {
         ProyectoProgra6Entities db = new ProyectoProgra6Entities();
+
+        //PROCEDIMIENTO QUE GENERA LA VISTA DE INDEX Y CARGA LA SESION
         public ActionResult Index()
         {
             try
@@ -36,7 +38,7 @@ namespace proyecto.Controllers
             }
 
         }
-
+        //PROCEDIMIENTO QUE CARGA LA INFORMACION DEL CLIENTE
         public ActionResult InfoCliente()
         {
             try {
@@ -51,29 +53,55 @@ namespace proyecto.Controllers
             }
         
         }
+
+        //PROCEDIMIENTO PARA CERRAR SESION
         public ActionResult LogOut()
         {
-            Session["usuario"] = null;
-            Session["clientelog"] = null;
-            Session["clientelognombre"] = null;
-            Session["clientelogapellido1"] = null;
-            Session["clientelogapellido2"] = null;
-            Session["clientelogRol"] = null;
-            return RedirectToAction("Login", "Login");
+            try
+            {
+                Session["usuario"] = null;
+                Session["clientelog"] = null;
+                Session["clientelognombre"] = null;
+                Session["clientelogapellido1"] = null;
+                Session["clientelogapellido2"] = null;
+                Session["clientelogRol"] = null;
+                return RedirectToAction("Login", "Login");
+            }
+            catch(Exception ex)
+            {
+                ViewData["Mensaje"] = "Ocurrio un error : " + ex.Message;
+                return View();
+            }
+            
         }
 
+        //CARGA LA VISTA DE ABOUT
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            try
+            {
+                return View();
+            }
+            catch(Exception ex)
+            {
+                ViewData["Mensaje"] = "Ocurrio un error : " + ex.Message;
+                return View();
+            }
+            
         }
-
+        //CARGA LA VISTA DE CONTACT
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                ViewData["Mensaje"] = "Ocurrio un error : " + ex.Message;
+                return View();
+            }
 
-            return View();
         }
     }
 }

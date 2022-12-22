@@ -4,25 +4,19 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="3b5cbdc8436a466f8cd4d45ae5f4d033" Name="Diagram1">
-        <EntityTypeShape EntityType="ProyectoProgra6Model.Adiciones" Width="1.5" PointX="7.5" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProyectoProgra6Model.AdicionesxCliente" Width="1.5" PointX="9.75" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProyectoProgra6Model.AdicionesxClienteCompradas" Width="1.5" PointX="9.75" PointY="1.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProyectoProgra6Model.Canton" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProyectoProgra6Model.Clientes" Width="1.5" PointX="7.5" PointY="3.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProyectoProgra6Model.CoberturaPolizas" Width="1.5" PointX="10.5" PointY="8" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProyectoProgra6Model.Distrito" Width="1.5" PointX="5.25" PointY="4.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProyectoProgra6Model.Genero" Width="1.5" PointX="5.25" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProyectoProgra6Model.Provincia" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProyectoProgra6Model.RegistrosPolizas" Width="1.5" PointX="12.75" PointY="4.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProyectoProgra6Model.Roles" Width="1.5" PointX="3" PointY="9.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProyectoProgra6Model.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProyectoProgra6Model.Usuarios" Width="1.5" PointX="5.25" PointY="9" IsExpanded="true" />
-        <AssociationConnector Association="ProyectoProgra6Model.fk_Adiccion" ManuallyRouted="false" />
-        <AssociationConnector Association="ProyectoProgra6Model.fk_AdicionxCliente" ManuallyRouted="false" />
-        <AssociationConnector Association="ProyectoProgra6Model.fk_AdicionxCliente3" ManuallyRouted="false" />
-        <AssociationConnector Association="ProyectoProgra6Model.fk_Cliente" ManuallyRouted="false" />
-        <AssociationConnector Association="ProyectoProgra6Model.fk_Poliza" ManuallyRouted="false" />
+      <Diagram DiagramId="7487470424fd4de7962e4356e9ebca33" Name="Diagram1">
+        <EntityTypeShape EntityType="ProyectoProgra6Model.Adiciones" Width="1.5" PointX="0.75" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoProgra6Model.AdicionesxCliente" Width="1.5" PointX="2.75" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoProgra6Model.Canton" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoProgra6Model.Clientes" Width="1.5" PointX="7.5" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoProgra6Model.CoberturaPolizas" Width="1.5" PointX="7.5" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoProgra6Model.Distrito" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoProgra6Model.Genero" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoProgra6Model.Provincia" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoProgra6Model.RegistrosPolizas" Width="1.5" PointX="9.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoProgra6Model.Roles" Width="1.5" PointX="3" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoProgra6Model.sysdiagrams" Width="1.5" PointX="4.75" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProyectoProgra6Model.Usuarios" Width="1.5" PointX="5.25" PointY="8.125" IsExpanded="true" />
         <AssociationConnector Association="ProyectoProgra6Model.Canton_ref_Provincia" ManuallyRouted="false" />
         <AssociationConnector Association="ProyectoProgra6Model.Distrito_ref_Canton" ManuallyRouted="false" />
         <AssociationConnector Association="ProyectoProgra6Model.fk_ClienteCan" ManuallyRouted="false" />

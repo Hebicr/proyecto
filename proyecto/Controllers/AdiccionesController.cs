@@ -14,13 +14,29 @@ namespace proyecto.Controllers
         //OBTENER UNA LISTA DE LAS ADICCIONES DE POLIZAS DISPONIBLES
         public ActionResult Index()
         {
-            var adicciones = db.sp_getAdicciones();
-            return View(adicciones);
+            try
+            {
+                var adicciones = db.sp_getAdicciones();
+                return View(adicciones);
+            }
+            catch(Exception ex)
+            {
+                return View(ex.Message);
+            }
+
         }
         //VISTA PARA CREAR UNA NUEVA COBERTURA
         public ActionResult Create()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch(Exception ex)
+            {
+                return View(ex.Message);
+            }
+
         }
 
         //EL HTTPPOST PARA ENVIAR LA INFORMACION CON LOS QUE SE VAN A CREAR LA NUEVA ADICCION
@@ -40,13 +56,17 @@ namespace proyecto.Controllers
         //LA VISTA DEL EDITAR PARA CARGAR LOS DATOS
         public ActionResult Editar(int idAdiccion)
         {
-            //ViewBag.AdiccionesEditar = db.sp_getAdiccionEditar(idAdiccion);
+            try
+            {
+                Adiciones Adicion = (from c in db.Adiciones where idAdiccion == c.idAdiccion select c).First();
+                return View(Adicion);
+            }
+            catch (Exception ex) 
+            {
+                return View(ex.Message);
+            }
 
-            Adiciones Adicion = (from c in db.Adiciones where idAdiccion == c.idAdiccion select c).First();
-            return View(Adicion);
 
-            //var adiccion = db.sp_getAdiccionEditar(idAdiccion);
-            //return View();
         }
 
         // HTTPPOST PARA ENVIAR LA INFORMACION DEL EDITAR 

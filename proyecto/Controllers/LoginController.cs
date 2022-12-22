@@ -13,15 +13,18 @@ namespace ProyectoProgra6.Controllers
     {
         ProyectoProgra6Entities db = new ProyectoProgra6Entities();
         // GET: Login
+
+        //RETORNA LA VISTA INDEX DE LOGIN
         public ActionResult Index()
         {
             return View();
         }
-
+        //RETORNA LA VISTA LOGIN DE LOGIN
         public ActionResult Login()
         {
             return View();
         }
+        //RETORNA LA VISTA DE REGISTRO
         public ActionResult Registro()
         {
             List<Provincia> provinciasList = db.Provincia.ToList();
@@ -32,7 +35,7 @@ namespace ProyectoProgra6.Controllers
 
             return View();
         }
-
+        //HTTPPOST DEL LA VISTA REGISTRO 
         [HttpPost]
         public ActionResult Registro(FormCollection myCliente)
         {
@@ -70,7 +73,7 @@ namespace ProyectoProgra6.Controllers
                 return View();
             }
         }
-
+        //OBTIENE LOS CANTONES PARA CARGAR LA VISTA
         public JsonResult GetCantones(int id_Provincia)
         {
             db.Configuration.ProxyCreationEnabled = false;
@@ -78,7 +81,7 @@ namespace ProyectoProgra6.Controllers
             //ViewBag.cantons = cantonList;
             return Json(cantonList, JsonRequestBehavior.AllowGet);
         }
-
+        //OBTIENE LOS DISTRITOS PARA CARGAR LA VISTA
         public JsonResult GetDistritos(int id_Canton)
         {
             db.Configuration.ProxyCreationEnabled = false;
@@ -87,7 +90,7 @@ namespace ProyectoProgra6.Controllers
             return Json(distritoList, JsonRequestBehavior.AllowGet);
         }
 
-        
+        //HTTPPOST PARA INICIAR SESION
         [HttpPost]
         public ActionResult Login(string Usuario, string Password)
         {
@@ -121,7 +124,7 @@ namespace ProyectoProgra6.Controllers
         }
 
        
-
+        //PROCEDIMIENTO PARA ENVIAR CORREO
         void enviarCorreo2(string userU, string passU, string nombreU, string apellido1U, string apellido2U, string correoU) {
             var fromAddress = new MailAddress("stev.199279@gmail.com", "Equipo Siglo XXI");
             var toAddress = new MailAddress(correoU, "");

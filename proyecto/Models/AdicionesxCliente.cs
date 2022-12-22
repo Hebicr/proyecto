@@ -17,8 +17,6 @@ namespace proyecto.Models
         public int idAdicionesxCliente { get; set; }
         public Nullable<int> idAdicion { get; set; }
         public Nullable<int> idCliente { get; set; }
-    
-        public virtual Adiciones Adiciones { get; set; }
-        public virtual Clientes Clientes { get; set; }
+        public Nullable<int> idRegistroPoliza { get; set; }
     }
 }

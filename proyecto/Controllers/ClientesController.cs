@@ -13,14 +13,24 @@ namespace proyecto.Controllers
     {
         ProyectoProgra6Entities db = new ProyectoProgra6Entities();
 
+        //RETORNA LA VISTA INDEX DEL CONTROLLER CLIENTES
         public ActionResult Index()
         {
-            var clientes = db.sp_getClientes();
-            return View(clientes);
+            try
+            {
+                var clientes = db.sp_getClientes();
+                return View(clientes);
+            }
+            catch(Exception ex)
+            {
+                TempData["Error"] = "Ocurrio un Error" + ex.Message;
+                return View();
+            }
+
         }
 
 
-        ///Retorna la vista para el perfil del cliente
+        //RETORNA LA VISTA DEL PERFIL DEL CLIENTE
         public ActionResult PerfilCliente()
         {
             try
@@ -37,13 +47,24 @@ namespace proyecto.Controllers
 
         }
 
+        //RETORNA LA VISTA EDITAR CLIENTE
         public ActionResult EditarCliente(int idCliente)
         {
-            Clientes Cliente = (from c in db.Clientes where idCliente == c.idCliente select c).First();
-            return View(Cliente);
+            try
+            {
+                Clientes Cliente = (from c in db.Clientes where idCliente == c.idCliente select c).First();
+                return View(Cliente);
+            }
+            catch(Exception ex)
+            {
+                TempData["Error"] = "Ocurrio un Error" + ex.Message;
+                return View();
+            }
+
 
         }
 
+        //EL HTTPPOST PARA GUARDAR EL UPDATE DEL CLIENTE
        [HttpPost]
         public ActionResult EditarCliente(FormCollection myCliente)
         {
@@ -60,7 +81,7 @@ namespace proyecto.Controllers
                 return View();
             }
         }
-
+        //PROCEDIMIENTO PARA ELIMINAR CLIENTE
         public ActionResult EliminarCliente(int idUsuario)
         {
             try
@@ -74,6 +95,7 @@ namespace proyecto.Controllers
                 return View();
             }
         }
+        //RETORNA LA VISTA DE COMPRAR POLIZAS
         public ActionResult Comprar(int idCliente)
         {
             
@@ -93,7 +115,7 @@ namespace proyecto.Controllers
                 return View();
             }
         }
-
+        //HTTPPOST Y PROCEDIMIENTO PARA COMPRAR POLIZAS
         [HttpPost]
         public ActionResult ComprarPoliza(FormCollection newPoliza)
         {
@@ -108,6 +130,7 @@ namespace proyecto.Controllers
                 return View();
             }
         }
+        //OBTIENE LA VISTA CON UNA LISTA DE CLIENTES 
         public ActionResult ClientesxPolizas()
         {
 
@@ -121,6 +144,7 @@ namespace proyecto.Controllers
                 return View(ex.Message);
             }
         }
+        //OBTIENE LA VISTA CON UNA LISTA DE CLIENTES 
         public ActionResult ClientesxAdiciones()
         {
             try
@@ -133,7 +157,7 @@ namespace proyecto.Controllers
                 return View(ex.Message);
             }
         }
-
+        //VISTA PARA AGREGAR ADICCIONES A UN CLIENTE
         public ActionResult InsertarAdiccion(int idCliente)
         {
             try
@@ -152,6 +176,8 @@ namespace proyecto.Controllers
             }
 
         }
+
+        //HTTPPOST PARA AGREGAR ADICCIONES
         [HttpPost]
         public ActionResult InsertarAdicciones(FormCollection newAdicion)
         {
@@ -182,7 +208,7 @@ namespace proyecto.Controllers
 
 
         }
-
+        //PROCEDIMIENTO PARA ELIMINAR ADICCIONES A UN CLIENTE
         public ActionResult EliminarAdiccion(int idCliente,int idAdicion)
         {
             try
@@ -201,7 +227,7 @@ namespace proyecto.Controllers
                 return View();
             }
         }
-
+        //PROCEDIMIENTO QUE RETORNA EL PORCENTAJE 
         public ActionResult RetornaPorcentaje(int idCoberturaPoliza)
         {
             try
@@ -215,12 +241,5 @@ namespace proyecto.Controllers
                 return View();
             }
         }
-        //public ActionResult ReporteClientes() {
-        //    try { 
-
-        //    } catch (Exception ex) {
-
-        //    }
-        //}
     }
 }

@@ -135,9 +135,6 @@
     <Compile Include="Models\AdicionesxCliente.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AdicionesxClienteCompradas.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Canton.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
