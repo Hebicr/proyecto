@@ -42,10 +42,11 @@
                         @Html.ValidationMessageFor(model => model.idCoberturaPoliza, "", new { @class = "text-danger" })
                     </div>
                 </div>
+
                 <div class="form-group col-xs-12 col-md-6">
                     @Html.Label("Monto Asegurado:", "Monto Asegurado:", htmlAttributes: new { @class = "control-label col-md-4" })
                     <div class="col-md-8">
-                        @Html.EditorFor(model => model.montoAsegurado, new { htmlAttributes = new { @class = "form-control", @min = "3000000", @max = "100000000", @type = "number" } })
+                        @Html.EditorFor(model => model.montoAsegurado, new { htmlAttributes = new { @class = "form-control", @min = "3000000", @max = "100000000", @type = "number", @required = "required" } })
                         @Html.ValidationMessageFor(model => model.montoAsegurado, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -57,6 +58,7 @@
                         @Html.ValidationMessageFor(model => model.numeroAdiciones, "", new { @class = "text-danger" })
                     </div>
                 </div>
+
                 <div class="form-group col-xs-12 col-md-6">
                     @Html.Label("Monto adicciones:", "Monto adicciones:", htmlAttributes: new { @class = "control-label col-md-4" })
                     <div class="col-md-8">
@@ -64,6 +66,7 @@
                         @Html.ValidationMessageFor(model => model.montoAdiciones, "", new { @class = "text-danger" })
                     </div>
                 </div>
+
                 <div class="form-group  col-xs-12 col-md-6">
                     @Html.Label("Prima Antes:", "Prima Antes:", htmlAttributes: new { @class = "control-label col-md-4" })
                     <div class="col-md-8">
@@ -71,6 +74,7 @@
                         @Html.ValidationMessageFor(model => model.primaAntesImpuestos, "", new { @class = "text-danger" })
                     </div>
                 </div>
+
                 <div class="form-group col-xs-12 col-md-6">
                     @Html.Label("Impuestos:", "Impuestos:", htmlAttributes: new { @class = "control-label col-md-4" })
                     <div class="col-md-8">
@@ -78,6 +82,7 @@
                         @Html.ValidationMessageFor(model => model.impuestos, "", new { @class = "text-danger" })
                     </div>
                 </div>
+
                 <div class="form-group col-xs-12 col-md-6">
                     @Html.Label("Prima final:", "Prima final:", htmlAttributes: new { @class = "control-label col-md-4" })
                     <div class="col-md-8">
@@ -85,6 +90,15 @@
                         @Html.ValidationMessageFor(model => model.primaFinal, "", new { @class = "text-danger" })
                     </div>
                 </div>
+
+                <div class="form-group col-xs-12 col-md-6">
+                    @Html.Label("Fecha Vencimiento:", "Fecha Vencimiento:", htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.fechaVencimiento, new { htmlAttributes = new { @class = "form-control", @required = "required", @type="date" } })
+                        @Html.ValidationMessageFor(model => model.fechaVencimiento, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
                 <br />
                 <div class="form-group col-xs-12 col-md-12">
                     <div class="col-md-7">
@@ -159,7 +173,22 @@
                     totalMontoAdiciones = porcentaje * montoAsegurado
                     $("#montoAdiciones").val(totalMontoAdiciones);
 
-                    var PrimaAntesImpuestos;                    PrimaAntesImpuestos = totalMontoAdiciones + montoAsegurado;                    $("#primaAntesImpuestos").val(PrimaAntesImpuestos);                    var impuestos = PrimaAntesImpuestos * 0.13;                    $("#impuestos").val(impuestos);                    var primaFinal;                    primaFinal = impuestos + PrimaAntesImpuestos;                    $("#primaFinal").val(primaFinal);
+                    var PrimaAntesImpuestos;
+
+                    PrimaAntesImpuestos = totalMontoAdiciones + montoAsegurado;
+
+                    $("#primaAntesImpuestos").val(PrimaAntesImpuestos);
+
+                    var impuestos = PrimaAntesImpuestos * 0.13;
+
+                    $("#impuestos").val(impuestos);
+
+                    var primaFinal;
+
+                    primaFinal = impuestos + PrimaAntesImpuestos;
+
+                    $("#primaFinal").val(primaFinal);
+
                 }
             });
         </script>

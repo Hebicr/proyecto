@@ -120,14 +120,20 @@ namespace proyecto.Controllers
         public ActionResult ComprarPoliza(FormCollection newPoliza)
         {
 
-            try {
-                db.sp_Insertar_Polizas(Convert.ToInt32(newPoliza["idCoberturaPoliza"]), Convert.ToInt32(newPoliza["idCliente"]), Convert.ToDecimal(newPoliza["montoAsegurado"]), Convert.ToDecimal(newPoliza["Porcentaje"]), Convert.ToInt32(newPoliza["cantAdiciones1"]), Convert.ToInt32(newPoliza["montoAdiciones"]), Convert.ToDecimal(newPoliza["primaAntesImpuestos"]), Convert.ToDecimal(newPoliza["impuestos"]), Convert.ToDecimal(newPoliza["primaFinal"]));
-                TempData["Mensaje"] = "Coliza Agregada";
-                return View();
-            
-            } catch (Exception ex) {
+            try
+            {
+                db.sp_Insertar_Polizas(Convert.ToInt32(newPoliza["idCoberturaPoliza"]), Convert.ToInt32(newPoliza["idCliente"]), Convert.ToDecimal(newPoliza["montoAsegurado"]), Convert.ToDecimal(newPoliza["Porcentaje"]), Convert.ToInt32(newPoliza["cantAdiciones1"]), Convert.ToDecimal(newPoliza["montoAdiciones"]), Convert.ToDecimal(newPoliza["primaAntesImpuestos"]), Convert.ToDecimal(newPoliza["impuestos"]), Convert.ToDecimal(newPoliza["primaFinal"]), Convert.ToDateTime(newPoliza["fechaVencimiento"]));
+                TempData["Mensaje"] = "Poliza Agregada";
+                //return View();
+                return RedirectToAction("Index", "PolizasClientes");
+
+            }
+            catch (Exception ex)
+            {
+
                 TempData["Error"] = "Ocurrio un Error" + ex.Message;
-                return View();
+                return RedirectToAction("Index", "PolizasClientes");
+               //return View();
             }
         }
         //OBTIENE LA VISTA CON UNA LISTA DE CLIENTES 

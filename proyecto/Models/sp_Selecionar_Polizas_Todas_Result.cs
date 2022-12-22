@@ -11,11 +11,12 @@ namespace proyecto.Models
 {
     using System;
     
-    public partial class sp_getAdiccionesxClienteC_Result
+    public partial class sp_Selecionar_Polizas_Todas_Result
     {
-        public int idCliente { get; set; }
+        public int idRegistroPoliza { get; set; }
         public string Nombre { get; set; }
-        public string Codigo { get; set; }
-        public Nullable<int> idAdicion { get; set; }
+        public string Cedula { get; set; }
+        public Nullable<decimal> primaFinal { get; set; }
+        public Nullable<System.DateTime> fechaVencimiento { get; set; }
     }
 }

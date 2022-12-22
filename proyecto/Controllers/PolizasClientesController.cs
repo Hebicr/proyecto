@@ -15,7 +15,7 @@ namespace proyecto.Controllers
         {
             try
             {
-                var polizasClientes = db.sp_Selecionar_Polizas_Admin().ToList();
+                var polizasClientes = db.sp_Selecionar_Polizas_Todas().ToList();
                 return View(polizasClientes);
             }
             catch (Exception ex)
@@ -117,7 +117,22 @@ namespace proyecto.Controllers
 
         public ActionResult Edit(int id)
         {
-            return View();
+            try
+            {
+                sp_Selecionar_Polizas_Modelo_Result polizaU = (from c in db.sp_Selecionar_Polizas_Modelo() where id == c.idRegistroPoliza select c).First();
+                int idC = polizaU.idCliente;
+                var cantAdiciones = db.sp_Selecionar_Cantidad_Adiciones_Cliente(idC).ToList();
+                ViewBag.cantAdiciones = cantAdiciones[0];
+                List<CoberturaPolizas> coberturaList = db.CoberturaPolizas.ToList();
+                ViewBag.coberturas = new SelectList(coberturaList, "idCoberturaPoliza", "Nombre");
+
+                return View(polizaU);
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Ocurrio un Error" + ex.Message;
+                return View();
+            }
         }
 
         [HttpPost]
@@ -125,19 +140,43 @@ namespace proyecto.Controllers
         {
             try
             {
-
+                db.sp_Actualizar_Poliza(Convert.ToInt32(collection["idRegistroPoliza"]), Convert.ToInt32(collection["idCoberturaPoliza"]), Convert.ToDecimal(collection["montoAsegurado"]), Convert.ToDecimal(collection["porcentajeCobertura"]), Convert.ToInt32(collection["numeroAdiciones"]), Convert.ToDecimal(collection["montoAdiciones"]), Convert.ToDecimal(collection["primaAntesImpuestos"]), Convert.ToDecimal(collection["impuestos"]), Convert.ToDecimal(collection["primaFinal"]), Convert.ToDateTime(collection["fechaVencimiento"]));
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch(Exception ex)
             {
+                TempData["Error"] = "Ocurrio un Error" + ex.Message;
+                return View();
+            }
+        }
+
+        public ActionResult RetornaPorcentaje(int idCoberturaPoliza)
+        {
+            try
+            {
+                List<sp_getCoberturaPorcentaje_Result> porcentaje = db.sp_getCoberturaPorcentaje(idCoberturaPoliza).ToList();
+                return Json(porcentaje, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                ViewData["Mensaje"] = "Ocurrio un Error a conseguir el porcentaje " + ex.Message;
                 return View();
             }
         }
 
         public ActionResult Delete(int id)
         {
-            return View();
+            try
+            {
+                sp_Selecionar_Polizas_Admin_Detalles_Id_Result listaPolizas = (from c in db.sp_Selecionar_Polizas_Admin_Detalles_Id() where id == c.idRegistroPoliza select c).First();
+                return View(listaPolizas);
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Ocurrio un Error" + ex.Message;
+                return View();
+            }
         }
 
 
@@ -146,10 +185,13 @@ namespace proyecto.Controllers
         {
             try
             {
+               
+                db.sp_Borrar_Poliza(id);
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex) 
             {
+                TempData["Error"] = "Ocurrio un Error" + ex.Message;
                 return View();
             }
         }

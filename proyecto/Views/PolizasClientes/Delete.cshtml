@@ -1,13 +1,13 @@
 ﻿@model proyecto.Models.sp_Selecionar_Polizas_Admin_Detalles_Id_Result
 
 @{
-    ViewBag.Title = "Detalle Poliza";
+    ViewBag.Title = "Borrar Poliza";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <div class="container container col-md-offset-4 col-md-7">
-    <h2>Detalle Poliza</h2>
+    <h2>Borrar Poliza</h2>
     <div>
-        @*<h4>sp_Selecionar_Polizas_Admin_Detalles_Id_Result</h4>*@
         <hr />
         <dl class="dl-horizontal">
             <dt>
@@ -108,12 +108,20 @@
 
         </dl>
     </div>
-    <p class="col-md-6" style="float:right">
-        @*@Html.ActionLink("Atras", "PolizasClientes")*@
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Borrar" class="btn btn-warning btn-sm" />
         <a href='@Url.Action("Index", "PolizasClientes")'>
-            <input type='button' value='Atras' class="btn btn-danger" />
+            <input type='button' value='Cancelar' class="btn btn-danger btn-sm" />
         </a>
-    </p>
+    </div>
+    }
 
 </div>
+
+
 

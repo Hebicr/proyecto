@@ -11,15 +11,18 @@ namespace proyecto.Models
 {
     using System;
     
-    public partial class sp_getPolizasCliente_Result
+    public partial class sp_Selecionar_Polizas_Modelo_Result
     {
-        public string Cedula { get; set; }
-        public string Nombre { get; set; }
-        public string PrimerApellido { get; set; }
         public int idRegistroPoliza { get; set; }
+        public int idCoberturaPoliza { get; set; }
+        public int idCliente { get; set; }
+        public Nullable<decimal> montoAsegurado { get; set; }
         public Nullable<decimal> porcentajeCobertura { get; set; }
         public Nullable<int> numeroAdiciones { get; set; }
-        public Nullable<decimal> montoAsegurado { get; set; }
+        public Nullable<decimal> montoAdiciones { get; set; }
+        public Nullable<decimal> primaAntesImpuestos { get; set; }
+        public Nullable<decimal> impuestos { get; set; }
         public Nullable<decimal> primaFinal { get; set; }
+        public Nullable<System.DateTime> fechaVencimiento { get; set; }
     }
 }

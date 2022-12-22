@@ -5,38 +5,38 @@
 }
 
 <body background="\img\Prueba.png" style="width:100%; height:100%; background-size: cover;">
-    <div class="container col-md-9" style="background-color:white; border-radius:10px 10px">
+    <div class="container col-md-offset-4 col-md-5" style="background-color:white; border-radius:10px 10px">
         @foreach (var item in Model)
         {
-            <div class="col-md-3">
+            <div class="col-md-12">
                 Cedula:@Html.DisplayFor(modelItem => item.Cedula)
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-12">
                 Nombre:
 
                 @Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.PrimerApellido) @Html.DisplayFor(modelItem => item.SegundoApellido)
             </div>
 
 
-            <div class="col-md-3">
+            <div class="col-md-12">
                 Fecha Nacimiento:
                 @Html.DisplayFor(modelItem => item.FechadeNacimiento)
 
             </div>
-            <div class="col-md-4">
+            <div class="col-md-12">
                 Dirección Fisica:@Html.DisplayFor(modelItem => item.DireccionFisica)
 
             </div>
-            <div class="col-md-3">
+            <div class="col-md-12">
                 Telefono:@Html.DisplayFor(modelItem => item.TelefonoPrincipal)
             </div>
-            <div class="col-md-3">
+            <div class="col-md-12">
                 Email:@Html.DisplayFor(modelItem => item.CorreoElectronico)
             </div>
 
             <br />
-            <a class="btn btn-primary" href="@Url.Action("Index", "Home")" style="float:left">Regresar</a>
+            <a class="btn btn-primary" href="@Url.Action("Index", "Home")" style="float:right">Regresar</a>
         }
     </div>
 
